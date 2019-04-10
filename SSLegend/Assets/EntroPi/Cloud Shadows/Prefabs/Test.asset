@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 231418edf53223d4ea079c2ea05ce8b3, type: 3}
+  m_Name: Test
+  m_EditorClassIdentifier: 
+  m_LayerData:
+  - m_IsVisible: 1
+    m_LayerName: New Cloud Layer
+    m_BlendMode: 0
+    m_Opacity: 1
+    m_Coverage: 0.536
+    m_Softness: 0.281
+    m_Speed: 1
+    m_Direction: 55
+    m_Texture: {fileID: 2800000, guid: a632e081d36089d49b94a287b6b816b1, type: 3}
+    m_TextureTiling: {x: 10, y: 10}
+    m_TextureOffset: {x: 0, y: 0}
+  - m_IsVisible: 1
+    m_LayerName: New Cloud Layer
+    m_BlendMode: 4
+    m_Opacity: 1
+    m_Coverage: 0.391
+    m_Softness: 0.128
+    m_Speed: 1
+    m_Direction: 264
+    m_Texture: {fileID: 2800000, guid: 3771f9535c4ad6d4c8fb4ef63a941479, type: 3}
+    m_TextureTiling: {x: 1, y: 1}
+    m_TextureOffset: {x: 0, y: 0}

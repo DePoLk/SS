@@ -1,0 +1,14 @@
+altar&golem.fbx裡有2個群組
+
+其一:golem_part
+
+其二:altar
+
+1.請直接將石巨人材質套用在golem_part群組上，套用完之後請打開golem_part裡找到部件（core），
+請將核心材質套用於core上。
+
+2.altar群組裡分為兩個poly，分別為altar與chain，請將祭壇材質套用於altar上，以及將
+祭壇_鎖鏈材質套用於chain上。
+
+
+備註:若含有emission請用特效讓其發光

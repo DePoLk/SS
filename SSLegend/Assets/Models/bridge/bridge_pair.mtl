@@ -1,0 +1,14 @@
+newmtl bridge_center2:initialShadingGroup
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd 整理格.jpg
+Ni 1.00
+newmtl bridge_stage:initialShadingGroup
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd 整理格.jpg
+Ni 1.00

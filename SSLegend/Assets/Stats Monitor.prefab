@@ -1,0 +1,153 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1009888176155782}
+  m_IsPrefabParent: 1
+--- !u!1 &1009888176155782
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4787087258146716}
+  - component: {fileID: 114789371937606364}
+  m_Layer: 5
+  m_Name: Stats Monitor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1915336404793256
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224308331192337810}
+  - component: {fileID: 114450275579333638}
+  m_Layer: 5
+  m_Name: Stats Monitor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4787087258146716
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1009888176155782}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 224308331192337810}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114450275579333638
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1915336404793256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b024de2ab51ad434489bc83230664a79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mode: 0
+  _renderMode: 0
+  _style: 1
+  _alignment: 2
+  _keepAlive: 1
+  _statsUpdateInterval: 0.5
+  _graphUpdateInterval: 0.05
+  _objectsCountInterval: 2
+  inputEnabled: 1
+  modKeyToggle: 304
+  hotKeyToggle: 96
+  modKeyAlignment: 306
+  hotKeyAlignment: 96
+  modKeyStyle: 308
+  hotKeyStyle: 96
+  toggleTouchCount: 3
+  switchAlignmentTapCount: 3
+  switchStyleTapCount: 3
+  fontFace: {fileID: 0}
+  fontSizeLarge: 32
+  fontSizeSmall: 16
+  padding: 4
+  spacing: 2
+  graphHeight: 40
+  scale: 1
+  autoScale: 1
+  colorBGUpper: {r: 0, g: 0.19215687, b: 0.2901961, a: 0.74509805}
+  colorBGLower: {r: 0, g: 0.14509805, b: 0.14509805, a: 0.78431374}
+  colorGraphBG: {r: 0, g: 0.5019608, b: 0, a: 0.0627451}
+  colorFPS: {r: 1, g: 1, b: 1, a: 1}
+  colorFPSWarning: {r: 1, g: 0.627451, b: 0, a: 1}
+  colorFPSCritical: {r: 1, g: 0, b: 0, a: 1}
+  colorFPSMin: {r: 0.6, g: 0.6, b: 0.6, a: 1}
+  colorFPSMax: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+  colorFPSAvg: {r: 0, g: 0.78431374, b: 0.8627451, a: 1}
+  colorFXD: {r: 0.7764706, g: 0.5529412, b: 0, a: 1}
+  colorMS: {r: 0.78431374, g: 0.78431374, b: 0.1254902, a: 1}
+  colorObjCount: {r: 0, g: 0.69803923, b: 0.4392157, a: 1}
+  colorGCBlip: {r: 0, g: 1, b: 0, a: 1}
+  colorMemTotal: {r: 0.2509804, g: 0.5019608, b: 1, a: 1}
+  colorMemAlloc: {r: 0.7058824, g: 0.5019608, b: 1, a: 1}
+  colorMemMono: {r: 1, g: 0.4, b: 0.81960785, a: 1}
+  colorSysInfoOdd: {r: 0.8235294, g: 0.92156863, b: 1, a: 1}
+  colorSysInfoEven: {r: 0.64705884, g: 0.8392157, b: 1, a: 1}
+  colorOutline: {r: 0, g: 0, b: 0, a: 0}
+  _throttleFrameRate: 0
+  _throttledFrameRate: -1
+  _avgSamples: 50
+  _warningThreshold: 40
+  _criticalThreshold: 20
+  hotKeyGroupToggle: 0
+  touchControlGroupToggle: 0
+  layoutAndStylingToggle: 1
+  fpsGroupToggle: 1
+--- !u!114 &114789371937606364
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1009888176155782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e4873fcb3d6af343a205ce8b5e22c82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!224 &224308331192337810
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1915336404793256}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4787087258146716}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}

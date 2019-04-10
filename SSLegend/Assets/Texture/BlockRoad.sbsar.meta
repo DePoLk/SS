@@ -1,0 +1,92 @@
+fileFormatVersion: 2
+guid: 75a83cdd894d00e4fb382cfa23c74305
+ScriptedImporter:
+  fileIDToRecycleName:
+    100000: BlockRoad/BlockRoad
+    400000: BlockRoad/BlockRoad/Transform
+    2100000: mat.BlockRoad
+    2300000: BlockRoad/BlockRoad/MeshRenderer
+    2800000: BlockRoad_baseColor
+    2800002: BlockRoad_normal
+    2800004: BlockRoad_metallic
+    2800006: BlockRoad_height
+    2800008: BlockRoad_height
+    3300000: BlockRoad/BlockRoad/MeshFilter
+    11400000: sbsar
+    11400002: graph0
+    13500000: BlockRoad/BlockRoad/SphereCollider
+    100100000: BlockRoad
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 232528478, guid: 43a8bbf65be290d44ba52b94476242b9, type: 3}
+  version: 13
+  mGraphInstanceData:
+  - graphLabel: BlockRoad
+    prototypeName: BlockRoad
+    graphDescIndex: 0
+    generateAllOutputs: 0
+    generateMipMaps: 1
+    preset: " <sbspreset pkgurl=\"pkg://BlockRoad\" label=\"\" >\n </sbspreset>\n"
+    shaderName: Standard
+    outputNames: baseColor,normal,metallic,height,height
+    texturePackingList:
+    - outputName: baseColor
+      alphaSource: baseColor
+    - outputName: normal
+      alphaSource: normal
+    - outputName: roughness
+      alphaSource: roughness
+    - outputName: metallic
+      alphaSource: smoothness
+    - outputName: height
+      alphaSource: height
+    - outputName: height
+      alphaSource: height
+    textureParameters:
+    - textureName: BlockRoad_roughness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: BlockRoad_baseColor
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: BlockRoad_normal
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: BlockRoad_metallic
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: BlockRoad_height
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    colorSpaceList:
+    - outputName: baseColor
+      bLinear: 0
+    - outputName: normal
+      bLinear: 1
+    - outputName: roughness
+      bLinear: 1
+    - outputName: metallic
+      bLinear: 1
+    - outputName: height
+      bLinear: 1
+    - outputName: height
+      bLinear: 1
+    inputTextureMap: []
+    targetSettingList:
+    - label: 
+      bLockRatio: 1
+      bHighQuality: 0
+      textureWidth: 0
+      textureHeight: 0
+      textureFormat: 0
+      bGenerateOnLoad: 1
+    material: {fileID: 2100000, guid: 75a83cdd894d00e4fb382cfa23c74305, type: 3}
+    generatedTextures: []

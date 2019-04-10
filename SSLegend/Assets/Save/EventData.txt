@@ -1,0 +1,55 @@
+-> StageEvent: 0
+False
+U: False
+U: False
+M: False
+M: False
+M: False
+M: False
+M: False
+M: False
+M: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+-> StageEvent: 1
+False
+U: False
+U: False
+M: False
+M: False
+M: False
+M: False
+M: False
+M: False
+M: False
+M: False
+M: False
+M: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False

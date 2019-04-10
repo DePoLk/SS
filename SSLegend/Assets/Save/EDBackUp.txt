@@ -1,0 +1,68 @@
+-> StageEvent: 0
+False
+U: False
+U: False
+M: False
+M: False
+M: False
+M: False
+M: False
+M: False
+M: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+-> StageEvent: 1
+False
+U: False
+U: False
+M: False
+M: False
+M: False
+M: False
+M: False
+M: False
+M: False
+M: False
+M: False
+M: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+I: False
+
+
+
+ /*
+        -> StageEvent: 0        DataSystemValueInfoAll[0]   StageEventIndex[0] = 0
+        False                   DataSystemValueInfoAll[1]
+        False                   DataSystemValueInfoAll[2]
+        False                   DataSystemValueInfoAll[3]
+        -> StageEvent: 1        DataSystemValueInfoAll[4]   StageEventIndex[1] = 4
+        False                   DataSystemValueInfoAll[5]
+        False                   DataSystemValueInfoAll[6]
+        False                   DataSystemValueInfoAll[7]
+             */

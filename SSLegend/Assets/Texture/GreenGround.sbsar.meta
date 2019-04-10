@@ -1,0 +1,95 @@
+fileFormatVersion: 2
+guid: 248d13d7463cbf14c9c4c55c07113129
+ScriptedImporter:
+  fileIDToRecycleName:
+    100000: GreenGround/GreenGround
+    400000: GreenGround/GreenGround/Transform
+    2100000: mat.GreenGround
+    2300000: GreenGround/GreenGround/MeshRenderer
+    2800000: GreenGround_baseColor
+    2800002: GreenGround_normal
+    2800004: GreenGround_metallic
+    2800006: GreenGround_height
+    2800008: GreenGround_ambientOcclusion
+    3300000: GreenGround/GreenGround/MeshFilter
+    11400000: sbsar
+    11400002: graph0
+    13500000: GreenGround/GreenGround/SphereCollider
+    100100000: GreenGround
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 232528478, guid: 43a8bbf65be290d44ba52b94476242b9, type: 3}
+  version: 13
+  mGraphInstanceData:
+  - graphLabel: GreenGround
+    prototypeName: GreenGround
+    graphDescIndex: 0
+    generateAllOutputs: 0
+    generateMipMaps: 1
+    preset: " <sbspreset pkgurl=\"pkg://GreenGround\" label=\"\" >\n </sbspreset>\n"
+    shaderName: Standard
+    outputNames: baseColor,normal,metallic,height,ambientOcclusion
+    texturePackingList:
+    - outputName: baseColor
+      alphaSource: baseColor
+    - outputName: normal
+      alphaSource: normal
+    - outputName: roughness
+      alphaSource: roughness
+    - outputName: metallic
+      alphaSource: smoothness
+    - outputName: height
+      alphaSource: height
+    - outputName: ambientOcclusion
+      alphaSource: ambientOcclusion
+    textureParameters:
+    - textureName: GreenGround_roughness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: GreenGround_baseColor
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: GreenGround_normal
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: GreenGround_metallic
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: GreenGround_height
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: GreenGround_ambientOcclusion
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    colorSpaceList:
+    - outputName: baseColor
+      bLinear: 0
+    - outputName: normal
+      bLinear: 1
+    - outputName: roughness
+      bLinear: 1
+    - outputName: metallic
+      bLinear: 1
+    - outputName: height
+      bLinear: 1
+    - outputName: ambientOcclusion
+      bLinear: 1
+    inputTextureMap: []
+    targetSettingList:
+    - label: 
+      bLockRatio: 1
+      bHighQuality: 0
+      textureWidth: 0
+      textureHeight: 0
+      textureFormat: 0
+      bGenerateOnLoad: 1
+    material: {instanceID: 0}
+    generatedTextures: []
