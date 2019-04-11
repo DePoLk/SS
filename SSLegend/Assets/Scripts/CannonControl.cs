@@ -31,9 +31,12 @@ public class CannonControl : MonoBehaviour {
     public float BarrelRotateSpeed = 0;
 
     float GetBarrelRotateRange = 0;
+    private AudioSource audi;
+    public AudioClip shootSE;
 
     // Use this for initialization
     void Start () {
+        audi = GetComponent<AudioSource>();
         PlayerCon = FindObjectOfType<PlayerControl>();
         Player_Ani = PlayerCon.GetComponent<Animator>();
         BB = FindObjectOfType<BillBoard>();
@@ -186,7 +189,7 @@ public class CannonControl : MonoBehaviour {
 
                 PlayerCon.transform.LookAt(AimZonePos);
                 PlayerCon.transform.eulerAngles += new Vector3(0, -180, 0);
-
+                audi.PlayOneShot(shootSE);
                 IsShot = true;
 
                 AimZonePos.position = new Vector3(0, 0.01f, 0);

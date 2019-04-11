@@ -275,7 +275,9 @@ public class CameraControl : MonoBehaviour
         transform.localPosition = originalPos;
         Shaked = true;
     }
-
+    public void shake() {
+        StartCoroutine(CameraShake(0.05f, 0.5f));
+    }
 
 
 

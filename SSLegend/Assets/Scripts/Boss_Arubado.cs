@@ -33,6 +33,7 @@ public class Boss_Arubado : MonoBehaviour
     private bool resistance = false;
     private bool ReTop = false;
     private bool NormalAim = false;
+    private bool IsCloseToWall = false;
     // Use this for initialization
     void Start()
     {
@@ -76,6 +77,7 @@ public class Boss_Arubado : MonoBehaviour
         //高台 關其他技能,實施砲台掃蕩
         if (GC.OnTop == true)
         {
+            WallTrigger.SetActive(false);
             ReTop = true;
             OnGround = false;
             IsLook = false;
@@ -89,13 +91,16 @@ public class Boss_Arubado : MonoBehaviour
             anim.SetBool("Normal", false);
             anim.SetBool("Smash", false);
             Vector3 TopDistance = player.transform.position - this.transform.position;
-            if (TopDistance.magnitude > 4 && Down == false && TopAtking == false)
+            TopDistance.y = 0;
+            if (TopDistance.magnitude > 7.5 && Down == false && TopAtking == false)
             {
+                Debug.Log(TopDistance.magnitude);
                 this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(TopDistance), 0.1f);
                 anim.SetBool("Move", true);
-                this.transform.Translate(0, 0, 0.05f);
+                this.transform.Translate(0, 0, 0.1f);
+
             }
-            else if (TopDistance.magnitude <= 4 && TopAtking == false)
+            else if (TopDistance.magnitude <= 7.5 && TopAtking == false)
             {
                 anim.SetBool("Move", false);
                 StartCoroutine("TopAtk");
@@ -131,9 +136,9 @@ public class Boss_Arubado : MonoBehaviour
         Debug.Log("!");
         OnGround = true;
         TopAtking = false;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.5f);
         StartCoroutine("FaceEnemy");
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         StopCoroutine("ReturnToNormal");
     }
     //LongRangeAttack
@@ -153,7 +158,7 @@ public class Boss_Arubado : MonoBehaviour
     {
         TopAtking = true;
         TopCorrection = true;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.1f);
         TopCorrection = false;
         IsLook = false;
         anim.SetBool("TopAtk", true);
@@ -172,10 +177,8 @@ public class Boss_Arubado : MonoBehaviour
         Atking = true;
         SmashAiming = true;
         anim.SetBool("Smash", true);
-        SmashCol.GetComponent<BoxCollider>().enabled = true;
         yield return new WaitForSeconds(4f);
         SmashAiming = false;
-        SmashCol.GetComponent<BoxCollider>().enabled = false;
         yield return new WaitForSeconds(2f);
         WallTrigger.SetActive(false);
         anim.SetBool("Smash", false);
@@ -252,6 +255,7 @@ public class Boss_Arubado : MonoBehaviour
     }
     IEnumerator LayDown()
     {
+        SmashCol.GetComponent<BoxCollider>().enabled = false;
         Atking = false;
         resistance = false;
         Smash_Force = false;
@@ -263,10 +267,6 @@ public class Boss_Arubado : MonoBehaviour
         anim.SetTrigger("Rewake");
         yield return new WaitForSeconds(3f);
         Down = false;
-        Debug.Log(IsLook);
-        Debug.Log(Atking);
-        Debug.Log(Down);
-        Debug.Log(GC.OnTop);
     }
     IEnumerator Normal_LayDown()//Bear
     {
@@ -322,3 +322,4 @@ public class Boss_Arubado : MonoBehaviour
         SmashCol.GetComponent<BoxCollider>().enabled = false;
     }
 }
+
