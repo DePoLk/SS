@@ -7,17 +7,18 @@ using UnityEngine.SceneManagement;
 
 
 
-public class CameraControl : MonoBehaviour {
+public class CameraControl : MonoBehaviour
+{
 
     public Transform target;
-    
+
     public Vector3 offset;
     public float smoothSpeed = 0.125f;
     public float rotatesmooth = 0.125f;
     float timeScale_limit = 0.0f;
     bool touchLimit = false;
     float timetoGray = 3.0f;
-    public float[] levels; 
+    public float[] levels;
     //private float targetY;
     public Vector3 offset_b;
     public Vector3 offset_k;
@@ -29,8 +30,8 @@ public class CameraControl : MonoBehaviour {
     Vignette p_Vignette;
     ColorGrading p_ColorGrading;
     DepthOfField p_depthOfField;
-    
-   
+
+
     private Cinemachine_Ctrl cinemachineCtrl;
 
     void Start()
@@ -45,8 +46,9 @@ public class CameraControl : MonoBehaviour {
         {
             offset = new Vector3(7.5f, 9.0f, 0.5f);
         }
-        else {
-            offset = new Vector3(1.5f,4.1f,2.5f);
+        else
+        {
+            offset = new Vector3(1.5f, 4.1f, 2.5f);
         }
     }
 
@@ -91,7 +93,8 @@ public class CameraControl : MonoBehaviour {
         }
 
     }
-    public void RecoverCamera() {
+    public void RecoverCamera()
+    {
         float a = p_Vignette.intensity.value;
         a = 0f;
         p_Vignette.intensity.value = a;

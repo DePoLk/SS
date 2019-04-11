@@ -872,7 +872,7 @@ public class PlayerControl : MonoBehaviour {
         if (other.CompareTag("canon"))
         {
             OnTop = false;
-            BA.BackToLow = true;
+            //BA.BackToLow = true;
         }
     }
 
