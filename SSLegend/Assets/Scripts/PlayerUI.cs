@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 using DG.Tweening.Plugins.Options;
+using DataValue;
 
 public class PlayerUI : MonoBehaviour {
 
@@ -25,7 +26,7 @@ public class PlayerUI : MonoBehaviour {
 
     Text MaxHpText;
     Text MaxAtkText;
-    
+
 
     Text ExpPointText;
     private Tweener UITweener;
@@ -39,8 +40,10 @@ public class PlayerUI : MonoBehaviour {
     SavePoint SavePoint;
     UITextData UITextData;
     DataManger DM;
-    List<int> UIEventNum = new List<int>();
-    List<int> UIEventTextAmount = new List<int>();
+
+
+
+
     UIEventTrigger UIEventTrigger;
     public int GetOnTriggerUIEventNum;
     public ArrayList UIDataArray;
@@ -116,8 +119,18 @@ public class PlayerUI : MonoBehaviour {
     Text ResolutionValueText;
     // Esc Menu 
 
+
+    [Header("UI對話框")]
+    public Text InfoTalker;
+    public Image InfoTalkerImage;
+    string[] TalkerNameArray = { "貝爾:", "斯歐芙忒:", "薩奧莉德:" };
+
+    [Header("對話框用圖片")]
+    public Sprite[] TalkerImage;
+
+
     // Use this for initialization
-    void Start () {
+    void Start() {
         Player = GameObject.Find("Player");
         SavePoint = FindObjectOfType<SavePoint>();
         UITextData = FindObjectOfType<UITextData>();
@@ -150,13 +163,24 @@ public class PlayerUI : MonoBehaviour {
         ResolutionValueText = GameObject.Find("ResolutionValueText").GetComponent<Text>();
         //Esc Menu
 
+        //--- UI對話框
+
+        InfoTalker = GameObject.Find("InfoTalker").GetComponent<Text>();
+        InfoTalkerImage = GameObject.Find("InfoTalkerImg").GetComponent<Image>();
+
+        //--- UI對話框
+
+
         NowHP = PlayerCon.Hp;
-        Debug.Log("HP:" + PlayerCon.Hp);
+        //Debug.Log("HP:" + PlayerCon.Hp);
         MaxHP = PlayerCon.MaxHp;
 
         IniCottonHP();
-        GetUIEventNum();
-        GetUIEventTextAmount();
+        GetPerIndex();
+        // Debug.Log(UITextData.InfoAll.Count);
+
+
+
         NowLocationNumChecker();
 
         LastSelect = new GameObject();
@@ -168,9 +192,9 @@ public class PlayerUI : MonoBehaviour {
         /*Debug.Log(UIEventTextAmount[0]);
         Debug.Log(UIEventTextAmount[1]);*/
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update() {
         CheckValuePerSec();//更新UI資訊       
         InfoWindowHandler(GetOnTriggerUIEventNum);//處理UIEvent
         ReFocus();// 重新聚焦最後一個聚焦的對象
@@ -190,47 +214,84 @@ public class PlayerUI : MonoBehaviour {
 
     }
 
-    int NowUIEventNum = 0;
-    int NowUIEventTextAmount = 0;
-    public int NowUIEventPlayingNum = 1;
-    
+
+
 
     /// <summary>
     /// 抓取UI的順序號碼
     /// </summary>
 
-    public void GetUIEventNum() {
+    List<int> UIEventNumIndex = new List<int>();
+    List<int> UIEventTextAmount = new List<int>();
+    
 
-        for (int i = 0; i < UIDataArray.Count; i++) {
-            if (UIDataArray[i].ToString().Equals("--" + NowUIEventNum + "--")) {
-                UIEventNum.Add(i);               
-                NowUIEventNum++; 
-            }
+
+    
+
+
+    int NowUIEventNum = 0;
+    int NowUIEventTextAmount(int NowIndex,int NUIEN, int LastValue) {
+
+        string NextStr = UITextData.InfoAll[NowIndex + LastValue].ToString();
+        //Debug.Log("NextSte: " + NextStr);
+
+        if (NextStr.Equals("--" + (NUIEN + 1) + "--"))
+        {
+            //Debug.Log("NUIEN: " + NUIEN);
+            //Debug.Log(LastValue - 1);
+            return LastValue - 1;
         }
+        if (NextStr.Equals("--End--")) {
+
+           // Debug.Log("NUIEN: " + NUIEN);
+           // Debug.Log(LastValue - 1);
+            return LastValue - 1;
+        }
+        else
+        {
+            return NowUIEventTextAmount(NowIndex, NUIEN, LastValue + 1);
+        }
+        
+
+    }
+    public int NowUIEventPlayingNum = 3;
+
+    public void GetPerIndex() {
+       
+        for (int i = 0; i < UITextData.InfoAll.Count; i++) {
+            if (UITextData.InfoAll[i].Equals("--" + NowUIEventNum + "--")) {
+
+                UIEventTextAmount.Add(NowUIEventTextAmount(i, NowUIEventNum, 1));
+                //Debug.Log("AddTextAmount");
+                UIEventNumIndex.Add(i);
+                NowUIEventNum++;
+                //Debug.Log(i);
+            }
+        }// 抓取UI事件編號的索引值               
         NowUIEventNum = 0;
 
     }
 
-    /// <summary>
-    /// 抓取UIText的文本數量
-    /// </summary>
+ 
+    public void HandleInfoTalker(int GetUIInfoNum) {
 
-    public void GetUIEventTextAmount() {
+        //--- TalkerName            
+        
+            InfoTalker.text = TalkerNameArray[int.Parse(UIDataArray[GetUIInfoNum - 2].ToString())];
+           
 
-        for (int i = 0; i < UITextData.InfoAll.Count; i++) {
+        //--- TalkerName
 
-            if (!UIDataArray[i].ToString().Equals("--" + (NowUIEventNum + 1) + "--") && !UIDataArray[i].ToString().Equals("--" + NowUIEventNum + "--") && !UIDataArray[i].ToString().Equals("--End--"))
-            {
-                NowUIEventTextAmount++;
-            }
-            else if(UIDataArray[i].ToString().Equals("--" + (NowUIEventNum + 1) + "--") ||UIDataArray[i].ToString().Equals("--End--"))
-            {
-                UIEventTextAmount.Add(NowUIEventTextAmount);
-                NowUIEventTextAmount = 0;
-                NowUIEventNum++;               
-            }
-        }
+        //--- TalkerImage
+
+    
+        InfoTalkerImage.sprite = TalkerImage[int.Parse(UIDataArray[GetUIInfoNum - 1].ToString())];
+
+        //--- TalkerImage
+
     }
+
+
     /// <summary>
     /// 用來檢測InfoWindow現在有沒有觸發事件
     /// </summary>
@@ -248,11 +309,17 @@ public class PlayerUI : MonoBehaviour {
             InfoWindow.GetComponent<Image>().transform.DOScaleX(1, 0.5f).SetUpdate(true);
 
 
-            if (NowUIEventPlayingNum == 1)
+            if (NowUIEventPlayingNum == DataValue.UIInfoWindowValue.UITextSearchIndex)
             {
-                InfoText.text = UIDataArray[UIEventNum[UIEvent] + NowUIEventPlayingNum].ToString();
+                InfoText.text = UIDataArray[UIEventNumIndex[UIEvent] + NowUIEventPlayingNum].ToString();
+                InfoTalker.text = TalkerNameArray[int.Parse(UIDataArray[UIEventNumIndex[UIEvent] + NowUIEventPlayingNum - 2].ToString())];
+                InfoTalkerImage.sprite = TalkerImage[int.Parse(UIDataArray[UIEventNumIndex[UIEvent] + NowUIEventPlayingNum - 1].ToString())];
+
                 InfoText.DOFade(1, 0.5f).SetUpdate(true);
-                NowUIEventPlayingNum++;
+                InfoTalker.DOFade(1, 0.5f).SetUpdate(true);
+                InfoTalkerImage.DOFade(1, 0.5f).SetUpdate(true);
+
+                NowUIEventPlayingNum += DataValue.UIInfoWindowValue.UITextSearchIndex;
             }
 
             if ((Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.J)) && IsCanNextInfoText)
@@ -261,16 +328,14 @@ public class PlayerUI : MonoBehaviour {
                 IsCanNextInfoText = false;
 
                 if (NowUIEventPlayingNum > UIEventTextAmount[UIEvent])
-                {
-                    //Canvas_Ani.SetBool("InfoWindowFadeIn", false);
-                    //Canvas_Ani.SetBool("InfoWindowFadeOut", true);
-                    
+                {                                        
                     InfoWindow.GetComponent<Image>().DOFade(0f, 0.5f).SetUpdate(true);
                     InfoWindow.GetComponent<Image>().transform.DOScaleX(0, 0.5f).SetUpdate(true);
-                    //InfoText.DOColor(new Color(255, 255, 255, 0), 0.5f).SetUpdate(true);
                     InfoText.DOFade(0, 0.5f).SetUpdate(true);
+                    InfoTalker.DOFade(0, 0.5f).SetUpdate(true);
+                    InfoTalkerImage.DOFade(0, 0.5f).SetUpdate(true);
 
-                    NowUIEventPlayingNum = 1;
+                    NowUIEventPlayingNum = DataValue.UIInfoWindowValue.UITextSearchIndex;
                     IsCanNextInfoText = true;
 
                     FindObjectOfType<PlayerControl>().IsUIEventing = false;
@@ -278,13 +343,7 @@ public class PlayerUI : MonoBehaviour {
                 }//關閉infowindow
                 else
                 {
-                    //Canvas_Ani.SetBool("InfoTextFade", true);
-
-                    StartCoroutine("ChangeInfoText");
-                    //Canvas_Ani.SetInteger("NowEventNumber", NowUIEventPlayingNum);
-                    //Canvas_Ani.SetInteger("UIEvent", UIEvent);
-
-                    //NowUIEventPlayingNum++;
+                    StartCoroutine("ChangeInfoText");                   
                 }
 
 
@@ -293,18 +352,50 @@ public class PlayerUI : MonoBehaviour {
         
     }
 
+    bool IsSameTalker = false;
+    bool IsSameTalkerImage = false;
 
     IEnumerator ChangeInfoText() {
-        
-        //InfoText.DOColor(new Color(255, 255, 255, 0), 0.5f).SetUpdate(true);
-        InfoText.DOFade(0, 0.5f).SetUpdate(true);
-        yield return new WaitForSecondsRealtime(1f);
         int NowEventNumber = NowUIEventPlayingNum;
         int UIEvent = GetOnTriggerUIEventNum; // UIEvent需要先存在在場上以免報錯
-        InfoText.text = UIDataArray[UIEventNum[UIEvent] + NowUIEventPlayingNum].ToString();
-        //InfoText.DOColor(new Color(255, 255, 255, 1), 0.5f).SetUpdate(true);
+        //InfoText.DOColor(new Color(255, 255, 255, 0), 0.5f).SetUpdate(true);
+        InfoText.DOFade(0, 0.5f).SetUpdate(true);
+
+        if (UIDataArray[UIEventNumIndex[UIEvent] + NowUIEventPlayingNum - 2].Equals(UIDataArray[UIEventNumIndex[UIEvent] + NowUIEventPlayingNum - 5]))
+        {
+            IsSameTalker = true;
+        }
+        else {
+            IsSameTalker = false;
+        }
+
+        if (UIDataArray[UIEventNumIndex[UIEvent] + NowUIEventPlayingNum - 1].Equals(UIDataArray[UIEventNumIndex[UIEvent] + NowUIEventPlayingNum - 4]))
+        {
+            IsSameTalkerImage = true;
+        }
+        else
+        {
+            IsSameTalkerImage = false;
+        }
+
+        if (!IsSameTalker) {
+            InfoTalker.DOFade(0, 0.5f).SetUpdate(true);
+        }
+        if (!IsSameTalkerImage) {
+            InfoTalkerImage.DOFade(0, 0.5f).SetUpdate(true);
+        }
+
+        yield return new WaitForSecondsRealtime(1f);
+        
+
+        InfoText.text = UIDataArray[UIEventNumIndex[UIEvent] + NowUIEventPlayingNum].ToString();
+        HandleInfoTalker(UIEventNumIndex[UIEvent]+NowUIEventPlayingNum);//更換說話者圖示與名稱
+
         InfoText.DOFade(1, 0.5f).SetUpdate(true);
-        NowUIEventPlayingNum++;
+        InfoTalker.DOFade(1, 0.5f).SetUpdate(true);
+        InfoTalkerImage.DOFade(1, 0.5f).SetUpdate(true);
+
+        NowUIEventPlayingNum += DataValue.UIInfoWindowValue.UITextSearchIndex;
         IsCanNextInfoText = true;
         
         StopCoroutine("ChangeInfoText");

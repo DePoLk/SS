@@ -26,7 +26,7 @@ public class WaterValueChange : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         CheckValueFunc();
         if (IsLosingWater)
         {

@@ -35,6 +35,8 @@ public class PlayerControl : MonoBehaviour {
     public bool IsGetItem = false;
     public int WaterElement = 0;
     public int WindElement = 0;
+    public float WindElementCoolTime = 0;
+    public float DefaultWindElementCoolTime = 10f;
     public bool NearItem = false;
 
     public int Item_Type = 1;
@@ -76,6 +78,7 @@ public class PlayerControl : MonoBehaviour {
     public bool IsInCannon = false;
     public bool IsInCinema = false;
     public bool OnTop = false;
+    
    
     [Range(-280f,0f)]
     public float WaterValuePosY = -280;
@@ -145,12 +148,14 @@ public class PlayerControl : MonoBehaviour {
 
         //Debug.Log(Application.dataPath);
 
+        WindElementCoolTime = DefaultWindElementCoolTime;
+
         Data_Manger.LoadFileFunction();
         LoadPlayerData();
 
         CheckSceneToChangeValue();
 
-        Debug.Log("HPInCon:" + Hp);
+        //Debug.Log("HPInCon:" + Hp);
         // Debug.Log(Application.dataPath);
         // Debug.Log(int.Parse(Data_Manger.InfoAll[0].ToString()));
         //我只是用來測試的
@@ -179,6 +184,7 @@ public class PlayerControl : MonoBehaviour {
         FixAngle();
         FatValueCheck();
         PlayerInvincibleCheck();
+        WindElementGetCoolTime();
         //angle_Sum = Mathf.Atan2(input_H, input_V) / (Mathf.PI / 180);
         //FixTurning();
         
@@ -487,8 +493,21 @@ public class PlayerControl : MonoBehaviour {
 
         if (ThisScene.name.Equals("2-1"))
         {
-            transform.Translate(Vector3.forward * Time.deltaTime * speed, this.transform);
-            transform.Translate(Vector3.right * Time.deltaTime * speed, this.transform);
+
+            /*transform.Translate(Vector3.forward * Time.deltaTime * speed, this.transform);
+            transform.Translate(Vector3.right * Time.deltaTime * speed, this.transform);*/
+
+            transform.Translate(new Vector3(1,0,1) * Time.deltaTime * speed, this.transform);           
+
+
+            /*this.GetComponent<Rigidbody>().AddForce(this.transform.forward*-100f);
+            this.GetComponent<Rigidbody>().AddForce(this.transform.right*-100f);*/
+
+
+
+            //this.GetComponent<Rigidbody>().velocity = Vector3.zero;
+
+            //transform.Translate(Vector3.right * Time.deltaTime * speed, this.transform);
         }
         else if (ThisScene.name.Equals("K")) {
             transform.Translate(Vector3.right * Time.deltaTime * speed, this.transform);
@@ -612,6 +631,17 @@ public class PlayerControl : MonoBehaviour {
         StopCoroutine("Item2ColdDown");
     }
 
+    void WindElementGetCoolTime() {
+        if (WindElement < 3) {
+            WindElementCoolTime -= Time.deltaTime;
+            if (WindElementCoolTime <= 0) {
+                WindElementCoolTime = DefaultWindElementCoolTime;
+                WindElement++;
+            }
+        }
+        
+    }
+
     void UseItem() {
         if (!Save_Point.IsSavePointOpened && !IsDead && IsGetItem && !IsHolding)
         {
@@ -638,6 +668,9 @@ public class PlayerControl : MonoBehaviour {
                     WindElement -= 1;
                     Instantiate(Tornado, -this.transform.forward - this.transform.right + this.transform.position + new Vector3(0,1f,0),Quaternion.identity);
                     Item2IsColdDown = true;
+
+                    
+
                     StartCoroutine("Item2ColdDown");
                 }
                 else

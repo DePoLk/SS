@@ -234,7 +234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TornadoTime: 10
-  TornadoEffectTime: 2
+  TornadoEffectTime: 5
 --- !u!114 &114305871136041666
 MonoBehaviour:
   m_ObjectHideFlags: 1

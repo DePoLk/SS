@@ -47,7 +47,7 @@ public class UIEventTrigger : MonoBehaviour {
             //Debug.Log(UIEventNum);
             PUI.GetOnTriggerUIEventNum = UIEventNum;
             Player_Con.IsUIEventing = true;
-            PUI.NowUIEventPlayingNum = 1;          
+            PUI.NowUIEventPlayingNum = DataValue.UIInfoWindowValue.UITextSearchIndex;          
         }
     }
 
@@ -61,7 +61,7 @@ public class UIEventTrigger : MonoBehaviour {
                     StageEventNum = StageEventIndex;
                 }
             }
-            Debug.Log(DS.StageEventIndex[StageEventNum]);
+            //Debug.Log(DS.StageEventIndex[StageEventNum]);
 
             DS.DataSystemValueInfoAll_Temp[DS.StageEventIndex[StageEventNum] + 2 + ThisUIEventIndexInStage] = ("U: ") + true;
 

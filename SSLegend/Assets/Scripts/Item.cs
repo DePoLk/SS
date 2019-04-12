@@ -79,10 +79,10 @@ public class Item : MonoBehaviour {
                 }
                 if (this.CompareTag("WindElement") && !IsCoolDown)
                 {
-                    Player.WindElement += 3;
+                    /*Player.WindElement += 3;
                     Player.IsGetItem = true;
                     //Destroy(gameObject);
-                    IsCoolDown = true;
+                    IsCoolDown = true;*/
                 }
                 if (this.CompareTag("TreasureBox")) {
                     

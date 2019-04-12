@@ -5,7 +5,7 @@ using UnityEngine;
 public class Tornado : MonoBehaviour {
 
     public float TornadoTime = 7f;
-    public float TornadoEffectTime = 3f;
+    public float TornadoEffectTime = 7f;
      float TornadoForce = 650f;
     Animator Player_Ani;
 
@@ -38,6 +38,13 @@ public class Tornado : MonoBehaviour {
             Player_Ani.SetBool("PlayerIsInAir",true);
             other.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
             other.GetComponent<Rigidbody>().AddForce(transform.up*TornadoForce);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player")) {
+            //Player_Ani.SetBool("PlayerJump", false);
         }
     }
 }

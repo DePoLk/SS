@@ -37,7 +37,7 @@ public class GroundCheck : MonoBehaviour {
             PlayerCon.gameObject.GetComponent<Rigidbody>().velocity = -InForce * 50f;*/
         }
 
-        if (other.CompareTag("Ground"))
+        if (other.CompareTag("Ground") || other.CompareTag("Slope"))
         {
             GameObject a = Instantiate(jumping_Dust,jumpDustspot.transform);
             a.transform.SetParent(null);
@@ -45,7 +45,7 @@ public class GroundCheck : MonoBehaviour {
             Destroy(a, 3.0f);
             PlayerGO.GetComponent<Animator>().SetBool("PlayerIsGround",true);
             PlayerGO.GetComponent<Animator>().SetBool("PlayerIsInAir", false);
-
+            PlayerGO.GetComponent<Animator>().SetBool("PlayerJump", false);
         }
     }
     private void OnTriggerStay(Collider other)
