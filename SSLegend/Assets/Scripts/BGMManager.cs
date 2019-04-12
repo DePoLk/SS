@@ -7,6 +7,7 @@ public class BGMManager : MonoBehaviour {
     public AudioClip deathBGM;
     public AudioClip forestBGM;
     public AudioClip BossBGM;
+    
 
 	// Use this for initialization
 	void Start () {

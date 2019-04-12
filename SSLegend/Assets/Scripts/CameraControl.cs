@@ -4,21 +4,20 @@ using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 
 
 public class CameraControl : MonoBehaviour
 {
-
     public Transform target;
-
     public Vector3 offset;
     public float smoothSpeed = 0.125f;
     public float rotatesmooth = 0.125f;
     float timeScale_limit = 0.0f;
     bool touchLimit = false;
     float timetoGray = 3.0f;
-    public float[] levels;
+    public float[] levels;  
     //private float targetY;
     public Vector3 offset_b;
     public Vector3 offset_k;
@@ -30,9 +29,10 @@ public class CameraControl : MonoBehaviour
     Vignette p_Vignette;
     ColorGrading p_ColorGrading;
     DepthOfField p_depthOfField;
-
-
     private Cinemachine_Ctrl cinemachineCtrl;
+
+    public CinemachineVirtualCameraBase cam1;
+    public CinemachineVirtualCameraBase cam2;
 
     void Start()
     {
@@ -79,19 +79,8 @@ public class CameraControl : MonoBehaviour
                     CommonMove();
                 }
             }
-
-
-
+            
         }
-        else if (target.gameObject.tag == "Boss")
-        {
-            MeetArubado();
-        }
-        else if (target.gameObject.name == "Karohth")
-        {
-            MeetKarohth();
-        }
-
     }
     public void RecoverCamera()
     {
@@ -122,15 +111,7 @@ public class CameraControl : MonoBehaviour
             Time.timeScale -= 0.05f;
         }
 
-
-        //Vector3 tmp;
-        //tmp = offset;
-
-        //Vector3 desiredPosition = target.position + tmp;
-        //Vector3 smoothPosition = Vector3.Lerp(this.transform.position, desiredPosition, smoothSpeed * 2);
-
-        //this.transform.position = smoothPosition;
-
+        
     }
     void Died()
     {
@@ -191,41 +172,32 @@ public class CameraControl : MonoBehaviour
             }
         }
 
-
-
-        //--SCALE CAM FOV--
-
-        //Vector3 tmp;
-        //tmp = offset;
-
-        //Vector3 desiredPosition = target.position + tmp;
-        //Vector3 smoothPosition = Vector3.Lerp(this.transform.position, desiredPosition, smoothSpeed * 2);
-
-        //this.transform.position = smoothPosition;
-
     }
     void CommonMove()
     {
-        Vector3 tmp;
+        //Vector3 tmp;
         Shaked = false;
-        if (target.position.y > levels[2])
-        {
-            tmp = offset * 2 + offset / 2;
-        }
-        else if (target.position.y > levels[1])
-        {
-            tmp = offset + offset / 2;
-        }
-        else
-        {
-            tmp = offset;
-        }
+        //if (target.position.y > levels[2])
+        //{
+        //    tmp = offset * 2 + offset / 2;
+        //}
+        //else if (target.position.y > levels[1])
+        //{
+        //    tmp = offset + offset / 2;
+        //}
+        //else
+        //{
+        //    tmp = offset;
+        //}
+        //LOOKAT
         //Vector3 deraction = target.position - this.transform.position;
-        //	this.transform.rotation = Quaternion.Slerp (this.transform.rotation, Quaternion.LookRotation (deraction),rotatesmooth);
-        Vector3 desiredPosition = target.position + tmp + offset / 2;
-        Vector3 smoothPosition = Vector3.Lerp(this.transform.position, desiredPosition, smoothSpeed);
         //this.transform.rotation = Quaternion.Slerp (this.transform.rotation, Quaternion.LookRotation (deraction),rotatesmooth);
-        this.transform.position = smoothPosition;
+
+        
+        //Vector3 desiredPosition = target.position + tmp + offset / 2;
+        //Vector3 smoothPosition = Vector3.Lerp(this.transform.position, desiredPosition, smoothSpeed);
+        //this.transform.position = smoothPosition;
+
         float a = p_Vignette.intensity.value;
         if (a > 0)
         {
@@ -233,30 +205,7 @@ public class CameraControl : MonoBehaviour
         }
         p_Vignette.intensity.value = a;
     }
-    void MeetArubado()
-    {
-        Vector3 deraction = target.position - this.transform.position;
-        float smoothSpeed_B = 0.1f;
-        Vector3 tmp;
-        tmp = offset_b;
-        Vector3 desiredPosition = target.position + tmp;
-        Vector3 smoothPosition = Vector3.Lerp(this.transform.position, desiredPosition, smoothSpeed_B);
-        this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(deraction), rotatesmooth);
-        this.transform.position = smoothPosition;
-        _Pctrl.speed = 0;
-    }
-    void MeetKarohth()
-    {
-        Vector3 deraction = target.position - this.transform.position;
-        float smoothSpeed_B = 0.1f;
-        Vector3 tmp;
-        tmp = offset_b;
-        Vector3 desiredPosition = target.position + offset_k;
-        Vector3 smoothPosition = Vector3.Lerp(this.transform.position, desiredPosition, smoothSpeed_B);
-        this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(deraction), rotatesmooth);
-        this.transform.position = smoothPosition;
-        _Pctrl.speed = 0;
-    }
+    
     IEnumerator CameraShake(float duration, float magnitude)
     {
         Vector3 originalPos = transform.localPosition;
@@ -275,8 +224,19 @@ public class CameraControl : MonoBehaviour
         transform.localPosition = originalPos;
         Shaked = true;
     }
+    public void shake() {
+        StartCoroutine(CameraShake(0.05f, 0.5f));
+    }
 
-
-
+    public void change1to2()
+    {
+        cam1.VirtualCameraGameObject.SetActive(false);
+        cam2.VirtualCameraGameObject.SetActive(true);
+    }
+    public void change2to1()
+    {
+        cam1.VirtualCameraGameObject.SetActive(true);
+        cam2.VirtualCameraGameObject.SetActive(false);
+    }
 
 }

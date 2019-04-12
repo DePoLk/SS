@@ -30,9 +30,12 @@ public class Boss_ArubadoEffect : MonoBehaviour {
 
     private AudioSource audi;
     public AudioClip[] SoundEffect;
+    private CameraControl CC;
+
     // Use this for initialization
     void Start () {
         audi = GetComponent<AudioSource>();
+        CC = FindObjectOfType<CameraControl>();
 	}
 	
 	// Update is called once per frame
@@ -125,9 +128,10 @@ public class Boss_ArubadoEffect : MonoBehaviour {
         GameObject a = Instantiate(EarthCrack, EarthCrack_Spot.transform);
         a.transform.SetParent(EarthTrail_Spot.transform.parent);
         Destroy(a, 5.0f);
-
+        CC.shake();
     }
     public void Earthcrack_Trail() {
+        
         GameObject a = Instantiate(EarthCrack_Trail, EarthTrail_Spot.transform);
         a.transform.SetParent(EarthTrail_Spot.transform.parent);
         Destroy(a, 1.0f);
@@ -171,6 +175,7 @@ public class Boss_ArubadoEffect : MonoBehaviour {
     }
     public void Play_SE_Attack() {
         audi.PlayOneShot(SoundEffect[0]);
+        
     }
     public void Play_SE_Slash()
     {
