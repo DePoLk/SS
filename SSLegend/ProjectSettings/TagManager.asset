@@ -25,9 +25,6 @@ TagManager:
   - Boss_Smash
   - Boss_Normal
   - FixColli
-  - Wolf
-  - Karohth
-  - ArrowWolf
   layers:
   - Default
   - TransparentFX

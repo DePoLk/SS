@@ -11,7 +11,6 @@ public class AnimationFunction : MonoBehaviour {
     PlayerControl PlayerCon;
     PlayerSE PSE;
     Rigidbody rb;
-    WaterValueChange WVC;
     public GameObject AtkBox;
     public GameObject DodgeFart;
     public GameObject Dodgefart_spot;
@@ -38,7 +37,6 @@ public class AnimationFunction : MonoBehaviour {
         Player_Transform = Player.GetComponent<Transform>();
         ThisScene = SceneManager.GetActiveScene();
         Player_Ani = PlayerCon.gameObject.GetComponent<Animator>();
-        WVC = FindObjectOfType<WaterValueChange>();
     }
 	
 	// Update is called once per frame
@@ -96,7 +94,7 @@ public class AnimationFunction : MonoBehaviour {
         PlayerCon.GetComponent<Animator>().SetBool("PlayerPull", false);
         PlayerCon.AniAtkCount = 0;
         AtkBox.SetActive(false);
-        WVC.ImgWaterValue = 0;
+        
 
         if (ThisScene.name.Equals("2-1"))
         {

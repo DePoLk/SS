@@ -161,9 +161,6 @@ public class PlayerControl : MonoBehaviour {
         // Debug.Log(Application.dataPath);
         // Debug.Log(int.Parse(Data_Manger.InfoAll[0].ToString()));
         //我只是用來測試的
-
-        
-
     }//end Start
 
     private void Update()
@@ -174,11 +171,6 @@ public class PlayerControl : MonoBehaviour {
 
     void FixedUpdate()//固定頻率重複執行
     {
-
-       /* if (Input.GetKeyDown(KeyCode.M)) {
-            this.transform.DOShakePosition(1f, 0.8f, 100, 100, false, false);
-        }*/
-
       //  Debug.Log(OnTop);
         Move();
         CheckIsMovementEnable();//檢查能不能行動

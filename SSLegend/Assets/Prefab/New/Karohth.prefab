@@ -937,12 +937,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 774e167794695ba46b47d3c80c1e4ab7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ExpPoint: {fileID: 1657337987795666, guid: 2a3c5c88633c82c418a895e3c2f750fc, type: 2}
+  ExpPoint: {fileID: 1972919612843642, guid: 3395b1859da858c4f95050b7a312779c, type: 2}
   DropNum: 3
   F: 50
   MonsterIsDead: 0
   MonsterHP: 3
-  MonName: 
 --- !u!114 &114352964668444980
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -971,8 +970,6 @@ MonoBehaviour:
   particleSpot: {fileID: 1199931274785918}
   SwordLight: {fileID: 1407378786791388, guid: 89d895948d1e85845a8497617533c0ba, type: 2}
   Swordspot: {fileID: 0}
-  MarkSpot: {fileID: 0}
-  Exk_k: {fileID: 0}
   startDead: 0
   forcr: 500
 --- !u!137 &137211656812990642

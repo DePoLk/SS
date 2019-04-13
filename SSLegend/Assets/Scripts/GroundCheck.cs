@@ -22,20 +22,7 @@ public class GroundCheck : MonoBehaviour {
         playerSE = FindObjectOfType<PlayerSE>();
     }
 
-    private void Update()
-    {
-        if (PlayerCon.IsGround)
-        {
-            PlayerGO.GetComponent<Animator>().SetBool("PlayerIsGround", true);
-            PlayerGO.GetComponent<Animator>().SetBool("PlayerIsInAir", false);
 
-        }
-        else {
-            PlayerGO.GetComponent<Animator>().SetBool("PlayerIsGround", false);
-            PlayerGO.GetComponent<Animator>().SetBool("PlayerIsInAir", true);
-
-        }
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -50,38 +37,45 @@ public class GroundCheck : MonoBehaviour {
             PlayerCon.gameObject.GetComponent<Rigidbody>().velocity = -InForce * 50f;*/
         }
 
-        if (other.CompareTag("Ground") || other.CompareTag("Slope") || other.CompareTag("Box") || other.CompareTag("Bottle"))
+        if (other.CompareTag("Ground") || other.CompareTag("Slope"))
         {
             GameObject a = Instantiate(jumping_Dust,jumpDustspot.transform);
             a.transform.SetParent(null);
             playerSE.Landing_SE();
             Destroy(a, 3.0f);
-
+            PlayerGO.GetComponent<Animator>().SetBool("PlayerIsGround",true);
+            PlayerGO.GetComponent<Animator>().SetBool("PlayerIsInAir", false);
             PlayerGO.GetComponent<Animator>().SetBool("PlayerJump", false);
-            PlayerCon.IsJumping = false;
         }
     }
     private void OnTriggerStay(Collider other)
     {
 
+        if (other.CompareTag("FixColli"))
+        {
+            
+            
+
+        }
+
         if (other.CompareTag("canon")) {
             OnTop = true;
         }
 
-        if (other.CompareTag("Ground") || other.CompareTag("Box") || other.CompareTag("Bottle")) {
+        if (other.CompareTag("Ground") || other.CompareTag("Box")) {
             PlayerCon.IsGround = true;
-            PlayerCon.JumpSpeed = 250f;
-            PlayerCon.DefaultJumpSpeed = 250f;
+            PlayerGO.GetComponent<Animator>().SetBool("PlayerIsGround", true);
+            PlayerGO.GetComponent<Animator>().SetBool("PlayerIsInAir", false);
+
         }
         if (other.CompareTag("Slope")) {
             PlayerCon.IsGround = true;
-            PlayerCon.JumpSpeed = 350f;
-            PlayerCon.DefaultJumpSpeed = 350f;
             if (PlayerCon.IsAtking || PlayerCon.IsDodging)
             {
                 PlayerGO.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
                 PlayerGO.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-               
+                PlayerGO.GetComponent<Animator>().SetBool("PlayerIsGround", true);
+                PlayerGO.GetComponent<Animator>().SetBool("PlayerIsInAir", false);
             }
             /*else
             {
@@ -108,11 +102,13 @@ public class GroundCheck : MonoBehaviour {
 
         
 
-        if (other.CompareTag("Ground") || other.CompareTag("Box") || other.CompareTag("Bottle")) {
+        if (other.CompareTag("Ground") || other.CompareTag("Box")) {
             PlayerCon.IsGround = false;
             if (PlayerCon.IsDodging) {
                 PlayerCon.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
             }
+            PlayerGO.GetComponent<Animator>().SetBool("PlayerIsGround", false);
+            PlayerGO.GetComponent<Animator>().SetBool("PlayerIsInAir", true);
         }
         if (other.CompareTag("Slope"))
         {
@@ -120,6 +116,10 @@ public class GroundCheck : MonoBehaviour {
             PlayerGO.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
            // PlayerGO.GetComponent<Rigidbody>().useGravity = true;
             PlayerGO.GetComponent<Rigidbody>().drag = 0f;
+            PlayerGO.GetComponent<Animator>().SetBool("PlayerIsGround", false);
+            PlayerGO.GetComponent<Animator>().SetBool("PlayerIsInAir", true);
+
+
             PlayerCon.IsGround = false;
         }
     }

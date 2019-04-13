@@ -33,7 +33,7 @@ public class InfoBoardInteract : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !other.CompareTag("EnemyDetector")) {
+        if (other.CompareTag("Player")) {
             BB.Appear(PlayerCon.gameObject, PlayerCon.TipBG[0]);
             PlayerCon.NearItem = true;
         }
@@ -41,13 +41,7 @@ public class InfoBoardInteract : MonoBehaviour {
 
     private void OnTriggerStay(Collider other)
     {
-
-        if (other.CompareTag("Player") && !other.CompareTag("EnemyDetector"))
-        {
-            BB.Appear(PlayerCon.gameObject, PlayerCon.TipBG[0]);
             PlayerCon.NearItem = true;
-        }
-        
 
         if (other.CompareTag("Player") && (Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.Joystick1Button2))) {
             
