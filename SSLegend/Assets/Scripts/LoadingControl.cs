@@ -28,7 +28,7 @@ public class LoadingControl : MonoBehaviour {
         }
         else {
             
-            alpha -= 0.01f;
+            alpha -= 0.05f;
             var color = Fade.GetComponent<Image>().color;
             color.a = alpha;
             Fade.GetComponent<Image>().color = color;
@@ -69,7 +69,7 @@ public class LoadingControl : MonoBehaviour {
     public void LoadAnim()
     {
 
-        alpha_loading += 0.05f;
+        alpha_loading += 0.01f;
         var color = Fade.GetComponent<Image>().color;
         color.a = alpha_loading;
         Fade.GetComponent<Image>().color = color;

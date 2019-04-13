@@ -7,7 +7,6 @@ using DG.Tweening.Plugins.Options;
 using UnityEngine.SceneManagement;
 
 
-
 public class PlayerControl : MonoBehaviour {
     /// <summary>
     /// 垂直輸入量
@@ -127,7 +126,6 @@ public class PlayerControl : MonoBehaviour {
 
     public GameObject BearModel;
     public GameObject FatBearModel;
-
 
     private void Start()
     {
