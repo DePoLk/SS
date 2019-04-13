@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
-using Cinemachine;
 
 
 
@@ -30,9 +29,7 @@ public class CameraControl : MonoBehaviour
     ColorGrading p_ColorGrading;
     DepthOfField p_depthOfField;
     private Cinemachine_Ctrl cinemachineCtrl;
-
-    public CinemachineVirtualCameraBase cam1;
-    public CinemachineVirtualCameraBase cam2;
+    
 
     void Start()
     {
@@ -228,15 +225,6 @@ public class CameraControl : MonoBehaviour
         StartCoroutine(CameraShake(0.05f, 0.5f));
     }
 
-    public void change1to2()
-    {
-        cam1.VirtualCameraGameObject.SetActive(false);
-        cam2.VirtualCameraGameObject.SetActive(true);
-    }
-    public void change2to1()
-    {
-        cam1.VirtualCameraGameObject.SetActive(true);
-        cam2.VirtualCameraGameObject.SetActive(false);
-    }
+    
 
 }
