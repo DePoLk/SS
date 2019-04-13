@@ -23,10 +23,10 @@ public class BillBoard : MonoBehaviour
         transform.LookAt(transform.position + cam.transform.rotation * Vector3.forward, cam.transform.rotation * Vector3.up);
     }
     public void Appear(GameObject which  ,Sprite AppearImg) {
-        which.GetComponentInChildren<SpriteRenderer>().sprite = AppearImg;
+        which.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = AppearImg;
     }
 
     public void disAppear(GameObject which) {
-        which.GetComponentInChildren<SpriteRenderer>().sprite = null;
+        which.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = null;
     }
 }

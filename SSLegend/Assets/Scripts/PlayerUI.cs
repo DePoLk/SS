@@ -34,6 +34,7 @@ public class PlayerUI : MonoBehaviour {
     Text SavingText;
     BGMManager BGMM;
     public GameObject MenuBG;
+    Text ExpStateText;
 
     //注意這上面要在Start()中賦予
     GameObject Player;
@@ -123,7 +124,8 @@ public class PlayerUI : MonoBehaviour {
     [Header("UI對話框")]
     public Text InfoTalker;
     public Image InfoTalkerImage;
-    string[] TalkerNameArray = { "貝爾:", "斯歐芙忒:", "薩奧莉德:" };
+    string[] TalkerNameArray = { "貝爾", "斯歐芙忒", "薩奧莉德" };
+    Image InfoWindowArrow;
 
     [Header("對話框用圖片")]
     public Sprite[] TalkerImage;
@@ -149,6 +151,8 @@ public class PlayerUI : MonoBehaviour {
         SavingText = GameObject.Find("SavingText").GetComponent<Text>();
         MenuBG = GameObject.Find("MenuBG");
 
+        ExpStateText = GameObject.Find("ExpStateText").GetComponent<Text>();
+
         //Esc Menu
         EscMenuBG = GameObject.Find("EscMenuBG");
         Resume = EscMenuBG.transform.GetChild(0).GetComponent<Button>();
@@ -167,7 +171,7 @@ public class PlayerUI : MonoBehaviour {
 
         InfoTalker = GameObject.Find("InfoTalker").GetComponent<Text>();
         InfoTalkerImage = GameObject.Find("InfoTalkerImg").GetComponent<Image>();
-
+        InfoWindowArrow = GameObject.Find("InfoWindowArrow").GetComponent<Image>();
         //--- UI對話框
 
 
@@ -211,6 +215,7 @@ public class PlayerUI : MonoBehaviour {
         ExpPointText.text = PlayerCon.ExpPoint.ToString();
         MaxHpText.text = PlayerCon.MaxHp.ToString();
         MaxAtkText.text = PlayerCon.PlayerAtkValue.ToString();
+        ExpStateText.text = PlayerCon.ExpPoint.ToString();
 
     }
 
@@ -298,6 +303,20 @@ public class PlayerUI : MonoBehaviour {
     /// <param name="UIEvent">用以獲取當前事件的序號</param>
 
     public bool IsCanNextInfoText = true;
+    bool InfoWindowArrowCanFade = true;
+
+    IEnumerator InfoWindowArrowFade() {
+        if (FindObjectOfType<PlayerControl>().IsUIEventing && InfoWindowArrowCanFade)
+        {
+            InfoWindowArrowCanFade = false;
+            InfoWindowArrow.DOFade(0, 0.5f).SetUpdate(true);
+            yield return new WaitForSecondsRealtime(0.5f);
+            InfoWindowArrow.DOFade(1, 0.5f).SetUpdate(true);
+            yield return new WaitForSecondsRealtime(0.5f);
+            InfoWindowArrowCanFade = true;
+
+        }
+    }
 
     public void InfoWindowHandler(int UIEvent) {
         if (FindObjectOfType<PlayerControl>().IsUIEventing)
@@ -305,7 +324,7 @@ public class PlayerUI : MonoBehaviour {
             //Canvas_Ani.SetBool("InfoWindowFadeOut",false);
             // Canvas_Ani.SetBool("InfoWindowFadeIn",true);
             Time.timeScale = 0;
-            InfoWindow.GetComponent<Image>().DOFade(0.5f, 0.5f).SetUpdate(true);
+            InfoWindow.GetComponent<Image>().DOFade(1f, 0.5f).SetUpdate(true);
             InfoWindow.GetComponent<Image>().transform.DOScaleX(1, 0.5f).SetUpdate(true);
 
 
@@ -315,7 +334,7 @@ public class PlayerUI : MonoBehaviour {
                 InfoTalker.text = TalkerNameArray[int.Parse(UIDataArray[UIEventNumIndex[UIEvent] + NowUIEventPlayingNum - 2].ToString())];
                 InfoTalkerImage.sprite = TalkerImage[int.Parse(UIDataArray[UIEventNumIndex[UIEvent] + NowUIEventPlayingNum - 1].ToString())];
 
-                InfoText.DOFade(1, 0.5f).SetUpdate(true);
+                InfoText.GetComponent<CanvasGroup>().DOFade(1, 0.5f).SetUpdate(true);
                 InfoTalker.DOFade(1, 0.5f).SetUpdate(true);
                 InfoTalkerImage.DOFade(1, 0.5f).SetUpdate(true);
 
@@ -331,7 +350,7 @@ public class PlayerUI : MonoBehaviour {
                 {                                        
                     InfoWindow.GetComponent<Image>().DOFade(0f, 0.5f).SetUpdate(true);
                     InfoWindow.GetComponent<Image>().transform.DOScaleX(0, 0.5f).SetUpdate(true);
-                    InfoText.DOFade(0, 0.5f).SetUpdate(true);
+                    InfoText.GetComponent<CanvasGroup>().DOFade(0, 0.5f).SetUpdate(true);
                     InfoTalker.DOFade(0, 0.5f).SetUpdate(true);
                     InfoTalkerImage.DOFade(0, 0.5f).SetUpdate(true);
 
@@ -349,7 +368,9 @@ public class PlayerUI : MonoBehaviour {
 
             }
         }
-        
+
+        StartCoroutine("InfoWindowArrowFade");
+
     }
 
     bool IsSameTalker = false;
@@ -359,7 +380,8 @@ public class PlayerUI : MonoBehaviour {
         int NowEventNumber = NowUIEventPlayingNum;
         int UIEvent = GetOnTriggerUIEventNum; // UIEvent需要先存在在場上以免報錯
         //InfoText.DOColor(new Color(255, 255, 255, 0), 0.5f).SetUpdate(true);
-        InfoText.DOFade(0, 0.5f).SetUpdate(true);
+        
+        InfoText.GetComponent<CanvasGroup>().DOFade(0, 0.5f).SetUpdate(true);
 
         if (UIDataArray[UIEventNumIndex[UIEvent] + NowUIEventPlayingNum - 2].Equals(UIDataArray[UIEventNumIndex[UIEvent] + NowUIEventPlayingNum - 5]))
         {
@@ -386,12 +408,12 @@ public class PlayerUI : MonoBehaviour {
         }
 
         yield return new WaitForSecondsRealtime(1f);
-        
 
+        
         InfoText.text = UIDataArray[UIEventNumIndex[UIEvent] + NowUIEventPlayingNum].ToString();
         HandleInfoTalker(UIEventNumIndex[UIEvent]+NowUIEventPlayingNum);//更換說話者圖示與名稱
 
-        InfoText.DOFade(1, 0.5f).SetUpdate(true);
+        InfoText.GetComponent<CanvasGroup>().DOFade(1, 0.5f).SetUpdate(true);
         InfoTalker.DOFade(1, 0.5f).SetUpdate(true);
         InfoTalkerImage.DOFade(1, 0.5f).SetUpdate(true);
 

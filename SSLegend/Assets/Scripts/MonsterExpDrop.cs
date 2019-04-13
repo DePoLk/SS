@@ -14,13 +14,45 @@ public class MonsterExpDrop : MonoBehaviour {
     float ranZ;
     //public GameObject deadParticle;
 
-    public int MonsterHP = 3;
-    
+    Karohth Karohth;
+    NormalMonster Wolf;
+    Arrow_Wolf ArrowWolf;
+
+    public int MonsterHP;
+    public string MonName;
 	// Use this for initialization
 	void Start () {
-         
+
+
+        CheckWhichMonster();
+
     }
 	
+    void CheckWhichMonster (){
+        if (this.tag.Equals("Karohth"))
+        {
+            Karohth = this.gameObject.GetComponent<Karohth>();
+
+            MonsterHP = Karohth.HP;
+            MonName = "Karohth";
+        }
+        if (this.tag.Equals("Wolf")) {
+            Wolf = this.gameObject.GetComponent<NormalMonster>();
+
+            MonsterHP = Wolf.HP;
+            MonName = "Wolf";
+        }
+        if (this.tag.Equals("ArrowWolf"))
+        {
+            ArrowWolf = this.gameObject.GetComponent<Arrow_Wolf>();
+
+            MonsterHP = ArrowWolf.HP;
+            MonName = "ArrowWolf";
+        }
+
+    }
+
+
 	// Update is called once per frame
 	void Update () {
         //Destroy(gameObject);//刪除怪物
@@ -60,7 +92,7 @@ public class MonsterExpDrop : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("AtkBox") && this.CompareTag("Monster")) {
+        if (other.CompareTag("AtkBox") && this.CompareTag(MonName)) {
             if (MonsterHP >= 1)
             {
                 MonsterHP--;
