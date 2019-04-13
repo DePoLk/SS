@@ -11,6 +11,8 @@ public class WaterValueChange : MonoBehaviour {
     public Text BackWaterValue;
     public Image TextMask;
     public Image ImageFillValue;
+    public Image WaterLight;
+    public Image BearIcon;
     
     public bool IsLosingWater = false;
 
@@ -20,9 +22,14 @@ public class WaterValueChange : MonoBehaviour {
     public float ImgWaterValue = 100;
     public float TextWaterValue = 100;
 
+    Color OriColor = new Color32(255,255,255,255);
+    Color WaterColor = new Color32(81, 232, 243,255);
+
 	// Use this for initialization
 	void Start () {
         Player_Ani = GameObject.Find("Player").GetComponent<Animator>();
+        WaterLight = GameObject.Find("WaterLight").GetComponent<Image>();
+        BearIcon = GameObject.Find("BearIcon").GetComponent<Image>();
 	}
 	
 	// Update is called once per frame
@@ -32,7 +39,18 @@ public class WaterValueChange : MonoBehaviour {
         {
             StartCoroutine("WaterChange");
         }
-        
+
+        if (IsLosingWater)
+        {
+            WaterLight.gameObject.SetActive(true);
+            ImageFillValue.gameObject.GetComponent<Image>().color = WaterColor;
+            BearIcon.color = WaterColor;
+        }
+        else {
+            WaterLight.gameObject.SetActive(false);
+            ImageFillValue.gameObject.GetComponent<Image>().color = OriColor;
+            BearIcon.color = OriColor;
+        }
 
     }
 

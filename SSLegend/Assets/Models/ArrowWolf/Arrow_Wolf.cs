@@ -10,7 +10,7 @@ public class Arrow_Wolf : MonoBehaviour {
     private bool idle = true;
     private bool ArrivePlace2 = false;
     private bool IsShooting = false;
-    private int HP = 3;
+    public int HP = 3;
     private ArrowWolf_Anim AA;
     private Vector3 RotationRecoder;
     private float a;

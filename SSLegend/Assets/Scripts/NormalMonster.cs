@@ -29,7 +29,7 @@ public class NormalMonster : MonoBehaviour
     private Rigidbody m_Rigidbody;
     private CapsuleCollider Cap;
     private float CDTimer = 0f;
-    private int HP = 3;
+    public int HP = 3;
     private bool Relax = false;
     private bool Iswandering = false;
     private bool IsRotateRight = false;
