@@ -22,6 +22,18 @@ public class EnemyDetector : MonoBehaviour {
     public bool IsCanPlay = true;
     [Header("Fix")]
     public float FixAngle = 0;
+    [Header("台詞")]
+    private string[] KarohthText = {
+        "吱! 啾!",
+        "吱! 啾啾!",
+        "吱! 啾啾啾!"
+    };
+    private string[] WolfText = {
+        "嘎! 嗚!",
+        "嘎! 嗚嗚!",
+        "嘎! 嗚嗚嗚!"
+    };
+    private int TalkNum = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -64,9 +76,14 @@ public class EnemyDetector : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
 
+        if (other.CompareTag("WolfAtkBox")) {
+
+        }
+
         if (other.CompareTag("Wolf") || other.CompareTag("Karohth") || other.CompareTag("ArrowWolf")) {
             IsDetect = true;
             DetectedObj = other.gameObject;
+            TalkNum = UnityEngine.Random.Range(0, 3);
 
             if (other.CompareTag("Wolf") || other.CompareTag("ArrowWolf")) {
                 SR.color = new Color32(198,59,60,255);
@@ -83,12 +100,12 @@ public class EnemyDetector : MonoBehaviour {
 
         if (other.CompareTag("Wolf")) {
             EnemyTalkerName.text = "削狼";
-            EnemyTalkText.text = "嘎! 嗚嗚嗚!";
+            EnemyTalkText.text = WolfText[TalkNum];
         }
 
         if (other.CompareTag("Karohth")) {
             EnemyTalkerName.text = "棉鼠";
-            EnemyTalkText.text = "吱! 啾啾啾!";
+            EnemyTalkText.text = KarohthText[TalkNum];
         }
 
 

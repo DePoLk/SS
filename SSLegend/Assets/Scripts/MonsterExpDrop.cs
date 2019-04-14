@@ -39,7 +39,7 @@ public class MonsterExpDrop : MonoBehaviour {
         if (this.tag.Equals("Wolf")) {
             Wolf = this.gameObject.GetComponent<NormalMonster>();
 
-            MonsterHP = Wolf.HP;
+            MonsterHP = Wolf.HP + 1;
             MonName = "Wolf";
         }
         if (this.tag.Equals("ArrowWolf"))

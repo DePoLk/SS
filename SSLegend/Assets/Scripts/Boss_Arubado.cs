@@ -8,6 +8,7 @@ public class Boss_Arubado : MonoBehaviour
     private GroundCheck GC;
     private PlayerControl PC;
     WaterValueChange WVC;
+    private Cinemachine_Ctrl CC;
     public GameObject MagicAtk;
     public GameObject MagicAtk_Range;
     public Transform FirePos;
@@ -21,7 +22,7 @@ public class Boss_Arubado : MonoBehaviour
     private Vector3 pos;
     private Magic_Atk MA;
     private bool TopAtking = false;
-    public int NewHP = 30;
+    public int NewHP = 3;
     public bool Down = false;
     private bool SmashAiming = false;
     private bool IsLook = false;
@@ -34,6 +35,7 @@ public class Boss_Arubado : MonoBehaviour
     private bool ReTop = false;
     private bool NormalAim = false;
     private bool IsCloseToWall = false;
+    private bool IsDead = false;
     // Use this for initialization
     void Start()
     {
@@ -42,6 +44,7 @@ public class Boss_Arubado : MonoBehaviour
         PC = FindObjectOfType<PlayerControl>();
         MA = FindObjectOfType<Magic_Atk>();
         WVC = FindObjectOfType<WaterValueChange>();
+        CC = FindObjectOfType<Cinemachine_Ctrl>();
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -128,6 +131,9 @@ public class Boss_Arubado : MonoBehaviour
         if (resistance == true)
         {
             this.GetComponent<Rigidbody>().AddForce(transform.forward * 3500);
+        }
+        if (NewHP <= 0) {
+            Dead();
         }
     }
     IEnumerator ReturnToNormal()
@@ -320,6 +326,11 @@ public class Boss_Arubado : MonoBehaviour
     public void CloseSmashAtkBox()
     {
         SmashCol.GetComponent<BoxCollider>().enabled = false;
+    }
+    public void Dead() {
+        StopAllCoroutines();
+        CC.EndindStart = true;
+        this.gameObject.SetActive(false);
     }
 }
 

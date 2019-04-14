@@ -69,7 +69,7 @@ public class Exp_System : MonoBehaviour {
             ExpSystemTweener = BearWithCube.transform.DOLocalMove(new Vector3(70,-6,0),0.5f).SetUpdate(true);
 
             if (Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.Joystick1Button1)) {
-                CloseExpMenu();
+                CloseExpMenu();               
             }
 
 
@@ -97,12 +97,12 @@ public class Exp_System : MonoBehaviour {
     IEnumerator ReInteractable() {    
         yield return new WaitForSecondsRealtime(0.5f);
         ExpMenuBtn.Select();
-        MenuBG.GetComponent<CanvasGroup>().interactable = true;
+        MenuBG.GetComponent<CanvasGroup>().interactable = true;       
     }
 
     public void CloseExpMenu() {
         IsExpMenuOpen = false;
-        SP.IsSavePointOpened = true;
+        
         PUI.ExpButtonState.disabledSprite = PUI.ButtonDisImg;
         MenuBG.transform.GetChild(2).GetComponent<Button>().spriteState = PUI.ExpButtonState;
         StartCoroutine("ReInteractable");

@@ -8,6 +8,7 @@ public class AnimationTrigger : MonoBehaviour {
     private Cinemachine_Ctrl cinemachineCtrl;
     private CameraControl CC;
     public GameObject bear;
+    public GameObject player;
     public GameObject UI;
     public GameObject Flamelight;
 
@@ -18,7 +19,7 @@ public class AnimationTrigger : MonoBehaviour {
 	void Start () {
         cinemachineCtrl = FindObjectOfType<Cinemachine_Ctrl>();
         CC = FindObjectOfType<CameraControl>();
-        bear.SetActive(false);
+        //bear.SetActive(false);
         UI.SetActive(false);
         PUI = FindObjectOfType<PlayerUI>();
         PlayerCon = FindObjectOfType<PlayerControl>();
@@ -35,16 +36,17 @@ public class AnimationTrigger : MonoBehaviour {
     {
         if (a.CompareTag("Player")) {
             CC.hasPlayTrack = true;
-            cinemachineCtrl.TrackStart = true;
             bear.SetActive(true);
             UI.SetActive(true);
             Flamelight.SetActive(true);
+            cinemachineCtrl.TrackStart = true;
+           
             Destroy(this,1.0f);
 
             PUI.gameObject.transform.GetChild(0).GetComponent<CanvasGroup>().alpha = 0;
             PlayerCon.IsInCinema = true;
             BGMM.ChangeToBoss();
-            bear.transform.localScale = new Vector3(0, 0, 0);
+            player.transform.localScale = new Vector3(0, 0, 0);
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using DG.Tweening.Plugins.Options;
 using UnityEngine.SceneManagement;
-
+using Cinemachine;
 
 
 public class PlayerControl : MonoBehaviour {
@@ -115,6 +115,7 @@ public class PlayerControl : MonoBehaviour {
     CameraControl CC;
     BGMManager BGMM;
     PlayerSE PSE;
+    CamTrigger CT;
 
     Scene ThisScene;
 
@@ -129,6 +130,18 @@ public class PlayerControl : MonoBehaviour {
     public GameObject FatBearModel;
 
 
+    [Header("熊移動軸向")]
+    public float Move_x = 1;
+    public float Move_y = 0;
+    public float Move_z = 1;
+    public float BearModel_y = -50;
+    public float FatBearModel_y = -60;
+    public string NowCamTrack = "CM main";
+    public float ForceFixForward = 1;
+    public float ForceFixRight = 1;
+    public CinemachineBrain CB;
+    
+
     private void Start()
     {
         Player_Animator = GetComponent<Animator>();
@@ -141,6 +154,8 @@ public class PlayerControl : MonoBehaviour {
         DeadBlockSight = GameObject.Find("DeadBlockSight");
         BGMM = FindObjectOfType<BGMManager>();
         PSE = FindObjectOfType<PlayerSE>();
+        CB = FindObjectOfType<CinemachineBrain>();
+        CT = FindObjectOfType<CamTrigger>();
 
         BA = FindObjectOfType<Boss_Arubado>();
 
@@ -149,7 +164,6 @@ public class PlayerControl : MonoBehaviour {
         DOTween.SetTweensCapacity(700, 700);
 
         //Debug.Log(Application.dataPath);
-
         WindElementCoolTime = DefaultWindElementCoolTime;
 
         Data_Manger.LoadFileFunction();
@@ -253,7 +267,118 @@ public class PlayerControl : MonoBehaviour {
         }
     }// 檢查主角能不能移動
 
+    string LastCMTrack = "CM main";
+
+    void CamFixV() {
+        if (NowCamTrack.Equals("CM main"))
+        {
+            Move_x = 1;
+            Move_y = 0;
+            Move_z = 1;
+            BearModel_y = 310;
+            FatBearModel_y = 300;
+            ForceFixForward = 1;
+            ForceFixRight = 1;
+            LastCMTrack = NowCamTrack;
+        }
+
+        if (NowCamTrack.Equals("CM track1"))
+        {
+            Move_x = 1;
+            Move_y = 0;
+            Move_z = -1;
+            BearModel_y = 50;
+            FatBearModel_y = 50;
+            ForceFixForward = -1;
+            ForceFixRight = 1;
+            LastCMTrack = NowCamTrack;
+        }
+
+        if (NowCamTrack.Equals("CM dollytrack2"))
+        {
+            Move_x = 1.2f;
+            Move_y = 0;
+            Move_z = 0.8f;
+            BearModel_y = -50;
+            FatBearModel_y = -60;
+            ForceFixForward = 1;
+            ForceFixRight = 1;
+            LastCMTrack = NowCamTrack;
+        }
+
+        if (NowCamTrack.Equals("CM dollytrack3"))
+        {
+            Move_x = 1f;
+            Move_y = 0;
+            Move_z = 1f;
+            BearModel_y = -50;
+            FatBearModel_y = -50;
+            ForceFixForward = 1;
+            ForceFixRight = 1;
+            LastCMTrack = NowCamTrack;
+        }
+
+        if (NowCamTrack.Equals("CM track4"))
+        {
+            Move_x = 1f;
+            Move_y = 0;
+            Move_z = 1f;
+            BearModel_y = -50;
+            FatBearModel_y = -50;
+            ForceFixForward = 1;
+            ForceFixRight = 1;
+            LastCMTrack = NowCamTrack;
+        }
+
+        if (NowCamTrack.Equals("CM track5"))
+        {
+            Move_x = 1.3f;
+            Move_y = 0;
+            Move_z = 0.7f;
+            BearModel_y = -20;
+            FatBearModel_y = -20;
+            ForceFixForward = 0.7f;
+            ForceFixRight = 1.3f;
+            LastCMTrack = NowCamTrack;
+        }
+
+        if (NowCamTrack.Equals("CM dollytrack6"))
+        {
+            Move_x = 1.3f;
+            Move_y = 0;
+            Move_z = 0.7f;
+            BearModel_y = -20;
+            FatBearModel_y = -20;
+            ForceFixForward = 0.6f;
+            ForceFixRight = 1.4f;
+            LastCMTrack = NowCamTrack;
+        }
+
+        //Debug.Log(BearModel.transform.eulerAngles);
+            BearModel.transform.DOLocalRotate(new Vector3(0, BearModel_y, 0), 1f);
+            FatBearModel.transform.DOLocalRotate(new Vector3(0, FatBearModel_y, 0), 1f);
+            
+        
+    }
+
     void BearStateCheck() {
+
+
+
+         NowCamTrack = CB.ActiveVirtualCamera.Name;
+        if (!NowCamTrack.Equals(LastCMTrack)) {
+            CamFixV();
+        }        
+
+        
+        
+        
+        
+
+        //Debug.Log(NowCamTrack);
+
+
+
 
         if (IsFat)
         {
@@ -507,8 +632,7 @@ public class PlayerControl : MonoBehaviour {
             /*transform.Translate(Vector3.forward * Time.deltaTime * speed, this.transform);
             transform.Translate(Vector3.right * Time.deltaTime * speed, this.transform);*/
 
-            transform.Translate(new Vector3(1,0,1) * Time.deltaTime * speed, this.transform);           
-
+            transform.Translate(new Vector3(Move_x,Move_y,Move_z) * Time.deltaTime * speed, this.transform);             
 
             /*this.GetComponent<Rigidbody>().AddForce(this.transform.forward*-100f);
             this.GetComponent<Rigidbody>().AddForce(this.transform.right*-100f);*/
