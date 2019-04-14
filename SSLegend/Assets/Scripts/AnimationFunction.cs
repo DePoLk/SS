@@ -53,7 +53,7 @@ public class AnimationFunction : MonoBehaviour {
         {
             if (PlayerCon.IsGround)
             {
-                rb.AddForce(transform.forward * -20f + transform.right * -20f);
+                rb.AddForce(transform.forward * -20f * PlayerCon.ForceFixForward + transform.right * -20f * PlayerCon.ForceFixRight);
             }
         }
         else if(ThisScene.name.Equals("K")){
@@ -71,7 +71,7 @@ public class AnimationFunction : MonoBehaviour {
         {
             if (PlayerCon.IsGround)
             {
-                rb.AddForce(transform.forward * -200f + transform.right * -200f);
+                rb.AddForce(transform.forward * -200f * PlayerCon.ForceFixForward + transform.right * -200f * PlayerCon.ForceFixRight);
             }
         }
         else if (ThisScene.name.Equals("K"))
@@ -100,7 +100,7 @@ public class AnimationFunction : MonoBehaviour {
 
         if (ThisScene.name.Equals("2-1"))
         {
-            rb.AddForce(transform.forward * 100f + transform.right * 100f);
+            rb.AddForce(transform.forward * 100f * PlayerCon.ForceFixForward + transform.right * 100f * PlayerCon.ForceFixRight);
         }
         else if (ThisScene.name.Equals("K"))
         {
@@ -171,7 +171,7 @@ public class AnimationFunction : MonoBehaviour {
 
             if (ThisScene.name.Equals("2-1"))
             {
-                rb.AddForce(transform.forward * -100f + transform.right * -100f);
+                 rb.AddForce(transform.forward * -100f * PlayerCon.ForceFixForward + transform.right * -100f * PlayerCon.ForceFixRight);
             }
             else if (ThisScene.name.Equals("K"))
             {
@@ -255,7 +255,7 @@ public class AnimationFunction : MonoBehaviour {
 
         if (ThisScene.name.Equals("2-1"))
         {
-            rb.AddForce(transform.forward * 200f + transform.right * 200f);
+            rb.AddForce(transform.forward * 200f * PlayerCon.ForceFixForward + transform.right * 200f * PlayerCon.ForceFixRight);
         }
         else if (ThisScene.name.Equals("K"))
         {

@@ -80,8 +80,12 @@ public class SavePoint : MonoBehaviour {
 
             if (Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.Joystick1Button1) && !ExpS.IsExpMenuOpen)
             {
-                ExitMenu();
+
+                if (SaveMenu.GetComponent<CanvasGroup>().interactable) {
+                    ExitMenu();
+                }
             }
+            
         }
         else if(!IsSavePointOpened){
             //SaveMenu.GetComponent<CanvasGroup>().alpha = 0f;
