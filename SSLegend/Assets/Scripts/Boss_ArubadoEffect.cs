@@ -197,6 +197,10 @@ public class Boss_ArubadoEffect : MonoBehaviour {
     {
         audi.PlayOneShot(SoundEffect[5]);
     }
+    public void Play_SE_getHit()
+    {
+        audi.PlayOneShot(SoundEffect[6]);
+    }
 
 
 }
