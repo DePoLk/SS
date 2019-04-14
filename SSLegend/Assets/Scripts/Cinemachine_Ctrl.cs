@@ -22,7 +22,7 @@ public class Cinemachine_Ctrl : MonoBehaviour {
     private CameraControl CC;
     public bool TrackEnd = false;
     public bool TrackStart = false;
-    public bool EndindStart = false;
+    public bool EndingStart = false;
     public bool EndingEnd = false;
     int times = 0;
     int Endtimes = 0;
@@ -53,15 +53,20 @@ public class Cinemachine_Ctrl : MonoBehaviour {
             PD.Play();
             times += 1;
         }
-        if (EndindStart && Endtimes == 0)
+        if (EndingStart && Endtimes == 0)
         {
             v_GroupCam.VirtualCameraGameObject.SetActive(false);
             bgm.cam_audi.Stop();
             DeathObject[1].SetActive(true);
             DeathObject[2].SetActive(true);
             CinemachineUI.SetActive(true);
+
+            PlayerCon.IsInCinema = true;
+            PlayerCon.gameObject.transform.localScale = new Vector3(0, 0, 0);
+
             Dead.Play();
             Endtimes += 1;
+
         }
         if (PD.state == PlayState.Paused && TrackEnd == false && TrackStart == true)
         {
@@ -86,10 +91,10 @@ public class Cinemachine_Ctrl : MonoBehaviour {
             //--- ReInGame
         }
 
-        if (Dead.state == PlayState.Paused && EndingEnd == false && EndindStart == true) {
+        if (Dead.state == PlayState.Paused && EndingEnd == false && EndingStart == true) {
 
             EndingEnd = true;
-            EndindStart = false;
+            EndingStart = false;
             CC.hasPlayTrack = false;
             
 

@@ -161,7 +161,7 @@ public class PlayerControl : MonoBehaviour {
 
         ThisScene = SceneManager.GetActiveScene();
 
-        DOTween.SetTweensCapacity(700, 700);
+        DOTween.SetTweensCapacity(1750, 700);
 
         //Debug.Log(Application.dataPath);
         WindElementCoolTime = DefaultWindElementCoolTime;
@@ -209,6 +209,7 @@ public class PlayerControl : MonoBehaviour {
         FatValueCheck();
         PlayerInvincibleCheck();
         WindElementGetCoolTime();
+        CheatCode();
         //angle_Sum = Mathf.Atan2(input_H, input_V) / (Mathf.PI / 180);
         //FixTurning();
         
@@ -365,10 +366,17 @@ public class PlayerControl : MonoBehaviour {
 
 
 
-         NowCamTrack = CB.ActiveVirtualCamera.Name;
-        if (!NowCamTrack.Equals(LastCMTrack)) {
-            CamFixV();
-        }        
+        if (ThisScene.name.EndsWith("2-1"))
+        {
+            NowCamTrack = CB.ActiveVirtualCamera.Name;
+            if (!NowCamTrack.Equals(LastCMTrack))
+            {
+                CamFixV();
+            }
+        }
+        else {
+
+        }
 
         
         
@@ -501,7 +509,11 @@ public class PlayerControl : MonoBehaviour {
         
     }
 
-    
+    void CheatCode() {
+        if (Input.GetKeyDown(KeyCode.C) && Input.GetKeyDown(KeyCode.U) && Input.GetKeyDown(KeyCode.N)) {
+            this.gameObject.transform.position = GameObject.Find("FastPoint").transform.position;
+        }
+    }
 
     void Ani_Time() {
         if (AniTime >= AniResetTime)
@@ -534,7 +546,7 @@ public class PlayerControl : MonoBehaviour {
        
     }
 
-
+    
 
     bool IsCanMove() {
 
@@ -610,9 +622,11 @@ public class PlayerControl : MonoBehaviour {
             FatBearModel.transform.eulerAngles = new Vector3(0, -60, 0);
         }
         else if (ThisScene.name.Equals("K")) {
-            BearModel.transform.rotation = new Quaternion(0, 0, 0, 0);
-            FatBearModel.transform.rotation = new Quaternion(0, 0, 0, 0);
+            BearModel.transform.eulerAngles = new Vector3(0, -10, 0);
+            FatBearModel.transform.eulerAngles = new Vector3(0, -10, 0);
             this.gameObject.transform.position = new Vector3(75, 0, 0);
+            DefaultSpeed = -3;
+            speed = -3;
         }
 
     }
@@ -723,7 +737,7 @@ public class PlayerControl : MonoBehaviour {
     void Dodge()
     {
         var em = running_Dust.emission;
-        if (IsGround && !Save_Point.IsSavePointOpened && !IsJumping && !IsFat && !IsDead && ((Input.GetKeyDown(KeyCode.Joystick1Button1) || Input.GetKeyDown(KeyCode.L)) || ((Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0) && (Input.GetKeyDown(KeyCode.Joystick1Button1) || Input.GetKeyDown(KeyCode.L))))&& !IsDodging && !IsHolding)
+        if (!IsInCinema && IsGround && !Save_Point.IsSavePointOpened && !IsJumping && !IsFat && !IsDead && ((Input.GetKeyDown(KeyCode.Joystick1Button1) || Input.GetKeyDown(KeyCode.L)) || ((Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0) && (Input.GetKeyDown(KeyCode.Joystick1Button1) || Input.GetKeyDown(KeyCode.L))))&& !IsDodging && !IsHolding)
         {
             Debug.Log("B或L被按下");//翻滾
             this.GetComponent<Rigidbody>().velocity = new Vector3(0,0,0);

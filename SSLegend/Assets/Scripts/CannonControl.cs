@@ -15,7 +15,7 @@ public class CannonControl : MonoBehaviour {
     public GameObject CannonTop;
     public GameObject CannonLittleWheel;
     public GameObject CannonBigWheel;
-
+    public GameObject AimZone;
 
     Tweener CannonTweener;
 
@@ -41,18 +41,21 @@ public class CannonControl : MonoBehaviour {
         Player_Ani = PlayerCon.GetComponent<Animator>();
         BB = FindObjectOfType<BillBoard>();
         AimZonePos = GameObject.Find("AimZone").GetComponent<Transform>();
+        AimZone = GameObject.Find("AimZone");
         FlyingTime = DefaultFlyingTime;
         LoadBearTime = DefaultLoadBearTime;
         AimZonePos.gameObject.GetComponent<Projector>().enabled = false;
+        AimZone.SetActive(false);
+
     }
-    
+
     bool IsShot = false;
 	// Update is called once per frame
 	void Update () {
         CannonAim();
         if (IsShot) {
                 PlayerCon.gameObject.transform.DOScale(15,0.5f);
-
+            AimZone.SetActive(false);
             if (FlyingTime > 0)
             {
                 FlyingTime -= Time.deltaTime;
@@ -83,7 +86,7 @@ public class CannonControl : MonoBehaviour {
         if (PlayerCon.IsInCannon)
         {
             PlayerCon.RunTime = 0;
-
+            AimZone.SetActive(true);
             if (LoadBearTime > 0 && PlayerCon.IsInCannon)
             {
                 CannonTop.transform.GetChild(0).transform.DORotate(new Vector3(0, 0, -90), 0.5f);

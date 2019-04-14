@@ -329,7 +329,7 @@ public class Boss_Arubado : MonoBehaviour
     }
     public void Dead() {
         StopAllCoroutines();
-        CC.EndindStart = true;
+        CC.EndingStart = true;
         this.gameObject.SetActive(false);
     }
 }
