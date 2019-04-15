@@ -363,6 +363,7 @@ public class PlayerControl : MonoBehaviour {
         
     }
 
+
     void BearStateCheck() {
 
 
@@ -378,6 +379,7 @@ public class PlayerControl : MonoBehaviour {
         else {
 
         }
+
 
         
         
@@ -435,6 +437,7 @@ public class PlayerControl : MonoBehaviour {
          DeadBlockSight.transform.GetChild(1).GetComponent<Text>().color = new Color(255, 255, 255, 1);
          DeadBlockSight.transform.GetChild(1).GetComponent<Text>().DOFade(1, 1.5f);*/       
         DeadBlockSight.GetComponent<CanvasGroup>().DOFade(1, 1.5f);
+        IsInCinema = true;
         yield return new WaitForSeconds(3f);
 
         if ((Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.K)))
@@ -455,12 +458,22 @@ public class PlayerControl : MonoBehaviour {
             PSE.SE.mute = true;
             yield return new WaitForSeconds(3f);
             DeadBlockSight.GetComponent<CanvasGroup>().DOFade(0, 1.5f);
+            IsInCinema = false;
             /*DeadBlockSight.GetComponent<Image>().DOFade(0, 1.5f);
             DeadBlockSight.transform.GetChild(0).GetComponent<Text>().DOFade(0, 1.5f);
             DeadBlockSight.transform.GetChild(1).GetComponent<Text>().DOFade(0, 1.5f);*/
-            BGMM.ChangeToForest();
+
+            if (ThisScene.name.Equals("2-1")) {
+                BGMM.ChangeToForest();
+            }
+            if (ThisScene.name.Equals("K")) {
+                BGMM.ChangeToBoss();
+            }
+
             PSE.SE.mute = false;
-            CT.Recover_Cine();
+            if (ThisScene.name.Equals("2-1")) {
+                CT.Recover_Cine();
+            }
             NowCamTrack.Equals("CM main");
             StopCoroutine("LoadGameLastCheckPoint");
         }//在這裡撰寫玩家死亡時的行動
@@ -702,7 +715,7 @@ public class PlayerControl : MonoBehaviour {
     }
 
     void AtkInteract() {
-        if (IsGround && !Save_Point.IsSavePointOpened && !IsFat && !IsDead && !NearItem && (Input.GetKeyDown(KeyCode.Joystick1Button2) || Input.GetKeyDown(KeyCode.J))) {
+        if (!IsInCinema && IsGround && !Save_Point.IsSavePointOpened && !IsFat && !IsDead && !NearItem && (Input.GetKeyDown(KeyCode.Joystick1Button2) || Input.GetKeyDown(KeyCode.J))) {
             Debug.Log("X或J被按下");//攻擊或互動
             if (!NearItem && AniAtkCount < 3)
             {
@@ -735,7 +748,7 @@ public class PlayerControl : MonoBehaviour {
     {
         var em = running_Dust.emission;
         
-        if (!Save_Point.IsSavePointOpened && !IsDead && (Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.K))&& IsGround && !IsJumping && !IsHolding && !IsDodging && !IsAtking)
+        if (!IsInCinema && !Save_Point.IsSavePointOpened && !IsDead && (Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.K))&& IsGround && !IsJumping && !IsHolding && !IsDodging && !IsAtking)
         {
             //GetComponent<Rigidbody>().AddForce(0, JumpSpeed, 0);
             Player_Animator.SetTrigger("PlayerJump");

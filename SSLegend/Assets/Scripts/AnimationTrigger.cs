@@ -50,6 +50,7 @@ public class AnimationTrigger : MonoBehaviour {
             player.GetComponent<PlayerControl>().BearModel.SetActive(false);
             player.GetComponent<PlayerControl>().FatBearModel.SetActive(false);
 
+
         }
     }
 }

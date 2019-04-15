@@ -18,6 +18,7 @@ public class Cinemachine_Ctrl : MonoBehaviour {
     public GameObject[] ShowUpObject;
     public GameObject[] DeathObject;
     public GameObject CinemachineUI;
+    public GameObject[] Obstacles;
 
     private CameraControl CC;
     public bool TrackEnd = false;
@@ -32,6 +33,7 @@ public class Cinemachine_Ctrl : MonoBehaviour {
     GameObject MainCam;
     public GameObject Boss;
     BGMManager bgm;
+    DataManger DM;
 
     // Use this for initialization
     void Start () {
@@ -43,12 +45,15 @@ public class Cinemachine_Ctrl : MonoBehaviour {
         v_Cam.VirtualCameraGameObject.SetActive(true);
         v_GroupCam.VirtualCameraGameObject.SetActive(false);
         bgm = FindObjectOfType<BGMManager>();
+        DM = FindObjectOfType<DataManger>();
     }
-	
-	// Update is called once per frame
-	void Update () {
-        
-        if (TrackStart && times==0) {
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (TrackStart && times == 0)
+        {
             v_Cam.VirtualCameraGameObject.SetActive(false);
             PD.Play();
             times += 1;
@@ -60,11 +65,12 @@ public class Cinemachine_Ctrl : MonoBehaviour {
             DeathObject[1].SetActive(true);
             DeathObject[2].SetActive(true);
             CinemachineUI.SetActive(true);
-
+            Obstacles[0].SetActive(false);
+            Obstacles[1].SetActive(false);
             PlayerCon.IsInCinema = true;
             //PlayerCon.gameObject.transform.localScale = new Vector3(0, 0, 0);
             PlayerCon.BearModel.SetActive(false);
-            PlayerCon.FatBearModel.SetActive(false);          
+            PlayerCon.FatBearModel.SetActive(false);
             PUI.gameObject.SetActive(false);
             Dead.Play();
             Endtimes += 1;
@@ -72,8 +78,8 @@ public class Cinemachine_Ctrl : MonoBehaviour {
         }
         if (PD.state == PlayState.Paused && TrackEnd == false && TrackStart == true)
         {
-            
-            
+
+
             for (int i = 0; i < ShowUpObject.Length; i++)
             {
                 ShowUpObject[i].SetActive(false);
@@ -83,31 +89,35 @@ public class Cinemachine_Ctrl : MonoBehaviour {
             CC.hasPlayTrack = false;
             CinemachineUI.SetActive(false);
             v_GroupCam.VirtualCameraGameObject.SetActive(true);
-
+            Obstacles[0].SetActive(true);
+            Obstacles[1].SetActive(true);
             //--- ReInGame
             PUI.gameObject.transform.GetChild(0).GetComponent<CanvasGroup>().alpha = 1;
             PlayerCon.IsInCinema = false;
-            MainCam.transform.eulerAngles = new Vector3(40,-90,0);
+            MainCam.transform.eulerAngles = new Vector3(40, -90, 0);
             Boss.SetActive(true);
             PlayerCon.BearModel.SetActive(true);
+            PlayerCon.transform.position = new Vector3(14, 0, 1);
+            DM.DeleteFile(Application.dataPath + "/Save", "Save.txt");
+            DM.SaveFile(Application.dataPath + "/Save", "Save.txt");
             //PlayerCon.FatBearModel.SetActive(true);
             //--- ReInGame
         }
 
-        if (Dead.state == PlayState.Paused && EndingEnd == false && EndingStart == true) {
-
+        if (Dead.state == PlayState.Paused && EndingEnd == false && EndingStart == true)
+        {
+            Debug.Log("1");
             EndingEnd = true;
             EndingStart = false;
             CC.hasPlayTrack = false;
-            
+            Invoke("ChangeToMenu",5.0f);
 
         }
 
     }
-    public void Recover_Cine()
+    public void ChangeToMenu()
     {
-       
+        SceneManager.LoadSceneAsync(0);
     }
-
 
 }
