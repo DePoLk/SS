@@ -7,12 +7,13 @@ public class CoreDamage : MonoBehaviour {
     public Material core_mat;
     public Texture coreRGB;
     private Shader shader_m;
-
+    PlayerUI PUI;
     private Boss_ArubadoEffect BAF;
 	// Use this for initialization
 	void Start () {
         BA = FindObjectOfType<Boss_Arubado>();
         BAF = FindObjectOfType<Boss_ArubadoEffect>();
+        PUI = FindObjectOfType<PlayerUI>();
         Debug.Log(BA.NewHP);
         core_mat.shader = Shader.Find("Standard (Roughness setup)");
         shader_m = core_mat.shader;
@@ -29,6 +30,7 @@ public class CoreDamage : MonoBehaviour {
             BA.NewHP--;
             BAF.Play_SE_getHit();
             Debug.Log(BA.NewHP);
+            PUI.BossLoseHP();
             
         }
     }

@@ -28,6 +28,7 @@ TagManager:
   - Wolf
   - Karohth
   - ArrowWolf
+  - Boss
   layers:
   - Default
   - TransparentFX
