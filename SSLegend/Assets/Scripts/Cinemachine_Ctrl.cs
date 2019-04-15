@@ -100,6 +100,11 @@ public class Cinemachine_Ctrl : MonoBehaviour {
             PlayerCon.transform.position = new Vector3(14, 0, 1);
             DM.DeleteFile(Application.dataPath + "/Save", "Save.txt");
             DM.SaveFile(Application.dataPath + "/Save", "Save.txt");
+            PUI.BossHPUI.GetComponent<CanvasGroup>().alpha = 1;
+            PUI.BossGetHp();
+            PUI.GetInAniIsDone = true;
+            
+
             //PlayerCon.FatBearModel.SetActive(true);
             //--- ReInGame
         }

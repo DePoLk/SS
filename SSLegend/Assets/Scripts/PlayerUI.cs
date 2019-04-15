@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 using DG.Tweening;
 using DG.Tweening.Plugins.Options;
 using DataValue;
+using UnityEngine.SceneManagement;
 
 public class PlayerUI : MonoBehaviour {
 
@@ -42,6 +43,7 @@ public class PlayerUI : MonoBehaviour {
     UITextData UITextData;
     DataManger DM;
 
+    Scene ThisScene;
 
 
 
@@ -59,7 +61,7 @@ public class PlayerUI : MonoBehaviour {
     public bool ChangingItemUI = false;
     Exp_System ExpS;
     DataSystem DS;
-
+    Boss_Arubado BA;
 
 
     // UI ItemIcon
@@ -144,6 +146,10 @@ public class PlayerUI : MonoBehaviour {
         PlayerCon = FindObjectOfType<PlayerControl>();
         ExpS = FindObjectOfType<Exp_System>();
         DS = FindObjectOfType<DataSystem>();
+        ThisScene = SceneManager.GetActiveScene();
+        if (ThisScene.name.Equals("K")) {
+            BA = Boss.GetComponent<Boss_Arubado>();
+        }
 
         MaxHpText = GameObject.Find("MaxHpText").GetComponent<Text>();
         MaxAtkText = GameObject.Find("MaxAtkText").GetComponent<Text>();
@@ -217,9 +223,62 @@ public class PlayerUI : MonoBehaviour {
         MaxAtkText.text = PlayerCon.PlayerAtkValue.ToString();
         ExpStateText.text = PlayerCon.ExpPoint.ToString();
 
+        /*if (ThisScene.name.Equals("K") && GetInAniIsDone)
+        {
+            BossHpUI();
+
+        }*/
+
     }
 
+    [Header("BossHp")]   
+    public Image BossHPValue;
+    public GameObject BossHPUI;
+    public GameObject Boss;
 
+    public bool GetInAniIsDone = false;
+    bool IsBossHPUIAnimating = false;
+
+    float BossHP;
+    float BossHPUIFill = 0;
+
+    IEnumerator BossHPUIAnimation() {
+
+        for (int i = 0; i < 10; i++) {
+            BossHPValue.fillAmount -= 0.01f;
+            yield return new WaitForSeconds(0.005f);
+        }
+            
+        
+        
+    }
+
+    IEnumerator BossHPToOne() {
+
+        while (BossHPValue.fillAmount != 1) {
+
+            BossHPValue.fillAmount += 0.025f;
+
+            yield return new WaitForSeconds(0.00001f);
+        }
+        StopCoroutine("BossHPToOne");
+    }
+
+    public void BossGetHp() {
+        if (!GetInAniIsDone) {
+            StartCoroutine("BossHPToOne");
+        }
+    }
+
+    public void BossLoseHP() {
+        StartCoroutine("BossHPUIAnimation");
+    }
+
+    /*void BossHpUI() {
+        BossHP = BA.NewHP;
+        BossHPUIFill = BossHP/10;
+
+    }*/
 
 
     /// <summary>

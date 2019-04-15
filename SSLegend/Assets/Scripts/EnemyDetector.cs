@@ -15,6 +15,10 @@ public class EnemyDetector : MonoBehaviour {
     GameObject Player;
     GameObject DetectedObj;
     SpriteRenderer SR;
+    [Header("偵測到的敵人圖片")]
+    public Sprite[] EnemyImgArray;
+
+    Image TalkingEnemyImage;
 
 
     [Header("檢測有無")]
@@ -33,6 +37,12 @@ public class EnemyDetector : MonoBehaviour {
         "嘎! 嗚嗚!",
         "嘎! 嗚嗚嗚!"
     };
+    private string[] BossText = {
+         "轟! 隆!",
+        "轟! 隆隆!",
+        "轟! 隆隆隆!"
+    };
+
     private int TalkNum = 0;
 
 	// Use this for initialization
@@ -43,6 +53,7 @@ public class EnemyDetector : MonoBehaviour {
         EnemyTalkerImage = EnemyInfo.transform.GetChild(2).GetComponent<Image>();
         Player = GameObject.Find("Player");
         SR = this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        TalkingEnemyImage = GameObject.Find("EnemyTalker").GetComponent<Image>();
 	}
 	
 	// Update is called once per frame
@@ -80,16 +91,22 @@ public class EnemyDetector : MonoBehaviour {
 
         }
 
-        if (other.CompareTag("Wolf") || other.CompareTag("Karohth") || other.CompareTag("ArrowWolf")) {
+        if (other.CompareTag("Wolf") || other.CompareTag("Karohth") || other.CompareTag("ArrowWolf") || other.CompareTag("Boss")) {
             IsDetect = true;
             DetectedObj = other.gameObject;
             TalkNum = UnityEngine.Random.Range(0, 3);
 
             if (other.CompareTag("Wolf") || other.CompareTag("ArrowWolf")) {
                 SR.color = new Color32(198,59,60,255);
+                EnemyTalkerImage.sprite = EnemyImgArray[0];
             }
             if (other.CompareTag("Karohth")) {
                 SR.color = new Color32(68,245,128,255);
+                EnemyTalkerImage.sprite = EnemyImgArray[1];
+            }
+            if (other.CompareTag("Boss")) {
+                SR.color = new Color32(198, 59, 60, 255);
+                EnemyTalkerImage.sprite = EnemyImgArray[2];
             }
 
             if (IsCanPlay) {
@@ -106,6 +123,10 @@ public class EnemyDetector : MonoBehaviour {
         if (other.CompareTag("Karohth")) {
             EnemyTalkerName.text = "棉鼠";
             EnemyTalkText.text = KarohthText[TalkNum];
+        }
+        if (other.CompareTag("Boss")) {
+            EnemyTalkerName.text = "石巨人";
+            EnemyTalkText.text = BossText[TalkNum];
         }
 
 
