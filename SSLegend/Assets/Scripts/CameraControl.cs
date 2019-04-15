@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 
 
@@ -29,7 +30,16 @@ public class CameraControl : MonoBehaviour
     ColorGrading p_ColorGrading;
     DepthOfField p_depthOfField;
     private Cinemachine_Ctrl cinemachineCtrl;
-    
+    //SHAKE--
+    public float ShakeDuration = 0.3f;          // Time the Camera Shake effect will last
+    public float ShakeAmplitude = 1.2f;         // Cinemachine Noise Profile Parameter
+    public float ShakeFrequency = 2.0f;         // Cinemachine Noise Profile Parameter
+
+    private CinemachineBrain CB;
+    public CinemachineVirtualCamera[] VirtualCamera;
+    private CinemachineBasicMultiChannelPerlin[] virtualCameraNoise = {null, null, null, null, null, null, null };
+
+
 
     void Start()
     {
@@ -39,14 +49,14 @@ public class CameraControl : MonoBehaviour
         pp_Volume.profile.TryGetSettings(out p_ColorGrading);
         pp_Volume.profile.TryGetSettings(out p_depthOfField);
         cinemachineCtrl = FindObjectOfType<Cinemachine_Ctrl>();
-        if (SceneManager.GetActiveScene().buildIndex == 2)
-        {
-            offset = new Vector3(7.5f, 9.0f, 0.5f);
+        CB = GetComponent<CinemachineBrain>();
+        for (int i = 0; i < VirtualCamera.Length; i++) {
+            if (VirtualCamera[i] != null)
+                virtualCameraNoise[i] = VirtualCamera[i].GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
+
         }
-        else
-        {
-            offset = new Vector3(1.5f, 4.1f, 2.5f);
-        }
+
+
     }
 
     // Update is called once per frame
@@ -91,7 +101,7 @@ public class CameraControl : MonoBehaviour
     {
         if (!Shaked)
         {
-            StartCoroutine(CameraShake(0.05f, 0.1f));
+           // StartCoroutine(CameraShake(ShakeDuration, ShakeAmplitude, ShakeFrequency));
         }
         float a = p_Vignette.intensity.value;
         /*if (a < 0.5f)
@@ -116,7 +126,7 @@ public class CameraControl : MonoBehaviour
         //--shake screen
         if (!Shaked)
         {
-            StartCoroutine(CameraShake(0.05f, 0.1f));
+            //StartCoroutine(CameraShake(ShakeDuration, ShakeAmplitude, ShakeFrequency));
             float a = p_Vignette.intensity.value;
             a = 0.5f;
             p_Vignette.intensity.value = a;
@@ -203,26 +213,139 @@ public class CameraControl : MonoBehaviour
         p_Vignette.intensity.value = a;
     }
     
-    IEnumerator CameraShake(float duration, float magnitude)
+    IEnumerator CameraShake(float Duration, float Amplitude,float Frequency)
     {
-        Vector3 originalPos = transform.localPosition;
-        float elapsed = 0.0f;
-        while (elapsed < duration)
+
+        if (CB.ActiveVirtualCamera.Name.Equals("CM main"))
         {
-            float x = originalPos.x + Random.Range(-1f, 1f) * magnitude;
-            float y = originalPos.y + Random.Range(-1f, 1f) * magnitude;
-            float z = originalPos.z + Random.Range(-1f, 1f) * magnitude;
-            transform.localPosition = new Vector3(x, y, z);
-            elapsed += Time.deltaTime;
+            if (VirtualCamera[0] != null && virtualCameraNoise[0] != null)
+            {
+                //Set  
+                virtualCameraNoise[0] = VirtualCamera[0].GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+                // Set Cinemachine Camera Noise parameters
+                virtualCameraNoise[0].m_AmplitudeGain = Amplitude;
+                virtualCameraNoise[0].m_FrequencyGain = Frequency;
+                yield return new WaitForSeconds(Duration);
 
-            yield return null;
+                // If Camera Shake effect is over, reset variables
+                virtualCameraNoise[0].m_AmplitudeGain = 0f;
 
+
+            }
         }
-        transform.localPosition = originalPos;
-        Shaked = true;
+
+        if (CB.ActiveVirtualCamera.Name.Equals("CM track1"))
+        {
+            if (VirtualCamera[1] != null && virtualCameraNoise[1] != null)
+            {
+                //Set  
+                virtualCameraNoise[1] = VirtualCamera[1].GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+                // Set Cinemachine Camera Noise parameters
+                virtualCameraNoise[1].m_AmplitudeGain = Amplitude;
+                virtualCameraNoise[1].m_FrequencyGain = Frequency;
+                yield return new WaitForSeconds(Duration);
+
+                // If Camera Shake effect is over, reset variables
+                virtualCameraNoise[1].m_AmplitudeGain = 0f;
+
+
+            }
+        }
+
+        if (CB.ActiveVirtualCamera.Name.Equals("CM dollytrack2"))
+        {
+            if (VirtualCamera[2] != null && virtualCameraNoise[2] != null)
+            {
+                //Set  
+                virtualCameraNoise[2] = VirtualCamera[2].GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+                // Set Cinemachine Camera Noise parameters
+                virtualCameraNoise[2].m_AmplitudeGain = Amplitude;
+                virtualCameraNoise[2].m_FrequencyGain = Frequency;
+                yield return new WaitForSeconds(Duration);
+
+                // If Camera Shake effect is over, reset variables
+                virtualCameraNoise[2].m_AmplitudeGain = 0f;
+
+
+            }
+        }
+
+        if (CB.ActiveVirtualCamera.Name.Equals("CM dollytrack3"))
+        {
+            if (VirtualCamera[3] != null && virtualCameraNoise[3] != null)
+            {
+                //Set  
+                virtualCameraNoise[3] = VirtualCamera[3].GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+                // Set Cinemachine 3amera Noise parameters
+                virtualCameraNoise[3].m_AmplitudeGain = Amplitude;
+                virtualCameraNoise[3].m_FrequencyGain = Frequency;
+                yield return new WaitForSeconds(Duration);
+
+                // If Camera Shake effect is over, reset variables
+                virtualCameraNoise[3].m_AmplitudeGain = 0f;
+
+
+            }
+        }
+
+        if (CB.ActiveVirtualCamera.Name.Equals("CM track4"))
+        {
+            if (VirtualCamera[4] != null && virtualCameraNoise[4] != null)
+            {
+                //Set  
+                virtualCameraNoise[4] = VirtualCamera[4].GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+                // Set Cinemachine Camera Noise parameters
+                virtualCameraNoise[4].m_AmplitudeGain = Amplitude;
+                virtualCameraNoise[4].m_FrequencyGain = Frequency;
+                yield return new WaitForSeconds(Duration);
+
+                // If Camera Shake effect is over, reset variables
+                virtualCameraNoise[4].m_AmplitudeGain = 0f;
+
+
+            }
+        }
+
+        if (CB.ActiveVirtualCamera.Name.Equals("CM track5"))
+        {
+            if (VirtualCamera[5] != null && virtualCameraNoise[5] != null)
+            {
+                //Set  
+                virtualCameraNoise[5] = VirtualCamera[5].GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+                // Set Cinemachine Camera Noise parameters
+                virtualCameraNoise[5].m_AmplitudeGain = Amplitude;
+                virtualCameraNoise[5].m_FrequencyGain = Frequency;
+                yield return new WaitForSeconds(Duration);
+
+                // If Camera Shake effect is over, reset variables
+                virtualCameraNoise[5].m_AmplitudeGain = 0f;
+
+
+            }
+        }
+
+        if (CB.ActiveVirtualCamera.Name.Equals("CM dollytrack6"))
+        {
+            if (VirtualCamera[6] != null && virtualCameraNoise[6] != null)
+            {
+                //Set  
+                virtualCameraNoise[6] = VirtualCamera[6].GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+                // Set Cinemachine Camera Noise parameters
+                virtualCameraNoise[6].m_AmplitudeGain = Amplitude;
+                virtualCameraNoise[6].m_FrequencyGain = Frequency;
+                yield return new WaitForSeconds(Duration);
+
+                // If Camera Shake effect is over, reset variables
+                virtualCameraNoise[6].m_AmplitudeGain = 0f;
+
+
+            }
+        }
+
+        
     }
     public void shake() {
-        StartCoroutine(CameraShake(0.05f, 0.5f));
+        StartCoroutine(CameraShake(ShakeDuration,ShakeAmplitude,ShakeFrequency));
     }
 
     

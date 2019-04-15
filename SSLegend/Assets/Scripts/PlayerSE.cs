@@ -78,4 +78,8 @@ public class PlayerSE : MonoBehaviour {
         SE.PlayOneShot(DieSE);
         BGM.ChangeToDeath();
     }
+
+    public void Cutton_SE() {
+        SE.PlayOneShot(ExpSE);
+    }
 }

@@ -18,6 +18,8 @@ public class Cutton : MonoBehaviour
     GameObject PlayerObj;
     PlayerControl PlayerCon;
     PlayerUI PUI;
+    Material bear_mat;
+    PlayerSE PSE;
 
     float smoothSpeed = 0.1f;
     float dis;
@@ -31,10 +33,12 @@ public class Cutton : MonoBehaviour
     void Start()
     {
         CreateCutton();
+        PSE = FindObjectOfType<PlayerSE>();
         PlayerCon = FindObjectOfType<PlayerControl>();
         PlayerObj = GameObject.Find("Player");
         PUI = FindObjectOfType<PlayerUI>();
         Ani_Time = Default_Time;
+        bear_mat = Resources.Load("Bear", typeof(Material)) as Material;
     }
 
     // Update is called once per frame
@@ -88,18 +92,22 @@ public class Cutton : MonoBehaviour
 
             if (Vector3.Distance(PlayerCon.transform.position, this.transform.position) < 1.5f)
             {
+                
                 if (PlayerCon.Hp < PlayerCon.MaxHp)
                 {
                     PlayerCon.Hp += 1;
+                    
                 }
                 else{
                     PlayerCon.Hp = PlayerCon.MaxHp;
                 }
+                
                 //SE.IsExpPick++;
                 PUI.CottonHPArray[PlayerCon.Hp].SetActive(true);
                 PUI.CottonHPArray[PlayerCon.Hp].GetComponent<Image>().DOFade(1, 0.25f);
 
-                Destroy(gameObject);
+                StartCoroutine("Flash");
+                //Destroy(gameObject);
             }
         }
         else
@@ -125,6 +133,16 @@ public class Cutton : MonoBehaviour
         this.GetComponent<Rigidbody>().AddForce(Vector3.up * floatingForce);    
     }
 
-    
+    private IEnumerator Flash()
+    {
+        PSE.Cutton_SE();
+        bear_mat.shader = Shader.Find("Custom/FlashLight_Health");
+        bear_mat.SetColor("_Color",new Color32(170,250,200,255));
+        yield return new WaitForSeconds(0.075f);
+        bear_mat.shader = Shader.Find("Custom/PlayerDiffuse");
+        bear_mat.SetColor("_Color", Color.white);
+        Destroy(gameObject);
+
+    }
 
 }
