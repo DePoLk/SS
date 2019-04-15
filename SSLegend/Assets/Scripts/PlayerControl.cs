@@ -113,6 +113,7 @@ public class PlayerControl : MonoBehaviour {
     WaterValueChange WVC;
     BillBoard BB;
     CameraControl CC;
+    Cinemachine_Ctrl Cinemachine_C;
     BGMManager BGMM;
     PlayerSE PSE;
     CamTrigger CT;
@@ -459,6 +460,8 @@ public class PlayerControl : MonoBehaviour {
             DeadBlockSight.transform.GetChild(1).GetComponent<Text>().DOFade(0, 1.5f);*/
             BGMM.ChangeToForest();
             PSE.SE.mute = false;
+            CT.Recover_Cine();
+            NowCamTrack.Equals("CM main");
             StopCoroutine("LoadGameLastCheckPoint");
         }//在這裡撰寫玩家死亡時的行動
     }
@@ -620,6 +623,14 @@ public class PlayerControl : MonoBehaviour {
         {
             BearModel.transform.eulerAngles = new Vector3(0,-60,0);
             FatBearModel.transform.eulerAngles = new Vector3(0, -60, 0);
+            Hp = 3;
+            PUI.MaxHP = 3;
+            ExpPoint = 100;
+            WaterElement = 10;
+            WindElement = 3;
+            this.transform.position = new Vector3(16.76f,10.8f,4.53f);
+            Data_Manger.DeleteFile(Application.dataPath + "/Save", "Save.txt");
+            Data_Manger.SaveFile(Application.dataPath + "/Save", "Save.txt");
         }
         else if (ThisScene.name.Equals("K")) {
             BearModel.transform.eulerAngles = new Vector3(0, -10, 0);
@@ -627,6 +638,8 @@ public class PlayerControl : MonoBehaviour {
             this.gameObject.transform.position = new Vector3(75, 0, 0);
             DefaultSpeed = -3;
             speed = -3;
+            Data_Manger.DeleteFile(Application.dataPath + "/Save", "Save.txt");
+            Data_Manger.SaveFile(Application.dataPath + "/Save", "Save.txt");
         }
 
     }
@@ -1069,5 +1082,5 @@ public class PlayerControl : MonoBehaviour {
         
 
     }// handle bug situation
-
+    
 }

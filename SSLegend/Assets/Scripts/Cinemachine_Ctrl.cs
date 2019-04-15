@@ -62,8 +62,10 @@ public class Cinemachine_Ctrl : MonoBehaviour {
             CinemachineUI.SetActive(true);
 
             PlayerCon.IsInCinema = true;
-            PlayerCon.gameObject.transform.localScale = new Vector3(0, 0, 0);
-
+            //PlayerCon.gameObject.transform.localScale = new Vector3(0, 0, 0);
+            PlayerCon.BearModel.SetActive(false);
+            PlayerCon.FatBearModel.SetActive(false);          
+            PUI.gameObject.SetActive(false);
             Dead.Play();
             Endtimes += 1;
 
@@ -87,7 +89,8 @@ public class Cinemachine_Ctrl : MonoBehaviour {
             PlayerCon.IsInCinema = false;
             MainCam.transform.eulerAngles = new Vector3(40,-90,0);
             Boss.SetActive(true);
-            PlayerCon.gameObject.transform.localScale = new Vector3(15, 15, 15);
+            PlayerCon.BearModel.SetActive(true);
+            //PlayerCon.FatBearModel.SetActive(true);
             //--- ReInGame
         }
 
@@ -101,6 +104,10 @@ public class Cinemachine_Ctrl : MonoBehaviour {
         }
 
     }
-   
-   
+    public void Recover_Cine()
+    {
+       
+    }
+
+
 }

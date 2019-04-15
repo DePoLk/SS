@@ -46,7 +46,10 @@ public class AnimationTrigger : MonoBehaviour {
             PUI.gameObject.transform.GetChild(0).GetComponent<CanvasGroup>().alpha = 0;
             PlayerCon.IsInCinema = true;
             BGMM.ChangeToBoss();
-            player.transform.localScale = new Vector3(0, 0, 0);
+            //player.transform.localScale = new Vector3(0, 0, 0);
+            player.GetComponent<PlayerControl>().BearModel.SetActive(false);
+            player.GetComponent<PlayerControl>().FatBearModel.SetActive(false);
+
         }
     }
 }

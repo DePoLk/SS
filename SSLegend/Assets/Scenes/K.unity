@@ -903,7 +903,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1861451299283348, guid: 01d379c53e307f2429f7b9f0fb28abb3, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01d379c53e307f2429f7b9f0fb28abb3, type: 2}
@@ -7538,11 +7538,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4048003939959998, guid: f3009a357399f5941a7d88ba089e2020, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 9.92
+      value: 8.78
       objectReference: {fileID: 0}
     - target: {fileID: 4048003939959998, guid: f3009a357399f5941a7d88ba089e2020, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 10.75
+      value: 11.03
       objectReference: {fileID: 0}
     - target: {fileID: 4048003939959998, guid: f3009a357399f5941a7d88ba089e2020, type: 2}
       propertyPath: m_LocalRotation.x
@@ -15057,7 +15057,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  m_CustomBlends: {fileID: 0}
+  m_CustomBlends: {fileID: 11400000, guid: 54496cb078007f04e9e8e06cce219494, type: 2}
   m_CameraCutEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -15273,6 +15273,7 @@ MonoBehaviour:
   - {fileID: 413485287}
   - {fileID: 13828061}
   - {fileID: 1645867358}
+  - {fileID: 2024641827}
   DeathObject:
   - {fileID: 1427108959}
   - {fileID: 875795631}

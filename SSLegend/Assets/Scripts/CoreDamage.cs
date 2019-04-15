@@ -14,6 +14,7 @@ public class CoreDamage : MonoBehaviour {
         BA = FindObjectOfType<Boss_Arubado>();
         BAF = FindObjectOfType<Boss_ArubadoEffect>();
         Debug.Log(BA.NewHP);
+        core_mat.shader = Shader.Find("Standard (Roughness setup)");
         shader_m = core_mat.shader;
     }
 	

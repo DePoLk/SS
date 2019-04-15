@@ -103,5 +103,15 @@ public class CamTrigger : MonoBehaviour
 
     }
 
+    public void Recover_Cine()
+    {
+        foreach (CinemachineVirtualCameraBase trackCam in cam)
+        {
+            trackCam.VirtualCameraGameObject.SetActive(false);
+
+        }
+        cam[0].VirtualCameraGameObject.SetActive(true);
+    }
+
 
 }
