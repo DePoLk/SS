@@ -223,11 +223,16 @@ public class PlayerUI : MonoBehaviour {
         MaxAtkText.text = PlayerCon.PlayerAtkValue.ToString();
         ExpStateText.text = PlayerCon.ExpPoint.ToString();
 
-        /*if (ThisScene.name.Equals("K") && GetInAniIsDone)
-        {
-            BossHpUI();
-
-        }*/
+        if (ThisScene.name.Equals("K")) {
+            if (PlayerCon.IsDead)
+            {
+                BossHPUI.GetComponent<CanvasGroup>().DOFade(0, 0);
+            }
+            else if (!PlayerCon.IsDead && GetInAniIsDone)
+            {
+                BossHPUI.GetComponent<CanvasGroup>().DOFade(1, 0.5f).SetDelay(3.5f);
+            }
+        }
 
     }
 
@@ -244,7 +249,7 @@ public class PlayerUI : MonoBehaviour {
 
     IEnumerator BossHPUIAnimation() {
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20; i++) {
             BossHPValue.fillAmount -= 0.01f;
             yield return new WaitForSeconds(0.005f);
         }

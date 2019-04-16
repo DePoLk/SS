@@ -126,8 +126,8 @@ public class AnimationFunction : MonoBehaviour {
     }
 
     public void LookatGiveStrikeObj() {
-        //Player.transform.rotation = Quaternion.Slerp(transform.rotation,PlayerCon.TheObjGiveStrike.transform.rotation,Time.deltaTime*25f);
-        Player.transform.DOLocalRotate(new Vector3(PlayerCon.TheObjGiveStrike.transform.position.x, PlayerCon.TheObjGiveStrike.transform.position.y, PlayerCon.TheObjGiveStrike.transform.position.z),1f);
+        Player.transform.rotation = Quaternion.Slerp(transform.rotation,PlayerCon.TheObjGiveStrike.transform.rotation,Time.deltaTime*25f);
+        //Player.transform.DOLocalRotate(new Vector3(PlayerCon.TheObjGiveStrike.transform.position.x, PlayerCon.TheObjGiveStrike.transform.position.y, PlayerCon.TheObjGiveStrike.transform.position.z),1f);
         PlayerCon.IsDrinking = false;
         PlayerCon.StopCoroutine("DelayIsFat");
     }//被扁時看向受擊面

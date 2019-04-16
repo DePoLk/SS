@@ -115,7 +115,7 @@ public class EnemyDetector : MonoBehaviour {
 
         }     
 
-        if (other.CompareTag("Wolf")) {
+        if (other.CompareTag("Wolf") || other.CompareTag("ArrowWolf")) {
             EnemyTalkerName.text = "削狼";
             EnemyTalkText.text = WolfText[TalkNum];
         }

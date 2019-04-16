@@ -438,6 +438,7 @@ public class PlayerControl : MonoBehaviour {
          DeadBlockSight.transform.GetChild(1).GetComponent<Text>().DOFade(1, 1.5f);*/       
         DeadBlockSight.GetComponent<CanvasGroup>().DOFade(1, 1.5f);
         IsInCinema = true;
+        BA.Restart_Pause = true;
         yield return new WaitForSeconds(3f);
 
         if ((Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.K)))
@@ -459,6 +460,7 @@ public class PlayerControl : MonoBehaviour {
             yield return new WaitForSeconds(3f);
             DeadBlockSight.GetComponent<CanvasGroup>().DOFade(0, 1.5f);
             IsInCinema = false;
+            BA.Restart_Pause = false;
             /*DeadBlockSight.GetComponent<Image>().DOFade(0, 1.5f);
             DeadBlockSight.transform.GetChild(0).GetComponent<Text>().DOFade(0, 1.5f);
             DeadBlockSight.transform.GetChild(1).GetComponent<Text>().DOFade(0, 1.5f);*/
@@ -491,7 +493,17 @@ public class PlayerControl : MonoBehaviour {
         WaterElement = int.Parse(Data_Manger.InfoAll[3].ToString());
         WindElement = int.Parse(Data_Manger.InfoAll[4].ToString());
         //讀取位置
-        this.transform.position = new Vector3(float.Parse(Data_Manger.InfoAll[5].ToString()), float.Parse(Data_Manger.InfoAll[6].ToString()), float.Parse(Data_Manger.InfoAll[7].ToString()));
+
+
+        if (ThisScene.name.Equals("K"))
+        {
+            this.gameObject.transform.position = GameObject.Find("RespawnPoint").transform.position;
+        }
+        else {
+            this.transform.position = new Vector3(float.Parse(Data_Manger.InfoAll[5].ToString()), float.Parse(Data_Manger.InfoAll[6].ToString()), float.Parse(Data_Manger.InfoAll[7].ToString()));
+        }
+
+
         //讀取位置
 
         //讀取ExpSystem
@@ -511,6 +523,7 @@ public class PlayerControl : MonoBehaviour {
         if (Hp <= 0)
         {
             IsDead = true;
+            CC.Shaked = true;
             Player_Animator.SetBool("PlayerDead", true);
             WVC.IsLosingWater = false;
             PUI.transform.GetChild(0).GetComponent<CanvasGroup>().DOFade(0, 0.5f);
@@ -526,9 +539,18 @@ public class PlayerControl : MonoBehaviour {
     }
 
     void CheatCode() {
-        if (Input.GetKeyDown(KeyCode.C) && Input.GetKeyDown(KeyCode.U) && Input.GetKeyDown(KeyCode.N)) {
+        if (ThisScene.name.Equals("2-1") && Input.GetKeyDown(KeyCode.C) && Input.GetKeyDown(KeyCode.U) && Input.GetKeyDown(KeyCode.N)) {
             this.gameObject.transform.position = GameObject.Find("FastPoint").transform.position;
         }
+
+        if (ThisScene.name.Equals("2-1") && Input.GetKeyDown(KeyCode.O) && Input.GetKeyDown(KeyCode.P)) {
+            this.gameObject.transform.position = GameObject.Find("RePosPoint").transform.position;
+        }
+        if (ThisScene.name.Equals("K") && Input.GetKeyDown(KeyCode.O) && Input.GetKeyDown(KeyCode.P))
+        {
+            this.gameObject.transform.position = GameObject.Find("RePosPoint").transform.position;
+        }
+
     }
 
     void Ani_Time() {

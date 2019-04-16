@@ -19,6 +19,7 @@ public class Boss_Arubado : MonoBehaviour
     public GameObject Normal_AtkBox;
     public GameObject Slash_AtkBox;
     public GameObject WallTrigger;
+    public bool Restart_Pause = false;
     private Vector3 pos;
     private Magic_Atk MA;
     private bool TopAtking = false;
@@ -52,11 +53,11 @@ public class Boss_Arubado : MonoBehaviour
         Debug.Log(Down);
         Debug.Log(GC.OnTop);
         //Debug.Log(TC.OnTop);                             
-        if (IsLook == false && Atking == false && Down == false && GC.OnTop == false)
+        if (IsLook == false && Atking == false && Down == false && GC.OnTop == false&& Restart_Pause == false)
         {
             StartCoroutine("FaceEnemy");
         }
-        if (Vector3.Distance(player.position, this.transform.position) < 30 && IsLook == true && Atking == false && OnGround == true && TopAtking == false && Down == false)
+        if (Vector3.Distance(player.position, this.transform.position) < 30 && IsLook == true && Atking == false && OnGround == true && TopAtking == false && Down == false && Restart_Pause == false)
         {
             Vector3 direction = player.position - this.transform.position;
             direction.y = 0;
@@ -125,12 +126,12 @@ public class Boss_Arubado : MonoBehaviour
         //Addforce
         if (Smash_Force == true)
         {
-            this.GetComponent<Rigidbody>().AddForce(transform.forward * 10000);
+            this.GetComponent<Rigidbody>().AddForce(transform.forward * 12000);
         }
         //ForceResistance
         if (resistance == true)
         {
-            this.GetComponent<Rigidbody>().AddForce(transform.forward * 3500);
+            this.GetComponent<Rigidbody>().AddForce(transform.forward * 5000);
         }
         if (NewHP <= 0) {
             Dead();

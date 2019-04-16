@@ -13,6 +13,7 @@ public class LoadingControl : MonoBehaviour {
     float alpha = 1;
     float alpha_loading = 0;
     public bool isLoading = false;
+    int count=0;
     // Use this for initialization
     void Start () {
         Fade.SetActive(true);
@@ -39,10 +40,13 @@ public class LoadingControl : MonoBehaviour {
     }
 
     public void ChangeScene() {
-        if (SceneManager.GetActiveScene().buildIndex == 0) {
+        if (SceneManager.GetActiveScene().buildIndex == 0 && count==0) {
+            count++;
             StartCoroutine(DisplayLoading(1));
-        } else if (SceneManager.GetActiveScene().buildIndex == 1) {
+        } else if (SceneManager.GetActiveScene().buildIndex == 1 && count == 0) {
+            count++;
             StartCoroutine(DisplayLoading(2));
+            
         }
         
     }
