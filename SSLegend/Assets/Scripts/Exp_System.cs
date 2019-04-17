@@ -110,7 +110,8 @@ public class Exp_System : MonoBehaviour {
 
     IEnumerator UpMaxHpExpMinus() {
         PlayerCon.MaxHp++;
-
+        PlayerCon.Hp += 1;
+        PUI.CottonHPArray[PlayerCon.Hp].GetComponent<Image>().DOFade(1, 0.5f).SetUpdate(true);
         //PUI.CottonBGArray[PlayerCon.MaxHp].SetActive(true);
         Debug.Log("yolo");
         PUI.CottonBGArray[PlayerCon.MaxHp].GetComponent<Image>().DOFade(1f, 0).SetUpdate(true);
