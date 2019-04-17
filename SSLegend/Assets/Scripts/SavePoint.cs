@@ -65,6 +65,10 @@ public class SavePoint : MonoBehaviour {
         {
             PlayerCon.Hp = PlayerCon.MaxHp;
 
+            for (int i = 1; i <= PlayerCon.Hp; i++) {
+                PUI.CottonHPArray[i].GetComponent<Image>().DOFade(1, 0f).SetUpdate(true);
+            }
+
             if (!DefaultSelect) {
                 SaveGameBtn.Select();
                 DefaultSelect = true;

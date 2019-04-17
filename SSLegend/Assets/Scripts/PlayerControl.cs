@@ -462,7 +462,7 @@ public class PlayerControl : MonoBehaviour {
                 for (int i = 1; i < MaxHp; i++)
                 {
                     if (Hp < MaxHp) {
-                        Hp = MaxHp;
+                        Hp += 1;
                     }
                     PUI.CottonHPArray[Hp].GetComponent<Image>().DOFade(1, 0f);
                     Debug.Log("+HPByReLoad");
@@ -542,7 +542,9 @@ public class PlayerControl : MonoBehaviour {
             CC.Shaked = true;
             Player_Animator.SetBool("PlayerDead", true);
             WVC.IsLosingWater = false;
-            BA.Restart_Pause = true;
+            if (ThisScene.name.Equals("K")) {
+                BA.Restart_Pause = true;
+            }
             PUI.transform.GetChild(0).GetComponent<CanvasGroup>().DOFade(0, 0.5f);
             if (IsDead)
             {
