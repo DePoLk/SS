@@ -436,10 +436,10 @@ public class PlayerControl : MonoBehaviour {
          DeadBlockSight.transform.GetChild(0).GetComponent<Text>().DOFade(1, 1.5f);
          DeadBlockSight.transform.GetChild(1).GetComponent<Text>().color = new Color(255, 255, 255, 1);
          DeadBlockSight.transform.GetChild(1).GetComponent<Text>().DOFade(1, 1.5f);*/       
-        DeadBlockSight.GetComponent<CanvasGroup>().DOFade(1, 1.5f);
-        IsInCinema = true;
+        DeadBlockSight.GetComponent<CanvasGroup>().DOFade(1, 0.5f);
+        //IsInCinema = true;
 
-        yield return new WaitForSeconds(3f);
+        yield return new  WaitForSecondsRealtime(3f);
 
         if ((Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.K)))
         {
@@ -457,21 +457,34 @@ public class PlayerControl : MonoBehaviour {
             DeadBlockSight.transform.GetChild(1).GetComponent<Text>().color = new Color(255,255,255,1);
             BGMM.cam_audi.Stop();
             PSE.SE.mute = true;
-            yield return new WaitForSeconds(3f);
-            DeadBlockSight.GetComponent<CanvasGroup>().DOFade(0, 1.5f);
-            IsInCinema = false;
+            
             if (ThisScene.name.Equals("K")) {
-                BA.Restart_Pause = false;
+                for (int i = 1; i < MaxHp; i++)
+                {
+                    if (Hp < MaxHp) {
+                        Hp = MaxHp;
+                    }
+                    PUI.CottonHPArray[Hp].GetComponent<Image>().DOFade(1, 0f);
+                    Debug.Log("+HPByReLoad");
+                }
             }
-            /*DeadBlockSight.GetComponent<Image>().DOFade(0, 1.5f);
-            DeadBlockSight.transform.GetChild(0).GetComponent<Text>().DOFade(0, 1.5f);
-            DeadBlockSight.transform.GetChild(1).GetComponent<Text>().DOFade(0, 1.5f);*/
+
+
+
+
+            
+            
+
+
+            yield return new WaitForSecondsRealtime(2f);
+            DeadBlockSight.GetComponent<CanvasGroup>().DOFade(0, 0.5f);
 
             if (ThisScene.name.Equals("2-1")) {
                 BGMM.ChangeToForest();
             }
             if (ThisScene.name.Equals("K")) {
                 BGMM.ChangeToBoss();
+                BA.Restart_Pause = false;
             }
 
             PSE.SE.mute = false;
@@ -489,6 +502,7 @@ public class PlayerControl : MonoBehaviour {
         IsDead = false;
         IsFat = false;
         IsFating = false;
+        //IsInCinema = false;
         CurrentModelChange(0);
         ExpPoint = int.Parse(Data_Manger.InfoAll[2].ToString());//一開始讀取文檔中的數值
         Hp = int.Parse(Data_Manger.InfoAll[0].ToString());
@@ -528,6 +542,7 @@ public class PlayerControl : MonoBehaviour {
             CC.Shaked = true;
             Player_Animator.SetBool("PlayerDead", true);
             WVC.IsLosingWater = false;
+            BA.Restart_Pause = true;
             PUI.transform.GetChild(0).GetComponent<CanvasGroup>().DOFade(0, 0.5f);
             if (IsDead)
             {
@@ -551,6 +566,15 @@ public class PlayerControl : MonoBehaviour {
         if (ThisScene.name.Equals("K") && Input.GetKeyDown(KeyCode.O) && Input.GetKeyDown(KeyCode.P))
         {
             this.gameObject.transform.position = GameObject.Find("RePosPoint").transform.position;
+        }
+        if (ThisScene.name.Equals("K") && Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.P))
+        {
+            
+            for (int i = 1; i < MaxHp; i++) {
+                Hp += 1;
+                PUI.CottonHPArray[Hp].GetComponent<Image>().DOFade(1, 0f);
+                Debug.Log("+Hp By Cheat");
+            }
         }
 
     }
