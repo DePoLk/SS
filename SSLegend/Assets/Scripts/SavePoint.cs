@@ -63,6 +63,7 @@ public class SavePoint : MonoBehaviour {
     {
         if (IsSavePointOpened)
         {
+            PlayerCon.Hp = PlayerCon.MaxHp;
 
             if (!DefaultSelect) {
                 SaveGameBtn.Select();

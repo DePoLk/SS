@@ -19,6 +19,7 @@ public class LoadingControl : MonoBehaviour {
         Fade.SetActive(true);
         bearIcon.SetActive(false);
         bearIconEdge.SetActive(false);
+        Time.timeScale=1;
 	}
 	
 	// Update is called once per frame
@@ -38,7 +39,9 @@ public class LoadingControl : MonoBehaviour {
         }
         
     }
-
+    public void BackToMenu() {
+        StartCoroutine(DisplayLoading(0));
+    }
     public void ChangeScene() {
         if (SceneManager.GetActiveScene().buildIndex == 0 && count==0) {
             count++;
@@ -53,13 +56,13 @@ public class LoadingControl : MonoBehaviour {
 
 
     IEnumerator DisplayLoading(int i){
-        
-        
+       
+        Debug.Log("before yield");
         AsyncOperation async = SceneManager.LoadSceneAsync(i);
         async.allowSceneActivation = false;
         isLoading = true;
-        yield return new WaitForSeconds(5);
-        
+        yield return new WaitForSecondsRealtime(8);
+        Debug.Log("After yield");
 
         ScaleStatus = 1.0f;
         Switch = false;

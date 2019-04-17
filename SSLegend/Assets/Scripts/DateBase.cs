@@ -15,4 +15,6 @@ namespace DataValue
     class UIInfoWindowValue {
         public static int UITextSearchIndex = 3;
     }
+
+    
 }

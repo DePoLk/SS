@@ -109,4 +109,16 @@ public class MainMenuControl : MonoBehaviour {
         Load.ChangeScene();
     }
 
+    public void LoadGameClick() {
+
+    }
+
+    public void OptionClick() {
+
+    }
+
+    public void ExitClick() {
+        Application.Quit();
+    }
+
 }

@@ -42,6 +42,7 @@ public class PlayerUI : MonoBehaviour {
     SavePoint SavePoint;
     UITextData UITextData;
     DataManger DM;
+    LoadingControl LD;
 
     Scene ThisScene;
 
@@ -146,6 +147,7 @@ public class PlayerUI : MonoBehaviour {
         PlayerCon = FindObjectOfType<PlayerControl>();
         ExpS = FindObjectOfType<Exp_System>();
         DS = FindObjectOfType<DataSystem>();
+        LD = FindObjectOfType<LoadingControl>();
         ThisScene = SceneManager.GetActiveScene();
         if (ThisScene.name.Equals("K")) {
             BA = Boss.GetComponent<Boss_Arubado>();
@@ -1060,7 +1062,9 @@ public class PlayerUI : MonoBehaviour {
         SoundSlider.interactable = true;
     }
 
-    public void EscMainMenuClick() { }
+    public void EscMainMenuClick() {
+        LD.BackToMenu();
+    }
 
     public void SystemBackClick() {
         SystemIsOpen = false;

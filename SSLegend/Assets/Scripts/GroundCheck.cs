@@ -30,6 +30,8 @@ public class GroundCheck : MonoBehaviour {
             PlayerGO.GetComponent<Animator>().SetBool("PlayerIsInAir", false);
             PlayerCon.IsJumping = false;
 
+           
+
         }
         else {
             PlayerGO.GetComponent<Animator>().SetBool("PlayerIsGround", false);
