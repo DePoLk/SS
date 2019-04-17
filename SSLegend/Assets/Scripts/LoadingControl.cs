@@ -38,7 +38,9 @@ public class LoadingControl : MonoBehaviour {
         }
         
     }
-
+    public void BackToMenu(){
+        StartCoroutine(DisplayLoading(0));
+    }
     public void ChangeScene() {
         if (SceneManager.GetActiveScene().buildIndex == 0 && count==0) {
             count++;

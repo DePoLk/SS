@@ -94,6 +94,7 @@ public class PlayerUI : MonoBehaviour {
 
     GameObject LastSelect;
 
+    LoadingControl LC;
 
     // Esc Menu
 
@@ -147,6 +148,7 @@ public class PlayerUI : MonoBehaviour {
         ExpS = FindObjectOfType<Exp_System>();
         DS = FindObjectOfType<DataSystem>();
         ThisScene = SceneManager.GetActiveScene();
+        LC = FindObjectOfType<LoadingControl>();
         if (ThisScene.name.Equals("K")) {
             BA = Boss.GetComponent<Boss_Arubado>();
         }
@@ -1060,7 +1062,12 @@ public class PlayerUI : MonoBehaviour {
         SoundSlider.interactable = true;
     }
 
-    public void EscMainMenuClick() { }
+    public void EscMainMenuClick() {
+
+        // LC.BackToMenu();
+        SceneManager.LoadScene(0);
+
+    }
 
     public void SystemBackClick() {
         SystemIsOpen = false;
