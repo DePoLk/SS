@@ -104,7 +104,7 @@ public class PlayerControl : MonoBehaviour {
     public GameObject DeadBlockSight;
     Tweener DBS;
 
-    private Boss_Arubado BA; // Boss一開始被SET FALSE 會出現讀取錯誤
+    public Boss_Arubado BA; // Boss一開始被SET FALSE 會出現讀取錯誤
 
     public Animator Player_Animator;
     DataManger Data_Manger;
@@ -158,7 +158,7 @@ public class PlayerControl : MonoBehaviour {
         CB = FindObjectOfType<CinemachineBrain>();
         CT = FindObjectOfType<CamTrigger>();
 
-        BA = FindObjectOfType<Boss_Arubado>();
+        
 
         ThisScene = SceneManager.GetActiveScene();
 
@@ -438,7 +438,7 @@ public class PlayerControl : MonoBehaviour {
          DeadBlockSight.transform.GetChild(1).GetComponent<Text>().DOFade(1, 1.5f);*/       
         DeadBlockSight.GetComponent<CanvasGroup>().DOFade(1, 1.5f);
         IsInCinema = true;
-        BA.Restart_Pause = true;
+
         yield return new WaitForSeconds(3f);
 
         if ((Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.K)))
@@ -460,7 +460,9 @@ public class PlayerControl : MonoBehaviour {
             yield return new WaitForSeconds(3f);
             DeadBlockSight.GetComponent<CanvasGroup>().DOFade(0, 1.5f);
             IsInCinema = false;
-            BA.Restart_Pause = false;
+            if (ThisScene.name.Equals("K")) {
+                BA.Restart_Pause = false;
+            }
             /*DeadBlockSight.GetComponent<Image>().DOFade(0, 1.5f);
             DeadBlockSight.transform.GetChild(0).GetComponent<Text>().DOFade(0, 1.5f);
             DeadBlockSight.transform.GetChild(1).GetComponent<Text>().DOFade(0, 1.5f);*/

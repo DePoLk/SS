@@ -6365,7 +6365,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 756423442}
-  m_LocalRotation: {x: 0.07253721, y: 0.8190365, z: -0.10625531, w: 0.559131}
+  m_LocalRotation: {x: 0.07253721, y: 0.8190364, z: -0.106255285, w: 0.5591311}
   m_LocalPosition: {x: -51.24, y: 17.3, z: 23.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -15222,6 +15222,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114764220698334576, guid: b255b8151ae34e240b4d6a05eac40429,
+        type: 2}
+      propertyPath: BA
+      value: 
+      objectReference: {fileID: 1788702169}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b255b8151ae34e240b4d6a05eac40429, type: 2}
   m_IsPrefabAsset: 0
@@ -15325,6 +15330,12 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1788702169 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114620379358135584, guid: 7d13ff8659ff5e143a409e8679c463d3,
+    type: 2}
+  m_PrefabInternal: {fileID: 1315204918}
+  m_Script: {fileID: 11500000, guid: 2a2c2d2100585e94e8bb8443cb636f4e, type: 3}
 --- !u!1 &1789293496
 GameObject:
   m_ObjectHideFlags: 3
@@ -16149,7 +16160,7 @@ GameObject:
   - component: {fileID: 1902120067}
   m_Layer: 9
   m_Name: ParticleArea
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16173,7 +16184,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1902120066}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.191, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

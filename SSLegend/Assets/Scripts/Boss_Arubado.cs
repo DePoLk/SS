@@ -126,7 +126,7 @@ public class Boss_Arubado : MonoBehaviour
         //Addforce
         if (Smash_Force == true)
         {
-            this.GetComponent<Rigidbody>().AddForce(transform.forward * 12000);
+            this.GetComponent<Rigidbody>().AddForce(transform.forward * 16000);
         }
         //ForceResistance
         if (resistance == true)

@@ -20,12 +20,12 @@ public class Magic_Atk : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         timer += Time.deltaTime;
-        if (timer < 1f)
+        if (timer < 0.5f)
         {
             m_speed += 2 * Time.deltaTime;
             transform.position += transform.forward * 3f * m_speed * Time.deltaTime;
         }
-        else if (timer >= 1&& timer <= 1.5f)
+        else if (timer >= 0.5&& timer <= 1f)
         {
             pos = (CurrentPos - this.transform.position).normalized;
             Debug.Log(pos);
@@ -39,7 +39,7 @@ public class Magic_Atk : MonoBehaviour {
             }
             transform.position += transform.forward * m_speed * 4 * Time.deltaTime;
         } else if (timer>1.5) {
-            transform.position += transform.forward * m_speed * 6 * Time.deltaTime;
+            transform.position += transform.forward * m_speed * 8 * Time.deltaTime;
         }
         m_currLife += Time.deltaTime;
         if (m_currLife > m_MaxLife)
