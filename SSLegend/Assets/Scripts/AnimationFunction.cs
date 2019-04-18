@@ -100,7 +100,8 @@ public class AnimationFunction : MonoBehaviour {
 
         if (ThisScene.name.Equals("2-1"))
         {
-            rb.AddForce(transform.forward * 100f * PlayerCon.ForceFixForward + transform.right * 100f * PlayerCon.ForceFixRight);
+            //rb.AddForce(transform.forward * 100f * PlayerCon.ForceFixForward + transform.right * 100f * PlayerCon.ForceFixRight);
+            rb.AddForce(PlayerCon.TheObjGiveStrike.transform.forward * 100f);
         }
         else if (ThisScene.name.Equals("K"))
         {
@@ -126,8 +127,11 @@ public class AnimationFunction : MonoBehaviour {
     }
 
     public void LookatGiveStrikeObj() {
-        Player.transform.rotation = Quaternion.Slerp(transform.rotation,PlayerCon.TheObjGiveStrike.transform.rotation,Time.deltaTime*25f);
-        //Player.transform.DOLocalRotate(new Vector3(PlayerCon.TheObjGiveStrike.transform.position.x, PlayerCon.TheObjGiveStrike.transform.position.y, PlayerCon.TheObjGiveStrike.transform.position.z),1f);
+        //Player.transform.rotation = Quaternion.Slerp(transform.rotation,PlayerCon.TheObjGiveStrike.transform.rotation,Time.deltaTime*25f);
+        //Player.transform.DOLocalRotate(new Vector3(0, PlayerCon.TheObjGiveStrike.transform.position.y, 0),1f);
+        /*Vector3 TargetPos = new Vector3(PlayerCon.TheObjGiveStrike.transform.position.x,Player.transform.position.y,PlayerCon.TheObjGiveStrike.transform.position.z);
+        Player.transform.LookAt(TargetPos);                
+        Player.transform.eulerAngles += new Vector3(0,-90,0);*/
         PlayerCon.IsDrinking = false;
         PlayerCon.StopCoroutine("DelayIsFat");
     }//被扁時看向受擊面
@@ -256,12 +260,17 @@ public class AnimationFunction : MonoBehaviour {
 
         if (ThisScene.name.Equals("2-1"))
         {
-            Player.transform.DOLocalRotate(new Vector3(PlayerCon.TheObjGiveStrike.transform.position.x, PlayerCon.TheObjGiveStrike.transform.position.y, PlayerCon.TheObjGiveStrike.transform.position.z), 0f);
-            rb.AddForce(transform.forward * 200f * PlayerCon.ForceFixForward + transform.right * 200f * PlayerCon.ForceFixRight);
+            //Player.transform.DOLocalRotate(PlayerCon.TheObjGiveStrike.transform.position + new Vector3(0,0,0), 0f);
+            //rb.AddForce(transform.forward * 200f * PlayerCon.ForceFixForward + transform.right * 200f * PlayerCon.ForceFixRight);
+            Vector3 TargetPos = new Vector3(PlayerCon.TheObjGiveStrike.transform.position.x, Player.gameObject.transform.position.y,PlayerCon.TheObjGiveStrike.transform.position.z);
+            Player.gameObject.transform.LookAt(TargetPos);
+            Player.gameObject.transform.eulerAngles += new Vector3(0, 90, 0);
+            rb.AddForce(PlayerCon.TheObjGiveStrike.transform.forward * 200f);
+
         }
         else if (ThisScene.name.Equals("K"))
         {
-            Player.transform.DOLocalRotate(new Vector3(PlayerCon.TheObjGiveStrike.transform.position.x, PlayerCon.TheObjGiveStrike.transform.position.y, PlayerCon.TheObjGiveStrike.transform.position.z), 0f);
+            Player.transform.DOLocalRotate(PlayerCon.TheObjGiveStrike.transform.position + new Vector3(0, 90, 0), 0f);
             rb.AddForce(transform.right * 200f);
         }
         AtkBox.SetActive(false);

@@ -53,23 +53,34 @@ public class UIEventTrigger : MonoBehaviour {
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player")) {
+        if (other.CompareTag("Player") && Player_Con.ThisScene.name.Equals("2-1")) {
             //Debug.Log(UIEventNum);
-
-            for (int StageEventIndex = 0; StageEventIndex < DataValue.EventValue.StageEventMax; StageEventIndex++) {
-                if (this.gameObject.transform.parent.name.Equals("StageEvent" + StageEventIndex)) {
-                    StageEventNum = StageEventIndex;
+            if (Player_Con.ThisScene.Equals("2-1"))
+            {
+                for (int StageEventIndex = 0; StageEventIndex < DataValue.EventValue.StageEventMax; StageEventIndex++)
+                {
+                    if (this.gameObject.transform.parent.name.Equals("StageEvent" + StageEventIndex))
+                    {
+                        StageEventNum = StageEventIndex;
+                    }
                 }
+
+                DS.DataSystemValueInfoAll_Temp[DS.StageEventIndex[StageEventNum] + 2 + ThisUIEventIndexInStage] = ("U: ") + true;
+
+                this.gameObject.transform.parent.GetComponent<StageEvent>().CheckIsSelfDone();
+
             }
             //Debug.Log(DS.StageEventIndex[StageEventNum]);
-
-            DS.DataSystemValueInfoAll_Temp[DS.StageEventIndex[StageEventNum] + 2 + ThisUIEventIndexInStage] = ("U: ") + true;
-
-            this.gameObject.transform.parent.GetComponent<StageEvent>().CheckIsSelfDone();
-
-
             Destroy(gameObject,0.1f);
         }
+
+        if (other.CompareTag("Player") && Player_Con.ThisScene.name.Equals("K")) {
+            PUI.BossHPUI.GetComponent<CanvasGroup>().alpha = 1;
+            PUI.BossGetHp();
+            PUI.GetInAniIsDone = true;
+            Destroy(gameObject, 0.1f);
+        }
+
     }
 
     public void GetThisUIEventNum() {
@@ -83,9 +94,13 @@ public class UIEventTrigger : MonoBehaviour {
 
     public void GetThisUIEventIndexInStage() {
 
-        for (int i = 0; i < this.gameObject.transform.parent.childCount; i++) {
-            if (this.gameObject.name.Equals(this.gameObject.transform.parent.GetChild(i).name)) {
-                ThisUIEventIndexInStage = i;
+        if (Player_Con.ThisScene.Equals("2-1")) {
+            for (int i = 0; i < this.gameObject.transform.parent.childCount; i++)
+            {
+                if (this.gameObject.name.Equals(this.gameObject.transform.parent.GetChild(i).name))
+                {
+                    ThisUIEventIndexInStage = i;
+                }
             }
         }
         

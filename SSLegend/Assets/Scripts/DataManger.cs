@@ -53,7 +53,7 @@ public class DataManger : MonoBehaviour {
             sw = t.CreateText();
 
             
-            sw.WriteLine(PlayerCon.Hp);
+            sw.WriteLine(PlayerCon.Hp);//0
             sw.WriteLine(PUI.MaxHP);
             sw.WriteLine(PlayerCon.ExpPoint);
             sw.WriteLine(PlayerCon.WaterElement);
@@ -63,6 +63,10 @@ public class DataManger : MonoBehaviour {
             sw.WriteLine(Player_Obj.transform.position.y);
             sw.WriteLine(Player_Obj.transform.position.z);
             //寫入ExpSystem所需資料
+
+            sw.WriteLine(PlayerCon.ThisScene.name);//8
+
+            //--- 最後場景
             
         }
         else
