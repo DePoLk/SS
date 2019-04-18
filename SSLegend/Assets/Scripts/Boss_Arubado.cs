@@ -37,6 +37,7 @@ public class Boss_Arubado : MonoBehaviour
     private bool NormalAim = false;
     private bool IsCloseToWall = false;
     private bool IsDead = false;
+    private bool HitWall_Reactionforce = false;
     // Use this for initialization
     void Start()
     {
@@ -50,8 +51,7 @@ public class Boss_Arubado : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log(Down);
-        Debug.Log(GC.OnTop);
+        //Debug.Log(Down);
         //Debug.Log(TC.OnTop);                             
         if (IsLook == false && Atking == false && Down == false && GC.OnTop == false&& Restart_Pause == false)
         {
@@ -62,6 +62,7 @@ public class Boss_Arubado : MonoBehaviour
             Vector3 direction = player.position - this.transform.position;
             direction.y = 0;
             this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), 0.1f);
+            Debug.Log("1");
             if (direction.magnitude > 4)
             {
                 anim.SetBool("Move", true);
@@ -69,14 +70,21 @@ public class Boss_Arubado : MonoBehaviour
             }
             else if (direction.magnitude <= 4)
             {
+                resistance = false;
+                Smash_Force = false;
+                SmashCol.GetComponent<BoxCollider>().enabled = false;
                 StartCoroutine("NormalAtk");
             }
         }
-        if (SmashAiming == true)
+        if (SmashAiming == true && Down==false)
         {
+            resistance = false;
+            Smash_Force = false;
+            SmashCol.GetComponent<BoxCollider>().enabled = false;
             Vector3 direction = player.position - this.transform.position;
             direction.y = 0;
             this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), 0.1f);
+            Debug.Log("2.5");
         }
         //高台 關其他技能,實施砲台掃蕩
         if (GC.OnTop == true)
@@ -96,15 +104,15 @@ public class Boss_Arubado : MonoBehaviour
             anim.SetBool("Smash", false);
             Vector3 TopDistance = player.transform.position - this.transform.position;
             TopDistance.y = 0;
-            if (TopDistance.magnitude > 7.5 && Down == false && TopAtking == false)
+            if (TopDistance.magnitude > 6 && Down == false && TopAtking == false)
             {
-                Debug.Log(TopDistance.magnitude);
+               // Debug.Log(TopDistance.magnitude);
                 this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(TopDistance), 0.1f);
                 anim.SetBool("Move", true);
                 this.transform.Translate(0, 0, 0.1f);
-
+                Debug.Log("2");
             }
-            else if (TopDistance.magnitude <= 7.5 && TopAtking == false)
+            else if (TopDistance.magnitude <= 6 && TopAtking == false)
             {
                 anim.SetBool("Move", false);
                 StartCoroutine("TopAtk");
@@ -112,26 +120,38 @@ public class Boss_Arubado : MonoBehaviour
         }
         else if (GC.OnTop == false && Down == false && ReTop == true)
         {
-            //anim.SetBool("Move", false);
             anim.SetBool("TopAtk", false);
             StartCoroutine("ReturnToNormal");
         }
         //RotateToPlayer
-        if (TopCorrection == true || NormalAim == true)
+        if (Down == false&&TopCorrection == true)
         {
             Vector3 direction = player.position - this.transform.position;
             direction.y = 0;
             this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), 0.1f);
+            Debug.Log("3");
+        }
+        if(NormalAim == true&& Down==false)
+        {
+            Vector3 direction = player.position - this.transform.position;
+            direction.y = 0;
+            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), 0.1f);
+            Debug.Log("4");
         }
         //Addforce
         if (Smash_Force == true)
         {
             this.GetComponent<Rigidbody>().AddForce(transform.forward * 16000);
+            Debug.Log("?????");
         }
         //ForceResistance
         if (resistance == true)
         {
             this.GetComponent<Rigidbody>().AddForce(transform.forward * 5000);
+            Debug.Log("???????");
+        }
+        if (HitWall_Reactionforce == true) {
+            this.GetComponent<Rigidbody>().AddForce(transform.forward * -2000);
         }
         if (NewHP <= 0) {
             Dead();
@@ -144,9 +164,9 @@ public class Boss_Arubado : MonoBehaviour
         OnGround = true;
         TopAtking = false;
         yield return new WaitForSeconds(0.5f);
-        StartCoroutine("FaceEnemy");
-        yield return new WaitForSeconds(0.5f);
-        StopCoroutine("ReturnToNormal");
+        //StartCoroutine("FaceEnemy");
+        Stage_Reset();
+        StopAllCoroutines();
     }
     //LongRangeAttack
     public void Aim()
@@ -211,8 +231,8 @@ public class Boss_Arubado : MonoBehaviour
         Smash_Force = false;
         IsLook = true;
         int a = Random.Range(1, 3);
-        Debug.Log(a);
-        yield return new WaitForSeconds(5f);
+        //Debug.Log(a);
+        yield return new WaitForSeconds(3f);
         if (a == 1 && Down == false)
         {
             StartCoroutine("SmashAim");
@@ -256,12 +276,14 @@ public class Boss_Arubado : MonoBehaviour
             StartCoroutine("LayDown");
             //this.GetComponentInParent<Rigidbody>().AddForce(transform.forward * -1500);
         }
+        
     }
     public void NA_Strength()
     {
     }
     IEnumerator LayDown()
     {
+        
         SmashCol.GetComponent<BoxCollider>().enabled = false;
         Atking = false;
         resistance = false;
@@ -269,7 +291,10 @@ public class Boss_Arubado : MonoBehaviour
         anim.SetBool("Move", false);
         anim.SetTrigger("Charge_Down");
         core.GetComponent<SphereCollider>().enabled = true;
-        yield return new WaitForSeconds(8f);
+        HitWall_Reactionforce = true;
+        yield return new WaitForSeconds(1f);
+        HitWall_Reactionforce = false;
+        yield return new WaitForSeconds(5f);
         core.GetComponent<SphereCollider>().enabled = false;
         anim.SetTrigger("Rewake");
         yield return new WaitForSeconds(3f);
@@ -280,7 +305,7 @@ public class Boss_Arubado : MonoBehaviour
         anim.SetBool("Move", false);
         anim.SetTrigger("Normal_Down");
         core.GetComponent<SphereCollider>().enabled = true;
-        yield return new WaitForSeconds(8f);
+        yield return new WaitForSeconds(6f);
         core.GetComponent<SphereCollider>().enabled = false;
         anim.SetTrigger("Rewake");
         yield return new WaitForSeconds(3f);
@@ -332,6 +357,14 @@ public class Boss_Arubado : MonoBehaviour
         StopAllCoroutines();
         CC.EndingStart = true;
         this.gameObject.SetActive(false);
+    }
+    public void Stage_Reset() {
+        IsLook = false;
+        Atking = false;
+        Down = false;
+        GC.OnTop = false;
+        Restart_Pause = false;
+        anim.SetBool("TopAtk", false);
     }
 }
 

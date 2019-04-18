@@ -19,6 +19,7 @@ public class Cinemachine_Ctrl : MonoBehaviour {
     public GameObject[] DeathObject;
     public GameObject CinemachineUI;
     public GameObject[] Obstacles;
+    public GameObject TeachUIEvent;
 
     private CameraControl CC;
     public bool TrackEnd = false;
@@ -46,6 +47,7 @@ public class Cinemachine_Ctrl : MonoBehaviour {
         v_GroupCam.VirtualCameraGameObject.SetActive(false);
         bgm = FindObjectOfType<BGMManager>();
         DM = FindObjectOfType<DataManger>();
+        TeachUIEvent = GameObject.Find("UIEvent3");
     }
 
     // Update is called once per frame
@@ -100,9 +102,10 @@ public class Cinemachine_Ctrl : MonoBehaviour {
             PlayerCon.transform.position = new Vector3(14, 0, 1);
             DM.DeleteFile(Application.dataPath + "/Save", "Save.txt");
             DM.SaveFile(Application.dataPath + "/Save", "Save.txt");
-            PUI.BossHPUI.GetComponent<CanvasGroup>().alpha = 1;
-            PUI.BossGetHp();
-            PUI.GetInAniIsDone = true;
+
+          
+               
+            
             
 
             //PlayerCon.FatBearModel.SetActive(true);

@@ -52,7 +52,7 @@ public class SavePoint : MonoBehaviour {
     /// </summary>
 
     void CheckPressTime() {
-        if (PressTime >= 0.5f) {
+        if (PressTime >= 0.1f) {
             IsSavePointOpened = true;
             PressTime = 0;
         }

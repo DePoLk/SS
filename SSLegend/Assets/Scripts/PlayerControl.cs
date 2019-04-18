@@ -118,7 +118,7 @@ public class PlayerControl : MonoBehaviour {
     PlayerSE PSE;
     CamTrigger CT;
 
-    Scene ThisScene;
+    public Scene ThisScene;
 
     //effect
     public ParticleSystem running_Dust;
@@ -190,11 +190,14 @@ public class PlayerControl : MonoBehaviour {
     void FixedUpdate()//固定頻率重複執行
     {
 
-       /* if (Input.GetKeyDown(KeyCode.M)) {
-            this.transform.DOShakePosition(1f, 0.8f, 100, 100, false, false);
-        }*/
+        if (IsStriked) {
+            Vector3 TargetPos = new Vector3(TheObjGiveStrike.transform.position.x, this.gameObject.transform.position.y,TheObjGiveStrike.transform.position.z);
+            this.gameObject.transform.LookAt(TargetPos);
+            this.gameObject.transform.eulerAngles += new Vector3(0, 90, 0);
+        }
+       
 
-      //  Debug.Log(OnTop);
+
         Move();
         CheckIsMovementEnable();//檢查能不能行動
         Select();//選擇道具
@@ -830,7 +833,8 @@ public class PlayerControl : MonoBehaviour {
             }
             
         }
-        
+       
+
     }//end Dodge
 
     IEnumerator DelayIsFat() {
@@ -1122,6 +1126,11 @@ public class PlayerControl : MonoBehaviour {
                 Player_Animator.SetBool("PlayerDead", true);
             }
         }
+
+
+
+        
+
     }
 
     public void OnTriggerExit(Collider other)

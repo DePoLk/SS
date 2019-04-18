@@ -21,9 +21,10 @@ public class MainMenuControl : MonoBehaviour {
     public int SelectNum = 0;
     public float PressTime = 0;
     public float input_V = 0;
-    float MaxPressTime = 0.5f;
+    float MaxPressTime = 0.2f;
 
     LoadingControl Load;
+    DataManger DM;
 
 	// Use this for initialization
 	void Start () {
@@ -32,6 +33,10 @@ public class MainMenuControl : MonoBehaviour {
         Arrow = GameObject.Find("Arrow");
         Left = Arrow.transform.GetChild(0).gameObject;
         Right = Arrow.transform.GetChild(1).gameObject;
+        DM = FindObjectOfType<DataManger>();
+
+
+        DM.LoadFileFunction();
 
     }
 
@@ -111,6 +116,8 @@ public class MainMenuControl : MonoBehaviour {
 
     public void LoadGameClick() {
 
+        SceneManager.LoadScene(DM.InfoAll[8].ToString());
+        //Debug.Log(DM.InfoAll[8]);
     }
 
     public void OptionClick() {

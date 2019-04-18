@@ -27,7 +27,7 @@ public class CoreDamage : MonoBehaviour {
     {
         if (other.gameObject.tag == "AtkBox" ) {
             StartCoroutine("Flash");
-            BA.NewHP-=2;
+            BA.NewHP-=1;
             BAF.Play_SE_getHit();
             Debug.Log(BA.NewHP);
             PUI.BossLoseHP();
