@@ -97,6 +97,7 @@ public class PlayerControl : MonoBehaviour {
     public bool IsDrinking = false;
     public bool IsPanting = false;
     public bool IsFating = false;
+    public bool IsTeaching = false;
     bool Item2IsColdDown = false;
     public int CurrentModelNum = 0;
 
@@ -222,7 +223,7 @@ public class PlayerControl : MonoBehaviour {
     }//end FixedUpdate TimeScale Effected
 
     void GamePauseChecker() {
-        if (Save_Point.IsSavePointOpened || IsEscMenu)
+        if (Save_Point.IsSavePointOpened || IsEscMenu || IsUIEventing || IsTeaching)
         {
             Time.timeScale = 0f;
         }
