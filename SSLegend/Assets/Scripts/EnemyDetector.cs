@@ -59,13 +59,17 @@ public class EnemyDetector : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (DetectedObj != null) {
+        if (DetectedObj != null)
+        {
             Vector3 TargetPos = new Vector3(DetectedObj.transform.position.x, this.gameObject.transform.position.y, DetectedObj.transform.position.z);
             this.gameObject.transform.LookAt(TargetPos);
             this.gameObject.transform.eulerAngles = new Vector3(0, this.gameObject.transform.eulerAngles.y + FixAngle, 0);
         }
-       // Debug.Log(this.transform.eulerAngles.y);
-       // DangerCenter.GetComponent<RectTransform>().eulerAngles = new Vector3(0,0, this.transform.eulerAngles.y+FixAngle);
+        else if (DetectedObj = null) {
+            EnemyInfo.GetComponent<CanvasGroup>().DOFade(0, 0.5f);
+        }
+        // Debug.Log(this.transform.eulerAngles.y);
+        // DangerCenter.GetComponent<RectTransform>().eulerAngles = new Vector3(0,0, this.transform.eulerAngles.y+FixAngle);
     }
 
 

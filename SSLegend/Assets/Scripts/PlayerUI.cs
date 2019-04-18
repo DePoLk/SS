@@ -147,7 +147,6 @@ public class PlayerUI : MonoBehaviour {
     [Header("對話框用圖片")]
     public Sprite[] TalkerImage;
 
-
     // Use this for initialization
     void Start() {
         Player = GameObject.Find("Player");
@@ -163,8 +162,16 @@ public class PlayerUI : MonoBehaviour {
         DS = FindObjectOfType<DataSystem>();
         LD = FindObjectOfType<LoadingControl>();
         ThisScene = SceneManager.GetActiveScene();
-        if (ThisScene.name.Equals("K")) {
+        
+
+        if (ThisScene.name.Equals("K"))
+        {
             BA = Boss.GetComponent<Boss_Arubado>();
+   
+        }
+        else if(ThisScene.name.Equals("2-1"))
+        {
+          
         }
 
         MaxHpText = GameObject.Find("MaxHpText").GetComponent<Text>();
@@ -399,22 +406,25 @@ public class PlayerUI : MonoBehaviour {
         }
     }
 
+    
+
+
     public void InfoWindowHandler(int UIEvent) {
         if (FindObjectOfType<PlayerControl>().IsUIEventing)
         {
             //Canvas_Ani.SetBool("InfoWindowFadeOut",false);
             // Canvas_Ani.SetBool("InfoWindowFadeIn",true);
-            Time.timeScale = 0;
+            //Time.timeScale = 0;
             InfoWindow.GetComponent<Image>().DOFade(1f, 0.5f).SetUpdate(true);
             InfoWindow.GetComponent<Image>().transform.DOScaleX(1, 0.5f).SetUpdate(true);
 
 
             if (NowUIEventPlayingNum == DataValue.UIInfoWindowValue.UITextSearchIndex)
-            {
+            {                
                 InfoText.text = UIDataArray[UIEventNumIndex[UIEvent] + NowUIEventPlayingNum].ToString();
                 InfoTalker.text = TalkerNameArray[int.Parse(UIDataArray[UIEventNumIndex[UIEvent] + NowUIEventPlayingNum - 2].ToString())];
-                InfoTalkerImage.sprite = TalkerImage[int.Parse(UIDataArray[UIEventNumIndex[UIEvent] + NowUIEventPlayingNum - 1].ToString())];
-
+                InfoTalkerImage.sprite = TalkerImage[int.Parse(UIDataArray[UIEventNumIndex[UIEvent] + NowUIEventPlayingNum - 1].ToString())];             
+                
                 InfoText.GetComponent<CanvasGroup>().DOFade(1, 0.5f).SetUpdate(true);
                 InfoTalker.DOFade(1, 0.5f).SetUpdate(true);
                 InfoTalkerImage.DOFade(1, 0.5f).SetUpdate(true);
@@ -432,6 +442,9 @@ public class PlayerUI : MonoBehaviour {
                     InfoWindow.GetComponent<Image>().DOFade(0f, 0.5f).SetUpdate(true);
                     InfoWindow.GetComponent<Image>().transform.DOScaleX(0, 0.5f).SetUpdate(true);
                     InfoText.GetComponent<CanvasGroup>().DOFade(0, 0.5f).SetUpdate(true);
+
+                    
+
                     InfoTalker.DOFade(0, 0.5f).SetUpdate(true);
                     InfoTalkerImage.DOFade(0, 0.5f).SetUpdate(true);
 
@@ -439,7 +452,10 @@ public class PlayerUI : MonoBehaviour {
                     IsCanNextInfoText = true;
 
                     FindObjectOfType<PlayerControl>().IsUIEventing = false;
-                    Time.timeScale = 1f;
+                    //Time.timeScale = 1f;
+
+
+
                 }//關閉infowindow
                 else
                 {
