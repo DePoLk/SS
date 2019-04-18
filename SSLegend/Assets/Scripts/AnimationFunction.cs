@@ -24,6 +24,8 @@ public class AnimationFunction : MonoBehaviour {
     public GameObject footsprint;
     public GameObject footSpotL;
     public GameObject footSpotR;
+    public GameObject potion;
+    public GameObject potion_Body;
 
     Animator Player_Ani;
 
@@ -39,6 +41,8 @@ public class AnimationFunction : MonoBehaviour {
         ThisScene = SceneManager.GetActiveScene();
         Player_Ani = PlayerCon.gameObject.GetComponent<Animator>();
         WVC = FindObjectOfType<WaterValueChange>();
+        potion_Body.SetActive(true);
+        potion.SetActive(false);
     }
 	
 	// Update is called once per frame
@@ -361,4 +365,15 @@ public class AnimationFunction : MonoBehaviour {
     public void ResetIsStrikeDown() {
         Player_Ani.SetBool("PlayerStrikeDown",false);
     }
+
+    public void PotionOn() {
+        potion.SetActive(true);
+        potion_Body.SetActive(false);
+    }
+    public void PotionOff()
+    {
+        potion.SetActive(false);
+        potion_Body.SetActive(true); 
+    }
+    
 }

@@ -19,6 +19,7 @@ public class LoadingControl : MonoBehaviour {
         Fade.SetActive(true);
         bearIcon.SetActive(false);
         bearIconEdge.SetActive(false);
+        Cursor.visible = false;
         Time.timeScale=1;
 	}
 	
