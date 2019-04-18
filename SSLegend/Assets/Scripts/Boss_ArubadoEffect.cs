@@ -14,6 +14,7 @@ public class Boss_ArubadoEffect : MonoBehaviour {
     public Material Arubado_mat;
     public Material ArubadoLeftHand_mat;
     public Material ArubadoRightHand_mat;
+    public Material ArubadoCore_mat;
     public GameObject EarthCrack_Spot;
     public GameObject EarthTrail_Spot;
     public GameObject ShootFire_Spot;
@@ -46,6 +47,7 @@ public class Boss_ArubadoEffect : MonoBehaviour {
             EmissionColor_value += 0.055f;
             if (EmissionColor_value <= 3.0f) {
                 Arubado_mat.SetColor("_EmissionColor", Color.white * EmissionColor_value);
+                ArubadoCore_mat.SetColor("_EmissionColor", Color.white * EmissionColor_value);
             }
                 
            
@@ -56,6 +58,7 @@ public class Boss_ArubadoEffect : MonoBehaviour {
             {
                 EmissionColor_value -= 0.04f;
                 Arubado_mat.SetColor("_EmissionColor", Color.white * EmissionColor_value);
+                ArubadoCore_mat.SetColor("_EmissionColor", Color.white * EmissionColor_value);
             }
 
         }
