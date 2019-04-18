@@ -51,7 +51,7 @@ public class Boss_Arubado : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //Debug.Log(Down);
+        Debug.Log(Down);
         //Debug.Log(TC.OnTop);                             
         if (IsLook == false && Atking == false && Down == false && GC.OnTop == false&& Restart_Pause == false)
         {
@@ -62,7 +62,7 @@ public class Boss_Arubado : MonoBehaviour
             Vector3 direction = player.position - this.transform.position;
             direction.y = 0;
             this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), 0.1f);
-            Debug.Log("1");
+            Debug.Log("2");
             if (direction.magnitude > 4)
             {
                 anim.SetBool("Move", true);
@@ -84,7 +84,7 @@ public class Boss_Arubado : MonoBehaviour
             Vector3 direction = player.position - this.transform.position;
             direction.y = 0;
             this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), 0.1f);
-            Debug.Log("2.5");
+            Debug.Log("3");
         }
         //高台 關其他技能,實施砲台掃蕩
         if (GC.OnTop == true)
@@ -104,15 +104,14 @@ public class Boss_Arubado : MonoBehaviour
             anim.SetBool("Smash", false);
             Vector3 TopDistance = player.transform.position - this.transform.position;
             TopDistance.y = 0;
-            if (TopDistance.magnitude > 6 && Down == false && TopAtking == false)
+            if (TopDistance.magnitude > 7 && Down == false && TopAtking == false)
             {
                // Debug.Log(TopDistance.magnitude);
                 this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(TopDistance), 0.1f);
                 anim.SetBool("Move", true);
                 this.transform.Translate(0, 0, 0.1f);
-                Debug.Log("2");
             }
-            else if (TopDistance.magnitude <= 6 && TopAtking == false)
+            else if (TopDistance.magnitude <= 7 && TopAtking == false)
             {
                 anim.SetBool("Move", false);
                 StartCoroutine("TopAtk");
@@ -121,23 +120,25 @@ public class Boss_Arubado : MonoBehaviour
         else if (GC.OnTop == false && Down == false && ReTop == true)
         {
             anim.SetBool("TopAtk", false);
+            TopCorrection = false;
             StartCoroutine("ReturnToNormal");
         }
         //RotateToPlayer
-        if (Down == false&&TopCorrection == true)
-        {
-            Vector3 direction = player.position - this.transform.position;
-            direction.y = 0;
-            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), 0.1f);
-            Debug.Log("3");
-        }
-        if(NormalAim == true&& Down==false)
+        if (Down == false&&TopCorrection == true|| NormalAim == true)
         {
             Vector3 direction = player.position - this.transform.position;
             direction.y = 0;
             this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), 0.1f);
             Debug.Log("4");
         }
+        //if(NormalAim == true&& Down==false)
+        //{
+        //    Vector3 direction = player.position - this.transform.position;
+        //    direction.y = 0;
+        //    this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), 0.1f);
+        //    Debug.Log("5");
+        //    Debug.Log(Down);
+        //}
         //Addforce
         if (Smash_Force == true)
         {
@@ -163,10 +164,10 @@ public class Boss_Arubado : MonoBehaviour
         Debug.Log("!");
         OnGround = true;
         TopAtking = false;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2.0f);
         //StartCoroutine("FaceEnemy");
         Stage_Reset();
-        StopAllCoroutines();
+        StopCoroutine("ReturnToNormal");
     }
     //LongRangeAttack
     public void Aim()
@@ -183,9 +184,10 @@ public class Boss_Arubado : MonoBehaviour
     }
     IEnumerator TopAtk()
     {
+        Debug.Log("TopAtk");
         TopAtking = true;
         TopCorrection = true;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
         TopCorrection = false;
         IsLook = false;
         anim.SetBool("TopAtk", true);
@@ -302,16 +304,19 @@ public class Boss_Arubado : MonoBehaviour
     }
     IEnumerator Normal_LayDown()//Bear
     {
+        Down = true;
         anim.SetBool("Move", false);
         anim.SetTrigger("Normal_Down");
         core.GetComponent<SphereCollider>().enabled = true;
-        yield return new WaitForSeconds(6f);
+        HitWall_Reactionforce = true;
+        yield return new WaitForSeconds(1f);
+        HitWall_Reactionforce = false;
+        yield return new WaitForSeconds(5f);
         core.GetComponent<SphereCollider>().enabled = false;
         anim.SetTrigger("Rewake");
         yield return new WaitForSeconds(3f);
         Down = false;
-        yield return new WaitForSeconds(2f);
-        StartCoroutine("ReturnToNormal");
+        //yield return new WaitForSeconds(2f);
     }
     public void NorAtkBox()
     {
@@ -361,10 +366,8 @@ public class Boss_Arubado : MonoBehaviour
     public void Stage_Reset() {
         IsLook = false;
         Atking = false;
-        Down = false;
-        GC.OnTop = false;
-        Restart_Pause = false;
         anim.SetBool("TopAtk", false);
     }
+
 }
 

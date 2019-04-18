@@ -102,6 +102,7 @@ public class PlayerControl : MonoBehaviour {
 
     [Header("玩家死亡處理")]
     public GameObject DeadBlockSight;
+
     Tweener DBS;
 
     public Boss_Arubado BA; // Boss一開始被SET FALSE 會出現讀取錯誤
@@ -702,6 +703,13 @@ public class PlayerControl : MonoBehaviour {
             BearModel.transform.eulerAngles = new Vector3(0, -10, 0);
             FatBearModel.transform.eulerAngles = new Vector3(0, -10, 0);
             this.gameObject.transform.position = new Vector3(75, 0, 0);
+
+            Hp = int.Parse(Data_Manger.InfoAll[0].ToString());
+            PUI.MaxHP = int.Parse(Data_Manger.InfoAll[1].ToString());
+            MaxHp = int.Parse(Data_Manger.InfoAll[1].ToString());
+            
+            
+
             DefaultSpeed = -3;
             speed = -3;
             Data_Manger.DeleteFile(Application.dataPath + "/Save", "Save.txt");
@@ -793,6 +801,7 @@ public class PlayerControl : MonoBehaviour {
         if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button7)) && !Save_Point.IsSavePointOpened)
         {
             IsEscMenu = !IsEscMenu;
+            PUI.SystemIsOpen = false;
         }
         
     }// End EscPress

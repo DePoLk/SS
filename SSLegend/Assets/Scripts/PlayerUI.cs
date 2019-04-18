@@ -109,18 +109,32 @@ public class PlayerUI : MonoBehaviour {
     int ResumeButtonNum = 2;
     int SystemButtonNum = 3;
     int MainMenuButtonNum = 4;
+
     float[] EscButtonYArray = { 40, 20, 0, -20, -40 };
     float[] EscButtonXArray = { 55, 62.5f, 65, 62.5f, 55 };
     float[] EscButtonRotationZArray = { 30, 15, 0, -15, -30 };
 
     public bool SystemIsOpen = false;
 
-    Slider SoundSlider;
-    Slider ScreenModeSlider;
-    Slider ResolutionSlider;
-    Button SystemBackButton;
+    //--- Option
 
-    Text ResolutionValueText;
+    GameObject EMBPointer;
+    GameObject ScreenPointer;
+    GameObject R_Slider;
+    GameObject S_Slider;
+    Text R_Text;
+    Text S_Text;
+    [Header("Option")]
+    public bool FullScreenMode = true;
+
+    int ResMode = 2;
+    int ScreenWidth = 1920;
+    int ScreenHeight = 1080;
+
+    float SoundValue = 100;
+
+    //--- Option
+
     // Esc Menu 
 
 
@@ -167,12 +181,15 @@ public class PlayerUI : MonoBehaviour {
         System = EscMenuBG.transform.GetChild(1).GetComponent<Button>();
         MainMenu = EscMenuBG.transform.GetChild(2).GetComponent<Button>();
         EscMenuBGLeft = GameObject.Find("EscMenuBGLeft").GetComponent<Image>();
-        SoundSlider = GameObject.Find("SoundSlider").GetComponent<Slider>();
         BGMM = FindObjectOfType<BGMManager>();
-        ScreenModeSlider = GameObject.Find("ScreenModeSlider").GetComponent<Slider>();
-        ResolutionSlider = GameObject.Find("ResolutionSlider").GetComponent<Slider>();
-        SystemBackButton = GameObject.Find("SystemBackButton").GetComponent<Button>();
-        ResolutionValueText = GameObject.Find("ResolutionValueText").GetComponent<Text>();
+
+        EMBPointer = GameObject.Find("EMBPointer");
+        ScreenPointer = GameObject.Find("ScreenPointer");
+        R_Slider = GameObject.Find("R_Slider");
+        S_Slider = GameObject.Find("S_Slider");
+        R_Text = GameObject.Find("R_Text").GetComponent<Text>();
+        S_Text = GameObject.Find("S_Text").GetComponent<Text>();
+
         //Esc Menu
 
         //--- UI對話框
@@ -251,13 +268,11 @@ public class PlayerUI : MonoBehaviour {
 
     IEnumerator BossHPUIAnimation() {
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 10; i++) {
             BossHPValue.fillAmount -= 0.01f;
             yield return new WaitForSeconds(0.005f);
         }
-            
-        
-        
+
     }
 
     IEnumerator BossHPToOne() {
@@ -791,8 +806,6 @@ public class PlayerUI : MonoBehaviour {
                 DefalutSelectResume = true;
             }
 
-            
-            
 
             EscMenuButtonSelectChecker(ResumeButtonNum, SystemButtonNum, MainMenuButtonNum);
 
@@ -842,6 +855,8 @@ public class PlayerUI : MonoBehaviour {
         }// EscMenu Open
         else {
             UITweener = EscMenuBG.transform.DOLocalMove(new Vector3(800, 0, 0), 0.5f).SetUpdate(true);
+            SystemIsOpen = false;
+            EscMenuBGLeft.transform.DOLocalMove(new Vector3(-1280,0,0),0.5f).SetUpdate(true);
             Resume.interactable = false;
             System.interactable = false;
             MainMenu.interactable = false;
@@ -866,45 +881,45 @@ public class PlayerUI : MonoBehaviour {
         UITweener = Resume.gameObject.transform.DOLocalRotate(new Vector3(0, 0, EscButtonRotationZArray[ResumeButtonNum]), EscMenuMoveYTime).SetUpdate(true);
         if (ResumeButtonNum == 2)
         {
-            UITweener = Resume.transform.GetChild(0).GetComponent<Text>().DOColor(new Color(0, 0, 0, 0.8f), 0.5f).SetUpdate(true);
+            UITweener = Resume.transform.GetChild(0).GetComponent<Text>().DOFade(1,0.5f).SetUpdate(true);
         }
         else {
-            UITweener = Resume.transform.GetChild(0).GetComponent<Text>().DOColor(new Color(0, 0, 0, 0.6f), 0.5f).SetUpdate(true);
+            UITweener = Resume.transform.GetChild(0).GetComponent<Text>().DOFade(0.7f, 0.5f).SetUpdate(true);
         }
 
         UITweener = System.gameObject.transform.DOLocalMove(new Vector3(EscButtonXArray[SystemButtonNum], EscButtonYArray[SystemButtonNum], 0), EscMenuMoveYTime).SetUpdate(true);
         UITweener = System.gameObject.transform.DOLocalRotate(new Vector3(0, 0, EscButtonRotationZArray[SystemButtonNum]), EscMenuMoveYTime).SetUpdate(true);
         if (SystemButtonNum == 2)
         {
-            UITweener = System.transform.GetChild(0).GetComponent<Text>().DOColor(new Color(0, 0, 0, 0.8f), 0.5f).SetUpdate(true);
+            UITweener = System.transform.GetChild(0).GetComponent<Text>().DOFade(1f, 0.5f).SetUpdate(true);
         }
         else
         {
-            UITweener = System.transform.GetChild(0).GetComponent<Text>().DOColor(new Color(0, 0, 0, 0.6f), 0.5f).SetUpdate(true);
+            UITweener = System.transform.GetChild(0).GetComponent<Text>().DOFade(0.7f, 0.5f).SetUpdate(true);
         }
 
         UITweener = MainMenu.gameObject.transform.DOLocalMove(new Vector3(EscButtonXArray[MainMenuButtonNum], EscButtonYArray[MainMenuButtonNum], 0), EscMenuMoveYTime).SetUpdate(true);
         UITweener = MainMenu.gameObject.transform.DOLocalRotate(new Vector3(0, 0, EscButtonRotationZArray[MainMenuButtonNum]), EscMenuMoveYTime).SetUpdate(true);
         if (MainMenuButtonNum == 2)
         {
-            UITweener = MainMenu.transform.GetChild(0).GetComponent<Text>().DOColor(new Color(0, 0, 0, 0.8f), 0.5f).SetUpdate(true);
+            UITweener = MainMenu.transform.GetChild(0).GetComponent<Text>().DOFade(1f, 0.5f).SetUpdate(true);
         }
         else
         {
-            UITweener = MainMenu.transform.GetChild(0).GetComponent<Text>().DOColor(new Color(0, 0, 0, 0.6f), 0.5f).SetUpdate(true);
+            UITweener = MainMenu.transform.GetChild(0).GetComponent<Text>().DOFade(0.7f, 0.5f).SetUpdate(true);
         }
     }
 
     float GetH_AxisTime = 0;
     bool IsDefalutSelectSystemBack = false;
-    public int SystemNowSelectNum = 4;
-    int ScreenWidth = 1920;
-    int ScreenHeight = 1080;
+    public int SystemNowSelectNum = 2;
     bool IsFullScreen = true;
 
     void EscMenuButtonSelectChecker(int RNum, int SNum, int MNum) {
 
-        if (Input.GetAxis("Horizontal") == 1 || Input.GetAxis("Horizontal") == -1) {
+        
+
+        if (Input.GetAxisRaw("Horizontal") != 0) {
             GetH_AxisTime += Time.unscaledDeltaTime;
         }
 
@@ -913,7 +928,6 @@ public class PlayerUI : MonoBehaviour {
             Resume.Select();
             UITweener = EscMenuBGLeft.transform.DOLocalMove(new Vector3(-1280, 0, 0), 0.5f).SetUpdate(true);// default -1280
             SystemIsOpen = false;
-            SoundSlider.interactable = false;
 
         }
         else if (SNum == 2)
@@ -923,112 +937,129 @@ public class PlayerUI : MonoBehaviour {
             {              
                 Resume.interactable = false;
                 MainMenu.interactable = false;
-                SoundSlider.interactable = true;
-                ScreenModeSlider.interactable = true;
-                ResolutionSlider.interactable = true;
-                SystemBackButton.interactable = true;
+                
 
-                if ((Input.GetKey(KeyCode.L) || Input.GetKey(KeyCode.Joystick1Button1))) {
+                if (Input.GetKey(KeyCode.L) || Input.GetKey(KeyCode.Joystick1Button1)) {
                     SystemIsOpen = false;
                     UITweener = EscMenuBGLeft.transform.DOLocalMove(new Vector3(-1280, 0, 0), 0.5f).SetUpdate(true);// default -1280
                     SystemBackClick();
                 }
 
                 if (!IsDefalutSelectSystemBack) {
-                    SystemBackButton.Select();
+                    
                     IsDefalutSelectSystemBack = true;
                 }
 
-                if (SystemNowSelectNum == 1)
-                {
-                    ScreenModeSlider.Select();
-                }
-                else if (SystemNowSelectNum == 2) {
-                    ResolutionSlider.Select();
-                }
-                else if (SystemNowSelectNum == 3)
-                {
-                    SoundSlider.Select();
-                }
-                else if (SystemNowSelectNum == 4)
-                {
-                    SystemBackButton.Select();
-                }
-
-                if (Input.GetKeyDown(KeyCode.S) || (Input.GetAxis("Vertical") == -1 && GetV_AxisTime >= 0.15f)) {
-                    if (SystemNowSelectNum >= 4)
-                    {
-                        SystemNowSelectNum = 4;
-                    }
-                    else
-                    {
-                        SystemNowSelectNum++;
-                        GetV_AxisTime = 0f;
-                    }
-                }
-                if (Input.GetKeyDown(KeyCode.W) || (Input.GetAxis("Vertical") == 1 && GetV_AxisTime >= 0.15f))
-                {
-                    if (SystemNowSelectNum <= 1)
-                    {
-                        SystemNowSelectNum = 1;
-                    }
-                    else
-                    {
-                        SystemNowSelectNum--;
-                        GetV_AxisTime = 0f;
-                    }
-                }
-
-                if (SystemNowSelectNum == 1) {
-                    if (ScreenModeSlider.value == 0)
-                    {
-                        IsFullScreen = true;
-                    }
-                    else if (ScreenModeSlider.value == 1) {
-                        IsFullScreen = false;
-                    }
-                }// Screen Mode
                 if (SystemNowSelectNum == 2)
                 {
-                    if (ResolutionSlider.value == 0) {
-                        ScreenWidth = 1920;
-                        ScreenHeight = 1080;
-                        ResolutionValueText.text = "1920*1080";
+                    EMBPointer.GetComponent<RectTransform>().DOLocalMoveY(18.5f,0.5f).SetUpdate(true);
+
+                    if (Input.GetAxisRaw("Horizontal") > 0 && FullScreenMode) {
+                        FullScreenMode = false;
+                        ScreenPointer.transform.DOLocalMoveX(35,0f).SetUpdate(true);
+                        GetH_AxisTime = 0;
+                        //Debug.Log("RightToWindow");
                     }
-                    if (ResolutionSlider.value == 1)
+                    if (Input.GetAxisRaw("Horizontal") < 0 && !FullScreenMode)
+                    {
+                        FullScreenMode = true;
+                        ScreenPointer.transform.DOLocalMoveX(12, 0f).SetUpdate(true);
+                        GetH_AxisTime = 0;
+                        //Debug.Log("RightToFull");
+                    }
+
+                }
+                else if (SystemNowSelectNum == 1)
+                {
+                    EMBPointer.GetComponent<RectTransform>().DOLocalMoveY(-2.5f,0.5f).SetUpdate(true);
+
+                    if (Input.GetAxisRaw("Horizontal") > 0 && GetH_AxisTime > 0.2f)
+                    {
+                        ResMode++;
+                        GetH_AxisTime = 0;
+                    }
+                    if (Input.GetAxisRaw("Horizontal") < 0 && GetH_AxisTime > 0.2f)
+                    {
+                        ResMode--;
+                        GetH_AxisTime = 0;
+                    }
+
+
+                    if (ResMode == 0) {
+                        ScreenWidth = 800;
+                        ScreenHeight = 600;
+                        R_Slider.transform.DOLocalMoveX(60,0.5f).SetUpdate(true);
+                    }
+                    if (ResMode == 1)
                     {
                         ScreenWidth = 1600;
                         ScreenHeight = 900;
-                        ResolutionValueText.text = "1600*900";
+                        R_Slider.transform.DOLocalMoveX(76, 0.5f).SetUpdate(true);
                     }
-                    if (ResolutionSlider.value == 2)
+
+                    if (ResMode == 2)
                     {
-                        ScreenWidth = 800;
-                        ScreenHeight = 600;
-                        ResolutionValueText.text = "800*600";
+                        ScreenWidth = 1920;
+                        ScreenHeight = 1080;
+                        R_Slider.transform.DOLocalMoveX(92, 0.5f).SetUpdate(true);
                     }
-                }// Resolution
+
+
+                    R_Text.text = (ScreenWidth + "x" + ScreenHeight);
+                    Screen.SetResolution(ScreenWidth, ScreenHeight, FullScreenMode);
+
+                }
+                else if (SystemNowSelectNum == 0)
+                {
+                    EMBPointer.GetComponent<RectTransform>().DOLocalMoveY(-23.5f,0.5f).SetUpdate(true);
+
+                    if (Input.GetAxisRaw("Horizontal") > 0 && GetH_AxisTime > 0.2f && SoundValue < 100)
+                    {
+                        SoundValue += 10;
+                        S_Slider.transform.localPosition += new Vector3(3.2f,0,0);
+                        GetH_AxisTime = 0;
+                    }
+                    if (Input.GetAxisRaw("Horizontal") < 0 && GetH_AxisTime > 0.2f && SoundValue > 0)
+                    {
+                        SoundValue -= 10;
+                        S_Slider.transform.localPosition -= new Vector3(3.2f,0,0);
+                        GetH_AxisTime = 0;
+                    }
+                    S_Text.text = SoundValue.ToString();
+                    BGMM.gameObject.GetComponent<AudioSource>().volume = SoundValue / 100;
+                }
+
+                if (Input.GetKeyDown(KeyCode.W) || (Input.GetAxis("Vertical") == 1 && GetV_AxisTime >= 0.15f))
+                {
+                    if (SystemNowSelectNum < 2) {
+                        SystemNowSelectNum++;
+                        GetV_AxisTime = 0;
+                    }
+                }
+
+                if (Input.GetKeyDown(KeyCode.S) || (Input.GetAxis("Vertical") == -1 && GetV_AxisTime >= 0.15f)) {
+                    if (SystemNowSelectNum > 0)
+                    {
+                        SystemNowSelectNum--;
+                        GetV_AxisTime = 0;
+                    }
+                }
+                             
                 
 
                 if ((Input.GetKeyDown(KeyCode.A) || Input.GetAxis("Horizontal") < 0 && GetH_AxisTime > 0.5f) && SystemNowSelectNum == 3)
                 {
-                    SoundSlider.value -= 0.1f;
                     GetH_AxisTime = 0;
                 }// Left
                 if ((Input.GetKeyDown(KeyCode.D) || Input.GetAxis("Horizontal") > 0 && GetH_AxisTime > 0.5f) && SystemNowSelectNum == 3)
                 {
-                    SoundSlider.value += 0.1f;
                     GetH_AxisTime = 0;
                 }// Right
-                BGMM.gameObject.GetComponent<AudioSource>().volume = SoundSlider.value;//set sound volume
             }
             else {
                 Resume.interactable = true;
                 MainMenu.interactable = true;
-                SoundSlider.interactable = false;
-                ScreenModeSlider.interactable = false;
-                ResolutionSlider.interactable = false;
-                SystemBackButton.interactable = false;
+                
                 System.Select();
                 IsDefalutSelectSystemBack = false;
             }
@@ -1037,7 +1068,6 @@ public class PlayerUI : MonoBehaviour {
             MainMenu.Select();
             UITweener = EscMenuBGLeft.transform.DOLocalMove(new Vector3(-1280, 0, 0), 0.5f).SetUpdate(true);// default -1280
             SystemIsOpen = false;
-            SoundSlider.interactable = false;
 
         }
 
@@ -1049,7 +1079,6 @@ public class PlayerUI : MonoBehaviour {
         System.interactable = false;
         MainMenu.interactable = false;
         PlayerCon.IsEscMenu = false;
-        SoundSlider.interactable = false;
     }
 
     public void EscSystemClick() {
@@ -1059,7 +1088,6 @@ public class PlayerUI : MonoBehaviour {
         MainMenu.interactable = false;
 
         SystemIsOpen = true;
-        SoundSlider.interactable = true;
     }
 
     public void EscMainMenuClick() {
