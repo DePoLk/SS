@@ -20,6 +20,7 @@ public class Arrow_Wolf : MonoBehaviour {
     public Material trans_mat;
     public AudioClip DeathSE;
     public AudioClip hitSE;
+    public AudioClip ShootSE;
     public float forcr;
     public GameObject mat_render;
     public Transform T;
@@ -119,6 +120,7 @@ public class Arrow_Wolf : MonoBehaviour {
         AA.anim.SetBool("WalkAim",true);
         yield return new WaitForSeconds(2.0f);
         AA.anim.SetBool("attack", true);
+        audi.PlayOneShot(ShootSE);
         yield return new WaitForSeconds(0.5f);
         AA.anim.SetBool("attack", false);
         yield return new WaitForSeconds(2.0f);
