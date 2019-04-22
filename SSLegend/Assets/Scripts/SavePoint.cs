@@ -39,7 +39,8 @@ public class SavePoint : MonoBehaviour {
         ExpS = FindObjectOfType<Exp_System>();
         MenuTweener.SetAutoKill(true);
         SaveMenu = GameObject.Find("MenuBG").GetComponent<Image>();
-	}
+        SaveGameBtn = GameObject.Find("SaveGame").GetComponent<Button>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
