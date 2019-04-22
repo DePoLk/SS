@@ -1107,6 +1107,7 @@ public class PlayerUI : MonoBehaviour {
     }
 
     public void EscMainMenuClick() {
+        this.gameObject.SetActive(false);
         LD.BackToMenu();
     }
 
