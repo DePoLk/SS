@@ -78,7 +78,7 @@ public class UIEventTrigger : MonoBehaviour {
             PUI.BossHPUI.GetComponent<CanvasGroup>().alpha = 1;
             PUI.BossGetHp();
             PUI.GetInAniIsDone = true;
-            Destroy(gameObject, 0.1f);
+            Destroy(gameObject, 0);
         }
 
     }

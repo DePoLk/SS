@@ -135,12 +135,15 @@ public class Cutton : MonoBehaviour
 
     private IEnumerator Flash()
     {
+        int tmp = 2450;
         PSE.Cutton_SE();
         bear_mat.shader = Shader.Find("Custom/FlashLight_Health");
         bear_mat.SetColor("_Color",new Color32(170,250,200,255));
+        bear_mat.renderQueue = tmp;
         yield return new WaitForSeconds(0.075f);
         bear_mat.shader = Shader.Find("Custom/PlayerDiffuse");
         bear_mat.SetColor("_Color", Color.white);
+        bear_mat.renderQueue = tmp;
         Destroy(gameObject);
 
     }

@@ -13,7 +13,7 @@
 		_OutlineWidth("Outline Width", Range(1.0, 10.0)) = 1.1
 	}
 		SubShader{
-			Tags { "RenderType" = "Opaque" "Opaque" = "Geomatry"}
+			Tags { "RenderType" = "Opaque" "Opaque" = "AlphaTest"}
 			LOD 200
 			Pass {
 				ZTest Greater

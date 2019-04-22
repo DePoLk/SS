@@ -17,6 +17,7 @@ public class TeachEvent : MonoBehaviour {
     public int NowTeachEventNum;
     public Sprite[] TeachImageArray;
     bool IsCanChange = true;
+    public GameObject WaitEvent;
 
     // Use this for initialization
     void Start () {
@@ -78,7 +79,7 @@ public class TeachEvent : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) {
+        if (other.CompareTag("Player") && !PlayerCon.IsUIEventing && WaitEvent == null) {
 
             PlayerCon.IsTeaching = true;
             TeachImage.sprite = TeachImageArray[EventStartIndex];

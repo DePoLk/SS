@@ -99,7 +99,7 @@ public class Cinemachine_Ctrl : MonoBehaviour {
             MainCam.transform.eulerAngles = new Vector3(40, -90, 0);
             Boss.SetActive(true);
             PlayerCon.BearModel.SetActive(true);
-            PlayerCon.transform.position = new Vector3(14, 0, 1);
+            PlayerCon.transform.position = GameObject.Find("RePosPoint").transform.position;
             DM.DeleteFile(Application.dataPath + "/Save", "Save.txt");
             DM.SaveFile(Application.dataPath + "/Save", "Save.txt");
 
