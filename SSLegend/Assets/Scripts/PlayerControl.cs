@@ -79,6 +79,7 @@ public class PlayerControl : MonoBehaviour {
     public bool IsInCannon = false;
     public bool IsInCinema = false;
     public bool OnTop = false;
+
     
    
     [Range(-280f,0f)]
@@ -89,6 +90,8 @@ public class PlayerControl : MonoBehaviour {
     public int AniAtkCount = 0;
     public float AniResetTime = 0.55f;
     public float RunTime = 0;
+    public float FastTime = 3f;
+    public bool IsFast = false;
     public bool IsJumping = false;
     public bool IsDodging = false;
     public bool IsTurning = false;
@@ -386,8 +389,17 @@ public class PlayerControl : MonoBehaviour {
         }
 
 
-        
-        
+
+        if (IsFast) {
+            FastTime -= Time.deltaTime;
+
+            if (FastTime <= 0) {
+                IsFast = false;
+                FastTime = 3f;
+                speed = DefaultSpeed;
+                Player_Animator.SetBool("PlayerFastRun", false);
+            }
+        }
         
         
 
@@ -404,7 +416,7 @@ public class PlayerControl : MonoBehaviour {
             CheckPlayerIsPanting();
             PlayerFatPressDownCheck();
         }
-        else {
+        else if(!IsFast && !IsFat){
             speed = DefaultSpeed;
             JumpSpeed = DefaultJumpSpeed;
             Player_Animator.SetBool("PlayerFat", false);

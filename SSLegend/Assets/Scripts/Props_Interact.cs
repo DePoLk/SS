@@ -64,8 +64,7 @@ public class Props_Interact : MonoBehaviour {
         if (other.CompareTag("Player") && (Input.GetKeyDown(KeyCode.Joystick1Button2) || Input.GetKeyDown(KeyCode.J))) {
             PlayerCon.NearItem = true;        
             if (!HoldBox && !PlayerCon.IsFat)
-            {
-                
+            {                
                 this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
                 PlayerObj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
                 HoldBox = true;
@@ -106,18 +105,18 @@ public class Props_Interact : MonoBehaviour {
         if (HoldBox && Input.GetAxisRaw("Vertical") > 0)
         {
             PlayerAni.SetBool("PlayerPush", true);
-            this.GetComponent<Rigidbody>().AddForce(PlayerObj.transform.forward* PushForce);
-            this.GetComponent<Rigidbody>().AddForce(PlayerObj.transform.right * PushForce);
-            PlayerObj.GetComponent<Rigidbody>().AddForce(PlayerObj.transform.forward * PushForce);
-            PlayerObj.GetComponent<Rigidbody>().AddForce(PlayerObj.transform.right * PushForce);
+            this.GetComponent<Rigidbody>().AddForce(PlayerObj.transform.forward* PlayerCon.ForceFixForward * PushForce);
+            this.GetComponent<Rigidbody>().AddForce(PlayerObj.transform.right * PlayerCon.ForceFixRight*PushForce);
+            PlayerObj.GetComponent<Rigidbody>().AddForce(PlayerObj.transform.forward * PlayerCon.ForceFixForward * PushForce);
+            PlayerObj.GetComponent<Rigidbody>().AddForce(PlayerObj.transform.right * PlayerCon.ForceFixRight * PushForce);
         }
         if (HoldBox && Input.GetAxisRaw("Vertical") < 0)
         {
             PlayerAni.SetBool("PlayerPull", true);
-            this.GetComponent<Rigidbody>().AddForce(PlayerObj.transform.forward * PullForce);
-            this.GetComponent<Rigidbody>().AddForce(PlayerObj.transform.right * PullForce);
-            PlayerObj.GetComponent<Rigidbody>().AddForce(PlayerObj.transform.forward * (PullForce - 6));
-            PlayerObj.GetComponent<Rigidbody>().AddForce(PlayerObj.transform.right * (PullForce - 6));
+            this.GetComponent<Rigidbody>().AddForce(PlayerObj.transform.forward * PullForce * PlayerCon.ForceFixForward);
+            this.GetComponent<Rigidbody>().AddForce(PlayerObj.transform.right * PullForce * PlayerCon.ForceFixRight);
+            PlayerObj.GetComponent<Rigidbody>().AddForce(PlayerObj.transform.forward * (PullForce - 6) * PlayerCon.ForceFixForward);
+            PlayerObj.GetComponent<Rigidbody>().AddForce(PlayerObj.transform.right * (PullForce - 6) * PlayerCon.ForceFixRight);
         }
         if (HoldBox && Input.GetAxisRaw("Vertical") == 0) {
             PlayerAni.SetBool("PlayerPush", false);
