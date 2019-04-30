@@ -9,6 +9,9 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuControl : MonoBehaviour {
 
+    public GameObject PressToStart;
+    public GameObject AllStuff;
+
     public Button StartBtn;
     public Button LoadBtn;
     public Button OptionBtn;
@@ -43,6 +46,9 @@ public class MainMenuControl : MonoBehaviour {
     public float OPressTime = 0;
     float OMaxPressTime = 0.2f;
     int OSelectNum = 0;
+
+    [Header("任意繼續")]
+    public bool IsPressStart = false;
     
     float input_H = 0;
 
@@ -56,16 +62,19 @@ public class MainMenuControl : MonoBehaviour {
     LoadingControl Load;
     DataManger DM;
 
-    
+    public float OptionCoolTime;
+    public float DefaultOptionCoolTime;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         StartBtn.Select();
         Load = FindObjectOfType<LoadingControl>();
         Arrow = GameObject.Find("Arrow");
         Left = Arrow.transform.GetChild(0).gameObject;
         Right = Arrow.transform.GetChild(1).gameObject;
         DM = FindObjectOfType<DataManger>();
+
+
 
         OptionPage = GameObject.Find("OptionPage");
         OptionPointer = GameObject.Find("OptionPointer");
@@ -74,8 +83,12 @@ public class MainMenuControl : MonoBehaviour {
         ResSlider = GameObject.Find("R_SettingBarSlider");
         SoundText = GameObject.Find("SoundText").GetComponent<Text>();
         SoundSlider = GameObject.Find("S_SettingBarSlider");
+        PressToStart = GameObject.Find("PressToStart");
+        AllStuff = GameObject.Find("AllStuff");
+
         DM.LoadFileFunction();
-        
+
+        OptionCoolTime = DefaultOptionCoolTime;
 
     }
 
@@ -83,11 +96,13 @@ public class MainMenuControl : MonoBehaviour {
     void Update () {
         input_V = Input.GetAxis("Vertical");
         input_H = Input.GetAxis("Horizontal");
-        if (!IsOptionOpen) {
+        if (!IsOptionOpen && IsPressStart) {
             Checker();
         }
         OptionPageCon();
         Debug.Log(ExitBtn.transform.position.y);
+        PressStart();
+
     }
 
     void Checker() {
@@ -153,6 +168,40 @@ public class MainMenuControl : MonoBehaviour {
 
     }
 
+    IEnumerator PressToStartAnimation() {
+        PressAni = true;
+        PressToStart.GetComponent<CanvasGroup>().DOFade(0, 1);
+        yield return new WaitForSeconds(1);
+        PressToStart.GetComponent<CanvasGroup>().DOFade(1, 1);
+        yield return new WaitForSeconds(1);
+        PressAni = false;
+
+    }
+
+    bool PressAni = false;
+
+    void PressStart() {
+
+        if (!IsPressStart)
+        {
+            if (Input.anyKeyDown)
+            {
+                StopCoroutine("PressToStartAnimation");
+                PressAni = true;
+                PressToStart.GetComponent<CanvasGroup>().DOKill();
+                AllStuff.GetComponent<CanvasGroup>().DOFade(1, 1f);
+                PressToStart.GetComponent<CanvasGroup>().DOFade(0,1f);
+                IsPressStart = true;
+                
+            }
+        }
+        
+        if (!PressAni && !IsPressStart) {
+                StartCoroutine("PressToStartAnimation");
+         }
+        
+
+    }
 
     public void StartClick() {
         Load.ChangeScene();
@@ -167,9 +216,11 @@ public class MainMenuControl : MonoBehaviour {
     public void OptionClick() {
 
         IsOptionOpen = true;
-        ExitBtn.gameObject.GetComponent<RectTransform>().DOMoveY(187,0.5f);
+        ExitBtn.gameObject.GetComponent<RectTransform>().DOLocalMoveY(-175f,0.5f);
         OptionPage.GetComponent<CanvasGroup>().DOFade(1, 1.5f);
     }
+
+    
 
     void OptionPageCon() {
         if (IsOptionOpen)
@@ -178,16 +229,25 @@ public class MainMenuControl : MonoBehaviour {
             LoadBtn.enabled = false;
             OptionBtn.enabled = false;
             ExitBtn.enabled = false;
-           
 
-            if ((Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.Joystick1Button1))) {
+            if (OptionCoolTime > 0)
+            {
+                OptionCoolTime -= Time.deltaTime;
+            }
+            else if (OptionCoolTime == 0) {
+                OptionCoolTime = 0;
+            }
+
+            if ((Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.Joystick1Button1)) && OptionCoolTime <= 0)
+            {
                 StartBtn.enabled = true;
                 LoadBtn.enabled = true;
                 OptionBtn.enabled = true;
                 ExitBtn.enabled = true;
                 IsOptionOpen = false;
-                ExitBtn.gameObject.GetComponent<RectTransform>().DOMoveY(334, 0.5f);
+                ExitBtn.gameObject.GetComponent<RectTransform>().DOLocalMoveY(-105f, 0.5f);
                 OptionPage.GetComponent<CanvasGroup>().DOFade(0, 0.5f);
+                OptionCoolTime = DefaultOptionCoolTime;
             }
 
             if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
@@ -205,17 +265,19 @@ public class MainMenuControl : MonoBehaviour {
                 OPressTime = 0;
             }
 
-            if (OSelectNum == 0) {
-                OptionPointer.transform.DOLocalMoveY(-21,0.5f);
+            if (OSelectNum == 0)
+            {
+                OptionPointer.transform.DOLocalMoveY(-21, 0.5f);
 
                 if (Input.GetAxis("Horizontal") > 0 && FullScreenMode)
                 {
                     FullScreenMode = false;// window
-                    ScreenPointer.transform.localPosition = new Vector3(858,-5,0);
+                    ScreenPointer.transform.localPosition = new Vector3(858, -5, 0);
                     Screen.SetResolution(ScreenWidth, ScreenHeight, FullScreenMode);
                     OPressTime = 0;
                 }
-                else if(Input.GetAxis("Horizontal") < 0 && !FullScreenMode) {
+                else if (Input.GetAxis("Horizontal") < 0 && !FullScreenMode)
+                {
                     FullScreenMode = true;// full
                     ScreenPointer.transform.localPosition = new Vector3(487, -5, 0);
                     Screen.SetResolution(ScreenWidth, ScreenHeight, FullScreenMode);
@@ -237,10 +299,11 @@ public class MainMenuControl : MonoBehaviour {
                     OPressTime = 0;
                 }
 
-                if (ScreenResMode == 0) {
+                if (ScreenResMode == 0)
+                {
                     ScreenWidth = 800;
                     ScreenHeight = 600;
-                    ResSlider.transform.DOLocalMoveX(988,0.5f);
+                    ResSlider.transform.DOLocalMoveX(988, 0.5f);
                 }
                 if (ScreenResMode == 1)
                 {
@@ -251,8 +314,8 @@ public class MainMenuControl : MonoBehaviour {
                 if (ScreenResMode == 2)
                 {
                     ScreenWidth = 1920;
-                    ScreenHeight = 1080;                   
-                    ResSlider.transform.DOLocalMoveX(1472,0.5f);
+                    ScreenHeight = 1080;
+                    ResSlider.transform.DOLocalMoveX(1472, 0.5f);
                 }
                 Screen.SetResolution(ScreenWidth, ScreenHeight, FullScreenMode);
                 ResText.text = (ScreenWidth + "x" + ScreenHeight);
@@ -265,13 +328,13 @@ public class MainMenuControl : MonoBehaviour {
                 if (Input.GetAxis("Horizontal") > 0 && OPressTime > OMaxPressTime && SoundValue < 100)
                 {
                     SoundValue += 10f;
-                    SoundSlider.transform.localPosition += new Vector3(48.8f,0,0);
+                    SoundSlider.transform.localPosition += new Vector3(48.8f, 0, 0);
                     OPressTime = 0;
                 }
                 else if (Input.GetAxis("Horizontal") < 0 && OPressTime > OMaxPressTime && SoundValue > 0)
                 {
                     SoundValue -= 10f;
-                    SoundSlider.transform.localPosition -= new Vector3(48.8f,0,0);
+                    SoundSlider.transform.localPosition -= new Vector3(48.8f, 0, 0);
                     OPressTime = 0;
                 }
 
@@ -279,6 +342,9 @@ public class MainMenuControl : MonoBehaviour {
 
             }// sound
 
+
+        }
+        else {
 
         }
     }
