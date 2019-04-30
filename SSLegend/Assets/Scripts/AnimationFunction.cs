@@ -232,7 +232,7 @@ public class AnimationFunction : MonoBehaviour {
     }
     public void footprintR()
     {
-        GameObject a = Instantiate(footsprint, footSpotL.transform.position, Player.transform.rotation);
+        GameObject a = Instantiate(footsprint, footSpotR.transform.position, Player.transform.rotation);
         Destroy(a, 2.0f);
     }
     public void DodgeFarting() {
