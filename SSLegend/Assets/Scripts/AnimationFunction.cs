@@ -125,6 +125,9 @@ public class AnimationFunction : MonoBehaviour {
         PlayerCon.IsAtking = false;
         PlayerCon.IsDodging = false;
         PlayerCon.IsFating = false;
+        PlayerCon.GetComponent<Animator>().SetBool("PlayerUseWind", false);
+        PlayerCon.GetComponent<Animator>().SetBool("PlayerFastRun", false);
+
         PlayerCon.AniAtkCount = 0;
         
         Time.timeScale = 1;
@@ -376,4 +379,9 @@ public class AnimationFunction : MonoBehaviour {
         potion_Body.SetActive(true); 
     }
     
+    public void ResetUseWind()
+    {
+        PlayerCon.GetComponent<Animator>().SetBool("PlayerUseWind",false);
+    }
+
 }
