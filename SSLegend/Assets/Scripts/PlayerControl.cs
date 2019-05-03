@@ -101,6 +101,7 @@ public class PlayerControl : MonoBehaviour {
     public bool IsPanting = false;
     public bool IsFating = false;
     public bool IsTeaching = false;
+    public bool IsBurn = false;
     bool Item2IsColdDown = false;
     public int CurrentModelNum = 0;
 
@@ -122,6 +123,7 @@ public class PlayerControl : MonoBehaviour {
     BGMManager BGMM;
     PlayerSE PSE;
     CamTrigger CT;
+    GameObject DodgeDetector;
 
     public Scene ThisScene;
 
@@ -162,8 +164,8 @@ public class PlayerControl : MonoBehaviour {
         PSE = FindObjectOfType<PlayerSE>();
         CB = FindObjectOfType<CinemachineBrain>();
         CT = FindObjectOfType<CamTrigger>();
+        DodgeDetector = GameObject.Find("DodgeDetector");
 
-        
 
         ThisScene = SceneManager.GetActiveScene();
 
@@ -633,7 +635,7 @@ public class PlayerControl : MonoBehaviour {
 
     bool IsCanMove() {
 
-        if (!Player_Animator.GetBool("PlayerStrikeDown") && !IsInCinema && !IsInCannon && !IsStriked && !Save_Point.IsSavePointOpened && (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0) && !IsAtking && !IsHolding && !IsDodging && !IsDead && !IsUIEventing && !IsTurning && !IsDrinking && !IsPanting && !Player_Animator.GetBool("PlayerPress") && !IsFating && !IsEscMenu)
+        if (!Player_Animator.GetBool("PlayerUseWind") && !Player_Animator.GetBool("PlayerStrikeDown") && !IsInCinema && !IsInCannon && !IsStriked && !Save_Point.IsSavePointOpened && (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0) && !IsAtking && !IsHolding && !IsDodging && !IsDead && !IsUIEventing && !IsTurning && !IsDrinking && !IsPanting && !Player_Animator.GetBool("PlayerPress") && !IsFating && !IsEscMenu)
         {
             return true;
         }
@@ -915,11 +917,13 @@ public class PlayerControl : MonoBehaviour {
                 else if (Item_Type == 2 && WindElement > 0 && !Item2IsColdDown && !IsFating)
                 {
                     Debug.Log("Item2_Use");
-                    WindElement -= 1;
-                    Instantiate(Tornado, -this.transform.forward - this.transform.right + this.transform.position + new Vector3(0,1f,0),Quaternion.identity);
-                    Item2IsColdDown = true;
 
-                    
+                    Player_Animator.SetBool("PlayerUseWind",true);
+                    WindElement -= 1;
+                    //Instantiate(Tornado, - this.transform.forward - this.transform.right + this.transform.position + new Vector3(0,1f,0),Quaternion.identity);
+                    Instantiate(Tornado, DodgeDetector.transform.position - DodgeDetector.transform.forward - DodgeDetector.transform.right + new Vector3(0,1,0), Quaternion.identity);
+
+                    Item2IsColdDown = true;                  
 
                     StartCoroutine("Item2ColdDown");
                 }
@@ -1149,9 +1153,13 @@ public class PlayerControl : MonoBehaviour {
             }
         }
 
+        if (other.gameObject.tag == "Lava" && IsBurn == false)
+        {
+            StartCoroutine("Burning");
+        }
 
 
-        
+
 
     }
 
@@ -1162,6 +1170,23 @@ public class PlayerControl : MonoBehaviour {
             OnTop = false;
             //BA.BackToLow = true;
         }
+
+        if (other.gameObject.tag == "Lava" && IsBurn == false)
+        {
+            StopCoroutine("Burning");
+            IsBurn = false;
+        }
+
+    }
+
+    private IEnumerator Burning()
+    {
+        IsBurn = true;
+        Hp--;
+        Debug.Log(Hp);
+        Player_Animator.SetTrigger("PlayerStriked");
+        yield return new WaitForSeconds(2f);
+        IsBurn = false;
     }
 
     void PlayerAnimationBoolChecker() {
