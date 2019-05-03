@@ -16,7 +16,9 @@ public class PlayerSE : MonoBehaviour {
     public AudioClip HurtSE;
     public AudioClip SplashSE;
     public AudioClip DieSE;
-    
+    public AudioClip DrinkSE;
+    public AudioClip HitStoneSE;
+    public AudioClip HitTreeSE;
 
     public int IsExpPick;
     public int IsAtk;
@@ -82,4 +84,19 @@ public class PlayerSE : MonoBehaviour {
     public void Cutton_SE() {
         SE.PlayOneShot(ExpSE);
     }
+
+    public void Drink_SE() {
+        SE.PlayOneShot(DrinkSE);
+    }
+
+    public void HitGround_SE() {
+        SE.volume = 1.0f;
+        SE.PlayOneShot(HitStoneSE);
+
+    }
+    public void HitPlants_SE() {
+        SE.volume = 1.0f;
+        SE.PlayOneShot(HitTreeSE);
+    }
 }
+
