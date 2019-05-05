@@ -26,7 +26,11 @@ public class AnimationFunction : MonoBehaviour {
     public GameObject footSpotR;
     public GameObject potion;
     public GameObject potion_Body;
-
+    public GameObject UseWindEmber;
+    public GameObject UseWind_Spot;
+    public GameObject Tornado;
+    private GameObject DodgeDetector;
+    public ParticleSystem WindEmberTrail;
     Animator Player_Ani;
 
     Scene ThisScene;
@@ -43,12 +47,20 @@ public class AnimationFunction : MonoBehaviour {
         WVC = FindObjectOfType<WaterValueChange>();
         potion_Body.SetActive(true);
         potion.SetActive(false);
+        DodgeDetector = GameObject.Find("DodgeDetector");
     }
 	
 	// Update is called once per frame
 	void Update () {
-       
-	}
+        var em = WindEmberTrail.emission;
+        if (Player_Ani.GetBool("PlayerFastRun"))
+        {
+            em.enabled = true;
+        }
+        else {
+            em.enabled = false;
+        }
+    }
 
     public void PosPlus1() {
         
@@ -372,6 +384,7 @@ public class AnimationFunction : MonoBehaviour {
     public void PotionOn() {
         potion.SetActive(true);
         potion_Body.SetActive(false);
+       
     }
     public void PotionOff()
     {
@@ -383,5 +396,11 @@ public class AnimationFunction : MonoBehaviour {
     {
         PlayerCon.GetComponent<Animator>().SetBool("PlayerUseWind",false);
     }
-
+    public void UseWind() {
+        Instantiate(Tornado, DodgeDetector.transform.position - DodgeDetector.transform.forward - DodgeDetector.transform.right + new Vector3(0, 1, 0), Quaternion.identity);
+    }
+    public void UseWind_vfx() {
+        GameObject a = Instantiate(UseWindEmber, UseWind_Spot.transform);
+        Destroy(a, 3f);
+    } 
 }

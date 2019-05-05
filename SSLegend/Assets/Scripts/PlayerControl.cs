@@ -921,7 +921,7 @@ public class PlayerControl : MonoBehaviour {
                     Player_Animator.SetBool("PlayerUseWind",true);
                     WindElement -= 1;
                     //Instantiate(Tornado, - this.transform.forward - this.transform.right + this.transform.position + new Vector3(0,1f,0),Quaternion.identity);
-                    Instantiate(Tornado, DodgeDetector.transform.position - DodgeDetector.transform.forward - DodgeDetector.transform.right + new Vector3(0,1,0), Quaternion.identity);
+                    //Instantiate(Tornado, DodgeDetector.transform.position - DodgeDetector.transform.forward - DodgeDetector.transform.right + new Vector3(0,1,0), Quaternion.identity);
 
                     Item2IsColdDown = true;                  
 
