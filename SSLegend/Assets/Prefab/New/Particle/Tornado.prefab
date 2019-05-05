@@ -119,7 +119,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1210768465590410}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.17, y: -0.09, z: 1.78}
+  m_LocalPosition: {x: 0.17, y: -0.09, z: 0.9}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 4905627856331668}
@@ -132,7 +132,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1054681655463116}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 4.61}
+  m_LocalPosition: {x: 0, y: 0, z: 4.35}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 4905627856331668}
@@ -145,7 +145,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1132074011484272}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.750873, y: 0.029489517, z: 8.0784645}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.1713444, y: 0.20794876, z: 1.1713444}
   m_Children:
   - {fileID: 4905627856331668}
@@ -656,7 +656,7 @@ ParticleSystem:
     startRotationX:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.08726646
+      scalar: 0.052359875
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -709,7 +709,7 @@ ParticleSystem:
     startRotationY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.017453292
+      scalar: 0
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -1196,9 +1196,18 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0.46052313
+          value: 0.33274603
           inSlope: 0
           outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.85375905
+          value: 0.7941336
+          inSlope: 0.9838127
+          outSlope: 0.9838127
           tangentMode: 0
           weightedMode: 0
           inWeight: 0.33333334
@@ -1404,7 +1413,7 @@ ParticleSystem:
     y:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 6.283185
+      scalar: 12.56637
       minScalar: 18.849556
       maxCurve:
         serializedVersion: 2
@@ -1534,16 +1543,16 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 32382
-        atime2: 41634
-        atime3: 65535
-        atime4: 0
+        atime1: 24672
+        atime2: 38743
+        atime3: 57440
+        atime4: 65535
         atime5: 0
         atime6: 0
         atime7: 0
         m_Mode: 0
         m_NumColorKeys: 2
-        m_NumAlphaKeys: 4
+        m_NumAlphaKeys: 5
       minGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4847,7 +4856,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1329797621064780}
   serializedVersion: 5
   lengthInSec: 1
-  simulationSpeed: 1
+  simulationSpeed: 1.2
   stopAction: 0
   looping: 0
   prewarm: 0
@@ -9788,7 +9797,7 @@ ParticleSystem:
     startRotationX:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.08726646
+      scalar: 0.052359875
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -9841,7 +9850,7 @@ ParticleSystem:
     startRotationY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.017453292
+      scalar: 0
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -10652,7 +10661,7 @@ ParticleSystem:
         key0: {r: 0, g: 0.5188679, b: 0.3413938, a: 0}
         key1: {r: 0.05322181, g: 0.63366145, b: 0.8679245, a: 1}
         key2: {r: 0.05322181, g: 0.63366145, b: 0.8679245, a: 0.80784315}
-        key3: {r: 0, g: 0, b: 0, a: 0.64705884}
+        key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
@@ -10936,7 +10945,7 @@ ParticleSystem:
     z:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.2
+      scalar: 0.3
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -13979,7 +13988,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1170816547197030}
   serializedVersion: 5
   lengthInSec: 1
-  simulationSpeed: 1
+  simulationSpeed: 1.2
   stopAction: 0
   looping: 0
   prewarm: 0

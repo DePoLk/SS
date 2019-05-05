@@ -7,19 +7,22 @@ public class Tornado : MonoBehaviour {
     public float TornadoTime = 7f;
     public float TornadoEffectTime = 7f;
     public float FastSpeed;
-     float TornadoForce = 650f;
+    float TornadoForce = 650f;
     Animator Player_Ani;
     PlayerControl PlayerCon;
+    private GameObject DodgeDetector;
 
 	// Use this for initialization
 	void Start () {
         Player_Ani = GameObject.Find("Player").GetComponent<Animator>();
         PlayerCon = FindObjectOfType<PlayerControl>();
-	}
+        DodgeDetector = GameObject.Find("DodgeDetector");
+    }
 	
 	// Update is called once per frame
 	void Update () {
         Timer();
+        transform.Translate(DodgeDetector.transform.forward * -1 * Time.deltaTime * 0.2f);
 	}
 
     void Timer() {
