@@ -49,7 +49,7 @@ public class TeachEvent : MonoBehaviour {
             if ((Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.Joystick1Button0)) && IsCanChange && NowTeachEventNum == EventEndIndex) {
                 TeachImage.gameObject.GetComponent<CanvasGroup>().DOFade(0, 0.5f).SetUpdate(true);
                 PlayerCon.IsTeaching = false;
-                Destroy(this.gameObject, 1f);
+                Destroy(this.gameObject);
             }
 
             if ((Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.Joystick1Button0)) && IsCanChange) {
@@ -85,6 +85,10 @@ public class TeachEvent : MonoBehaviour {
             TeachImage.sprite = TeachImageArray[EventStartIndex];
             TeachImage.gameObject.GetComponent<CanvasGroup>().DOFade(1,0.5f).SetUpdate(true);
 
+        }
+
+        if (other.CompareTag("DodgeDetector")) {
+            return;
         }
     }
 

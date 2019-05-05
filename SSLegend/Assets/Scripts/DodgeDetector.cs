@@ -39,6 +39,10 @@ public class DodgeDetector : MonoBehaviour {
             }
         }
 
+        if (other.CompareTag("Player")) {
+            return;
+        }
+
     }
 
 }
