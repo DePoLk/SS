@@ -64,6 +64,7 @@ public class PlayerUI : MonoBehaviour {
     DataSystem DS;
     Boss_Arubado BA;
 
+    bool PreLoad = false;
 
     // UI ItemIcon
     Vector3[] ItemIconLocation = new[] { new Vector3(-60, -35, 0), new Vector3(0, 15, 0), new Vector3(60, -35, 0), new Vector3(0, -180, 0) };
@@ -227,14 +228,18 @@ public class PlayerUI : MonoBehaviour {
          Debug.Log(UIEventNum[1]);*/
         /*Debug.Log(UIEventTextAmount[0]);
         Debug.Log(UIEventTextAmount[1]);*/
+
+        PreLoad = true;
     }
 
     // Update is called once per frame
     void Update() {
-        CheckValuePerSec();//更新UI資訊       
-        InfoWindowHandler(GetOnTriggerUIEventNum);//處理UIEvent
-        ReFocus();// 重新聚焦最後一個聚焦的對象
-        EscMenuCon();// Esc的選單控制
+        if (PreLoad) {
+            CheckValuePerSec();//更新UI資訊       
+            InfoWindowHandler(GetOnTriggerUIEventNum);//處理UIEvent
+            ReFocus();// 重新聚焦最後一個聚焦的對象
+            EscMenuCon();// Esc的選單控制
+        }
     }
 
 

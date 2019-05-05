@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Tornado : MonoBehaviour {
 
@@ -11,12 +12,25 @@ public class Tornado : MonoBehaviour {
     Animator Player_Ani;
     PlayerControl PlayerCon;
     private GameObject DodgeDetector;
+    Scene ThisScene;
+
 
 	// Use this for initialization
 	void Start () {
         Player_Ani = GameObject.Find("Player").GetComponent<Animator>();
         PlayerCon = FindObjectOfType<PlayerControl>();
         DodgeDetector = GameObject.Find("DodgeDetector");
+        ThisScene = SceneManager.GetActiveScene();
+
+
+        if (ThisScene.name.Equals("2-1")) {
+            FastSpeed = -4;
+        }
+        if (ThisScene.name.Equals("K"))
+        {
+            FastSpeed = -6;
+        }
+
     }
 	
 	// Update is called once per frame

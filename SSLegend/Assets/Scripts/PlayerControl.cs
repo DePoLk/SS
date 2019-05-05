@@ -332,13 +332,13 @@ public class PlayerControl : MonoBehaviour {
 
         if (NowCamTrack.Equals("CM track4"))
         {
-            Move_x = 1f;
+            Move_x = 0;
             Move_y = 0;
-            Move_z = 1f;
-            BearModel_y = -50;
-            FatBearModel_y = -50;
-            ForceFixForward = 1;
-            ForceFixRight = 1;
+            Move_z = 2f;
+            BearModel_y = -90;
+            FatBearModel_y = -90;
+            ForceFixForward = 2;
+            ForceFixRight = 0;
             LastCMTrack = NowCamTrack;
         }
 

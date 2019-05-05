@@ -6,7 +6,7 @@ namespace DataValue
 {
     class EventValue
     {
-        public static int UIEventMax = 4;
+        public static int UIEventMax = 5;
         public static int StageEventMax = 2;
         public static int MonsterMax = 17;
         public static int ItemMax = 30;
