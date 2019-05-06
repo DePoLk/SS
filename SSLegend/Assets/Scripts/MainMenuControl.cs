@@ -204,6 +204,7 @@ public class MainMenuControl : MonoBehaviour {
     }
 
     public void StartClick() {
+        Debug.Log("222");
         Load.ChangeScene();
     }
 

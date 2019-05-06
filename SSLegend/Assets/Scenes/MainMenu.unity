@@ -2594,7 +2594,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1861451299283348, guid: 01d379c53e307f2429f7b9f0fb28abb3, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01d379c53e307f2429f7b9f0fb28abb3, type: 2}
@@ -2671,8 +2671,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1489235516}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 986.9701, y: 413.0967, z: 880.39777}
+  m_LocalRotation: {x: 0.08852133, y: -0.9076734, z: 0.33036605, w: 0.2432104}
+  m_LocalPosition: {x: 16.01175, y: 18.109154, z: 5.556485}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3463,7 +3463,7 @@ Canvas:
   m_GameObject: {fileID: 1860943033}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 1489235518}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -8246,7 +8246,7 @@ CanvasGroup:
   m_GameObject: {fileID: 1931323292}
   m_Enabled: 1
   m_Alpha: 0
-  m_Interactable: 0
+  m_Interactable: 1
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!1 &1982114307
