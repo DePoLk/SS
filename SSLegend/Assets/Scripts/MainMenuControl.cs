@@ -65,6 +65,8 @@ public class MainMenuControl : MonoBehaviour {
     public float OptionCoolTime;
     public float DefaultOptionCoolTime;
 
+    public float WaitCanPressTime = 1f;
+
     // Use this for initialization
     void Start () {
         StartBtn.Select();
@@ -100,7 +102,7 @@ public class MainMenuControl : MonoBehaviour {
             Checker();
         }
         OptionPageCon();
-        Debug.Log(ExitBtn.transform.position.y);
+       //Debug.Log(ExitBtn.transform.position.y);
         PressStart();
 
     }
@@ -178,6 +180,11 @@ public class MainMenuControl : MonoBehaviour {
 
     }
 
+    IEnumerator DelayCanPress() {
+        yield return new WaitForSeconds(3f);
+        AllStuff.GetComponent<CanvasGroup>().interactable = true;
+    }
+
     bool PressAni = false;
 
     void PressStart() {
@@ -192,7 +199,7 @@ public class MainMenuControl : MonoBehaviour {
                 AllStuff.GetComponent<CanvasGroup>().DOFade(1, 1f);
                 PressToStart.GetComponent<CanvasGroup>().DOFade(0,1f);
                 IsPressStart = true;
-                
+                StartCoroutine("DelayCanPress");
             }
         }
         

@@ -246,7 +246,7 @@ Animator:
   m_GameObject: {fileID: 223125323}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c4a4ae70cb9494f4eb40e443e31331da, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -389,7 +389,7 @@ MonoBehaviour:
   m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 1460998608}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &259529601
@@ -1103,7 +1103,7 @@ Animator:
   m_GameObject: {fileID: 674005040}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c4a4ae70cb9494f4eb40e443e31331da, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2334,7 +2334,7 @@ Animator:
   m_GameObject: {fileID: 1460998608}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bcf8e8cceb798d64a9900bfa956d9430, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3558,6 +3558,7 @@ MonoBehaviour:
   input_V: 0
   OptionCoolTime: 1
   DefaultOptionCoolTime: 1
+  WaitCanPressTime: 1
 --- !u!114 &1860943040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8545,7 +8546,7 @@ Animator:
   m_GameObject: {fileID: 1990817907}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c4a4ae70cb9494f4eb40e443e31331da, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
