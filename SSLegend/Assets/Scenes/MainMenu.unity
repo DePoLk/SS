@@ -2671,8 +2671,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1489235516}
-  m_LocalRotation: {x: 0.08852133, y: -0.9076734, z: 0.33036605, w: 0.2432104}
-  m_LocalPosition: {x: 16.01175, y: 18.109154, z: 5.556485}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 986.9701, y: 413.0967, z: 880.39777}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3559,6 +3559,7 @@ MonoBehaviour:
   OptionCoolTime: 1
   DefaultOptionCoolTime: 1
   WaitCanPressTime: 1
+  IsCanPressStart: 0
 --- !u!114 &1860943040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8247,7 +8248,7 @@ CanvasGroup:
   m_GameObject: {fileID: 1931323292}
   m_Enabled: 1
   m_Alpha: 0
-  m_Interactable: 1
+  m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!1 &1982114307

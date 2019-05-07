@@ -67,6 +67,8 @@ public class MainMenuControl : MonoBehaviour {
 
     public float WaitCanPressTime = 1f;
 
+    public bool IsCanPressStart = false;
+
     // Use this for initialization
     void Start () {
         StartBtn.Select();
@@ -181,7 +183,7 @@ public class MainMenuControl : MonoBehaviour {
     }
 
     IEnumerator DelayCanPress() {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         AllStuff.GetComponent<CanvasGroup>().interactable = true;
     }
 
@@ -189,7 +191,7 @@ public class MainMenuControl : MonoBehaviour {
 
     void PressStart() {
 
-        if (!IsPressStart)
+        if (!IsPressStart && IsCanPressStart)
         {
             if (Input.anyKeyDown)
             {

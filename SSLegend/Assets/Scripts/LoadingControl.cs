@@ -14,6 +14,8 @@ public class LoadingControl : MonoBehaviour {
     float alpha_loading = 0;
     public bool isLoading = false;
     int count=0;
+    MainMenuControl MMC;
+    Scene ThisScene;
     // Use this for initialization
     void Start () {
         Fade.SetActive(true);
@@ -21,7 +23,9 @@ public class LoadingControl : MonoBehaviour {
         bearIconEdge.SetActive(false);
         Cursor.visible = false;
         Time.timeScale=1;
-	}
+        MMC = FindObjectOfType<MainMenuControl>();
+        ThisScene = SceneManager.GetActiveScene();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -37,6 +41,11 @@ public class LoadingControl : MonoBehaviour {
             Fade.GetComponent<Image>().color = color;
             bearIcon.SetActive(false);
             bearIconEdge.SetActive(false);
+
+            if (alpha <= 0 && ThisScene.name.Equals("MainMenu")) {
+                MMC.IsCanPressStart = true;
+            }
+
         }
         
     }

@@ -378,7 +378,7 @@ public class PlayerControl : MonoBehaviour {
 
 
 
-        if (ThisScene.name.EndsWith("2-1"))
+        if (ThisScene.name.Equals("2-1"))
         {
             NowCamTrack = CB.ActiveVirtualCamera.Name;
             if (!NowCamTrack.Equals(LastCMTrack))
