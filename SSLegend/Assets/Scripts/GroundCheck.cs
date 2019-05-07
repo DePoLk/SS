@@ -51,7 +51,7 @@ public class GroundCheck : MonoBehaviour {
             PlayerCon.gameObject.GetComponent<Rigidbody>().velocity = -InForce * 50f;*/
         }
 
-        if (other.CompareTag("Ground") || other.CompareTag("Slope") || other.CompareTag("Box") || other.CompareTag("Bottle"))
+        if (other.CompareTag("Ground") || other.CompareTag("Slope") || other.CompareTag("Box") || other.CompareTag("Bottle") || other.CompareTag("RoadBottleAndBox"))
         {
             GameObject a = Instantiate(jumping_Dust,jumpDustspot.transform);
             a.transform.SetParent(null);
@@ -69,7 +69,7 @@ public class GroundCheck : MonoBehaviour {
             OnTop = true;
         }
 
-        if (other.CompareTag("Ground") || other.CompareTag("Box") || other.CompareTag("Bottle")) {
+        if (other.CompareTag("Ground") || other.CompareTag("Box") || other.CompareTag("Bottle") || other.CompareTag("RoadBottleAndBox")) {
             PlayerCon.IsGround = true;
             PlayerCon.JumpSpeed = 250f;
             PlayerCon.DefaultJumpSpeed = 250f;
@@ -109,7 +109,7 @@ public class GroundCheck : MonoBehaviour {
 
         
 
-        if (other.CompareTag("Ground") || other.CompareTag("Box") || other.CompareTag("Bottle")) {
+        if (other.CompareTag("Ground") || other.CompareTag("Box") || other.CompareTag("Bottle") || other.CompareTag("RoadBottleAndBox")) {
             PlayerCon.IsGround = false;
             if (PlayerCon.IsDodging) {
                 PlayerCon.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;

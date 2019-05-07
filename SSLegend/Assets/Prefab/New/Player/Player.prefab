@@ -2324,7 +2324,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4900645464363522}
   - component: {fileID: 65385069052991246}
-  - component: {fileID: 114328357968416384}
   m_Layer: 10
   m_Name: DodgeDetector
   m_TagString: Untagged
@@ -2887,7 +2886,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1017732566685212}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.0206, z: 0}
+  m_LocalPosition: {x: 0, y: 0.0197, z: 0}
   m_LocalScale: {x: 0.53343, y: 0.53343, z: 0.53343}
   m_Children: []
   m_Father: {fileID: 4296665531805846}
@@ -6389,17 +6388,6 @@ MonoBehaviour:
   ForceFixRight: 1
   CB: {fileID: 0}
   TheObjGiveStrike: {fileID: 0}
---- !u!114 &114328357968416384
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1965284703860978}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 305d19857b98ef84e8bba6bd5a2f3fa6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114370521840804756
 MonoBehaviour:
   m_ObjectHideFlags: 1

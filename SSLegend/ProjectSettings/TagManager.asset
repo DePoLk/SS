@@ -32,6 +32,7 @@ TagManager:
   - Plants
   - DodgeDetector
   - Lava
+  - RoadBottleAndBox
   layers:
   - Default
   - TransparentFX
