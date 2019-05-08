@@ -13,6 +13,7 @@ public class GroundCheck : MonoBehaviour {
     Vector3 TempPos;
     Vector3 InForce;
 
+    public float SlopeFixSpeed;
     
 
     // Use this for initialization
@@ -78,6 +79,7 @@ public class GroundCheck : MonoBehaviour {
             PlayerCon.IsGround = true;
             PlayerCon.JumpSpeed = 350f;
             PlayerCon.DefaultJumpSpeed = 350f;
+            PlayerCon.speed -= SlopeFixSpeed;
             if (PlayerCon.IsAtking || PlayerCon.IsDodging)
             {
                 PlayerGO.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
@@ -122,6 +124,8 @@ public class GroundCheck : MonoBehaviour {
            // PlayerGO.GetComponent<Rigidbody>().useGravity = true;
             PlayerGO.GetComponent<Rigidbody>().drag = 0f;
             PlayerCon.IsGround = false;
+            PlayerCon.speed += SlopeFixSpeed;
+
         }
     }
 }

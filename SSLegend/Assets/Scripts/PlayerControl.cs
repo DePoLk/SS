@@ -791,7 +791,7 @@ public class PlayerControl : MonoBehaviour {
     }
 
     void AtkInteract() {
-        if (!IsInCinema && IsGround && !Save_Point.IsSavePointOpened && !IsFat && !IsDead && !NearItem && (Input.GetKeyDown(KeyCode.Joystick1Button2) || Input.GetKeyDown(KeyCode.J))) {
+        if (IfPlayerAtkDetector && !IsInCinema && IsGround && !Save_Point.IsSavePointOpened && !IsFat && !IsDead && !NearItem && (Input.GetKeyDown(KeyCode.Joystick1Button2) || Input.GetKeyDown(KeyCode.J))) {
             Debug.Log("X或J被按下");//攻擊或互動
             if (!NearItem && AniAtkCount < 3)
             {
@@ -803,6 +803,8 @@ public class PlayerControl : MonoBehaviour {
                 IsAtking = true;
 
             }
+
+            Player_Animator.SetTrigger("PlayerWantAtk");
 
         }
 

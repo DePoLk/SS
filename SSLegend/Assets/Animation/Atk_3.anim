@@ -45180,6 +45180,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0.083333336
+    functionName: PlayerAtkDetectorClose
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.20833333
     functionName: PosPlus2
     data: 
@@ -45224,6 +45231,13 @@ AnimationClip:
     messageOptions: 0
   - time: 0.5833333
     functionName: CloseAtkBox
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.7916667
+    functionName: PlayerAtkDetectorOpen
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

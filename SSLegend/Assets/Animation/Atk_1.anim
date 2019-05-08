@@ -44316,15 +44316,22 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.13333334
-    functionName: PosPlus1
+  - time: 0.1
+    functionName: PlayerAtkDetectorClose
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.16666667
-    functionName: OpenAtkBox
+  - time: 0.13333334
+    functionName: PlayerAtkDetectorOpen
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.13333334
+    functionName: PosPlus1
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -44339,6 +44346,13 @@ AnimationClip:
     messageOptions: 0
   - time: 0.16666667
     functionName: PosPlus1
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.16666667
+    functionName: OpenAtkBox
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -44366,13 +44380,6 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.26666668
-    functionName: PosPlus1
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.26666668
     functionName: EndweaponTrail
     data: 
     objectReferenceParameter: {fileID: 0}
@@ -44386,15 +44393,15 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.3
+  - time: 0.26666668
     functionName: PosPlus1
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.33333334
-    functionName: PlayerAtkDetectorOpen
+  - time: 0.3
+    functionName: PosPlus1
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
