@@ -23,6 +23,10 @@ public class PlayerUI : MonoBehaviour {
     public Image[] ElementImg; // 0:wind 1:water 2:wind2 3:water2
     public Sprite ButtonDisImg;
 
+
+    [Header("音效")]
+    public AudioClip[] UISE;
+    public AudioSource UIAS;
     //注意這上面的都要記得拉給他
 
     Text MaxHpText;
@@ -163,7 +167,9 @@ public class PlayerUI : MonoBehaviour {
         DS = FindObjectOfType<DataSystem>();
         LD = FindObjectOfType<LoadingControl>();
         ThisScene = SceneManager.GetActiveScene();
-        
+        UIAS = this.gameObject.GetComponent<AudioSource>();
+
+        UIAS.volume = 0.4f;
 
         if (ThisScene.name.Equals("K"))
         {
@@ -239,6 +245,7 @@ public class PlayerUI : MonoBehaviour {
             InfoWindowHandler(GetOnTriggerUIEventNum);//處理UIEvent
             ReFocus();// 重新聚焦最後一個聚焦的對象
             EscMenuCon();// Esc的選單控制
+            BGMM.gameObject.GetComponent<AudioSource>().volume = SoundValue / 100;
         }
     }
 
@@ -844,6 +851,7 @@ public class PlayerUI : MonoBehaviour {
                 ResumeButtonNum--;
                 SystemButtonNum--;
                 MainMenuButtonNum--;
+                UIAS.PlayOneShot(UISE[0]);
 
                 if (ResumeButtonNum < 0) {
                     ResumeButtonNum = 0;
@@ -859,6 +867,7 @@ public class PlayerUI : MonoBehaviour {
                 ResumeButtonNum++;
                 SystemButtonNum++;
                 MainMenuButtonNum++;
+                UIAS.PlayOneShot(UISE[0]);
 
                 if (MainMenuButtonNum > 4) {
                     ResumeButtonNum = 2;

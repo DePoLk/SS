@@ -71,7 +71,7 @@ public class Exp_System : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.Joystick1Button1)) {
                 CloseExpMenu();               
             }
-
+            
 
             if (!DefaultSelect) {
                 //ExitMenuBtn.Select();
@@ -148,15 +148,18 @@ public class Exp_System : MonoBehaviour {
         {
             if (PlayerCon.MaxHp < 10)
             {               
+                PUI.UIAS.PlayOneShot(PUI.UISE[1]);
                 StartCoroutine("UpMaxHpExpMinus");
                 ExpInfoText.text = "增加最大生命";
             }
             else {
+                PUI.UIAS.PlayOneShot(PUI.UISE[2]);
                 Debug.Log("已達到最大等級");
                 ExpInfoText.text = "已達到最大等級";
             }
         }
         else {
+            PUI.UIAS.PlayOneShot(PUI.UISE[2]);
             Debug.Log("經驗不足");
             ExpInfoText.text = "經驗球不足";
         }
@@ -168,17 +171,20 @@ public class Exp_System : MonoBehaviour {
         {
             if (PlayerCon.PlayerAtkValue < 3)
             {
+                PUI.UIAS.PlayOneShot(PUI.UISE[1]);
                 StartCoroutine("UpMaxAtkExpMinus");
                 ExpInfoText.text = "增加攻擊力";
             }
             else
             {
+                PUI.UIAS.PlayOneShot(PUI.UISE[2]);
                 Debug.Log("已達到最大等級");
                 ExpInfoText.text = "已達到最大等級";
             }
         }
         else
         {
+            PUI.UIAS.PlayOneShot(PUI.UISE[2]);
             Debug.Log("經驗不足");
             ExpInfoText.text = "經驗球不足";
         }
@@ -192,6 +198,7 @@ public class Exp_System : MonoBehaviour {
         }
         else
         {
+            PUI.UIAS.PlayOneShot(PUI.UISE[2]);
             Debug.Log("經驗不足");
             ExpInfoText.text = "經驗球不足";
         }
