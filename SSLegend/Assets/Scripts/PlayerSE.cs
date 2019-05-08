@@ -54,7 +54,7 @@ public class PlayerSE : MonoBehaviour {
 
     public void Atk_SE() {
         if (IsAtk > 0) {
-            SE.volume = 0.5f;
+            SE.volume = 0.7f;
             SE.PlayOneShot(AtkSE);
             IsAtk = 0;
         }

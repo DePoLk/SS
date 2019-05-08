@@ -85,8 +85,7 @@ public class SavePoint : MonoBehaviour {
             MenuTweener = SaveMenu.gameObject.GetComponent<CanvasGroup>().DOFade(1f,1f).SetUpdate(true);
 
             if (Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.Joystick1Button1) && !ExpS.IsExpMenuOpen)
-            {
-
+            {                
                 if (SaveMenu.GetComponent<CanvasGroup>().interactable) {
                     ExitMenu();
                 }

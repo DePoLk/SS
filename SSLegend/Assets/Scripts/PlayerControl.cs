@@ -914,7 +914,7 @@ public class PlayerControl : MonoBehaviour {
                     }
                     
                 }
-                else if (Item_Type == 2 && WindElement > 0 && !Item2IsColdDown && !IsFating)
+                else if (Item_Type == 2 && WindElement > 0 && !Item2IsColdDown && !IsFating && !IsFat)
                 {
                     Debug.Log("Item2_Use");
 

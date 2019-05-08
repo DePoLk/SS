@@ -25,7 +25,7 @@ public class Magic_Atk : MonoBehaviour {
             m_speed += 2 * Time.deltaTime;
             transform.position += transform.forward * 3f * m_speed * Time.deltaTime;
         }
-        else if (timer >= 0.5&& timer <= 1f)
+        else if (timer >= 0.5&& timer <= 1.2f)
         {
             pos = (CurrentPos - this.transform.position).normalized;
             Debug.Log(pos);
@@ -38,7 +38,7 @@ public class Magic_Atk : MonoBehaviour {
                 transform.forward = Vector3.Slerp(transform.forward, pos, 1).normalized;
             }
             transform.position += transform.forward * m_speed * 4 * Time.deltaTime;
-        } else if (timer>1.5) {
+        } else if (timer>1.2f) {
             transform.position += transform.forward * m_speed * 8 * Time.deltaTime;
         }
         m_currLife += Time.deltaTime;

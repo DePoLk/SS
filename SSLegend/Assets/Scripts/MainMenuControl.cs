@@ -32,7 +32,7 @@ public class MainMenuControl : MonoBehaviour {
     public Text SoundText;
     public GameObject ResSlider;
     public GameObject SoundSlider;
-
+    public AudioSource BGM;
    
 
     bool FullScreenMode = true;
@@ -51,6 +51,10 @@ public class MainMenuControl : MonoBehaviour {
     public bool IsPressStart = false;
     
     float input_H = 0;
+
+    [Header("音效")]
+    public AudioClip[] UISE;
+    public AudioSource UIAS;
 
     //--- Option
 
@@ -77,7 +81,7 @@ public class MainMenuControl : MonoBehaviour {
         Left = Arrow.transform.GetChild(0).gameObject;
         Right = Arrow.transform.GetChild(1).gameObject;
         DM = FindObjectOfType<DataManger>();
-
+        UIAS = this.gameObject.GetComponent<AudioSource>();
 
 
         OptionPage = GameObject.Find("OptionPage");
@@ -163,11 +167,13 @@ public class MainMenuControl : MonoBehaviour {
         if (Input.GetAxis("Vertical") < 0 && SelectNum < 3 && PressTime > MaxPressTime) {
             SelectNum += 1;
             PressTime = 0;
+            UIAS.PlayOneShot(UISE[0]);
         }
         else if(Input.GetAxis("Vertical") > 0 && SelectNum > 0 && PressTime > MaxPressTime)
         {
             SelectNum -= 1;
             PressTime = 0;
+            UIAS.PlayOneShot(UISE[0]);
         }
 
     }
@@ -212,9 +218,17 @@ public class MainMenuControl : MonoBehaviour {
 
     }
 
+    IEnumerator WaitToVideo()
+    {
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene(3);
+
+    }
+
     public void StartClick() {
-        Debug.Log("222");
-        Load.ChangeScene();
+        //Debug.Log("222");
+        UIAS.PlayOneShot(UISE[1]);
+        StartCoroutine("WaitToVideo");
     }
 
     public void LoadGameClick() {
@@ -349,6 +363,7 @@ public class MainMenuControl : MonoBehaviour {
                 }
 
                 SoundText.text = SoundValue.ToString();
+                BGM.volume = SoundValue;
 
             }// sound
 
