@@ -11,6 +11,7 @@ public class Exp_System : MonoBehaviour {
     PlayerControl PlayerCon;
     PlayerUI PUI;
     SavePoint SP;
+    DataManger DM;
     public bool IsExpMenuOpen = false;
     bool DefaultSelect = false;
     Button FirstExpMenuBtn;
@@ -40,6 +41,7 @@ public class Exp_System : MonoBehaviour {
         ExpMenuBtn = GameObject.Find("ExpMenuBtn").GetComponent<Button>();
         SP = FindObjectOfType<SavePoint>();
         MenuBG = GameObject.Find("MenuBG");
+        DM = FindObjectOfType<DataManger>();
 
         UpHpCostValueText = GameObject.Find("UpMaxHpCostText").GetComponent<Text>();
         UpAtkCostValueText = GameObject.Find("UpMaxAtkCostText").GetComponent<Text>();
@@ -124,6 +126,7 @@ public class Exp_System : MonoBehaviour {
             IsUping = true;
         }
         //StopCoroutine("UpMaxHpExpMinus");
+
         IsUping = false;
     }
 
@@ -138,6 +141,7 @@ public class Exp_System : MonoBehaviour {
             IsUping = true;
         }
         //StopCoroutine("UpMaxAtkExpMinus");
+
         IsUping = false;
     }
 

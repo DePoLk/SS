@@ -79,7 +79,13 @@ public class CannonControl : MonoBehaviour {
                 AimZonePos.gameObject.GetComponent<Projector>().enabled = false;
                 AimZonePos.localPosition = new Vector3(-0.3f,0.2f,0.062f);
             }
+        }//If(IsShot)
+
+        if (PlayerCon.IsInCannon) {
+            PlayerCon.IsInvincible = true;
         }
+        
+
 	}
 
     void CannonAim() {
@@ -176,7 +182,7 @@ public class CannonControl : MonoBehaviour {
                 PlayerCon.GetComponent<CapsuleCollider>().isTrigger = false;
                 PlayerCon.GetComponent<Rigidbody>().useGravity = true;
                 LoadBearTime = DefaultLoadBearTime;
-
+                PlayerCon.IsInvincible = false;
               
                 if (PlayerCon.IsFat)
                 {

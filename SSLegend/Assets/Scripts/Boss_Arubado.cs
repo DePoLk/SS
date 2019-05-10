@@ -235,12 +235,12 @@ public class Boss_Arubado : MonoBehaviour
         int a = Random.Range(1, 3);
         //Debug.Log(a);
         yield return new WaitForSeconds(3f);
-        if (a == 1 && Down == false)
+        if (a == 1 && Down == false && PC.IsInCannon == false)
         {
             StartCoroutine("SmashAim");
             StopCoroutine("FaceEnemy");
         }
-        else if (a == 2 && Down == false)
+        else if (a == 2 && Down == false && PC.IsInCannon == false)
         {
             StartCoroutine("FarAtk");
             StopCoroutine("FaceEnemy");

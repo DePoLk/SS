@@ -481,11 +481,13 @@ public class PlayerControl : MonoBehaviour {
 
         if ((Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.K)))
         {
+            Data_Manger.LoadFileFunction();
             LoadPlayerData();
             for (int i = 1; i <= Hp; i++)
             {
                 PUI.CottonHPArray[i].GetComponent<Image>().DOFade(1, 0.5f);
             }
+           
             CC.RecoverCamera();
             PUI.transform.GetChild(0).GetComponent<CanvasGroup>().DOFade(1, 0.5f);
             Player_Animator.SetBool("PlayerDead", false);
@@ -496,9 +498,9 @@ public class PlayerControl : MonoBehaviour {
             BGMM.cam_audi.Stop();
             PSE.SE.mute = true;
             
-            if (ThisScene.name.Equals("K")) {
+            if (ThisScene.name.Equals("K") || ThisScene.name.Equals("2-1")) {
                 for (int i = 1; i < MaxHp; i++)
-                {
+                {                   
                     if (Hp < MaxHp) {
                         Hp += 1;
                     }
@@ -543,11 +545,15 @@ public class PlayerControl : MonoBehaviour {
         //IsInCinema = false;
         CurrentModelChange(0);
         ExpPoint = int.Parse(Data_Manger.InfoAll[2].ToString());//一開始讀取文檔中的數值
+        MaxHp = int.Parse(Data_Manger.InfoAll[1].ToString());
         Hp = int.Parse(Data_Manger.InfoAll[0].ToString());
         WaterElement = int.Parse(Data_Manger.InfoAll[3].ToString());
         WindElement = int.Parse(Data_Manger.InfoAll[4].ToString());
         //讀取位置
 
+        
+
+        
 
         if (ThisScene.name.Equals("K"))
         {
@@ -561,7 +567,7 @@ public class PlayerControl : MonoBehaviour {
         //讀取位置
 
         //讀取ExpSystem
-        MaxHp = int.Parse(Data_Manger.InfoAll[1].ToString());
+       // MaxHp = int.Parse(Data_Manger.InfoAll[1].ToString());
         //讀取ExpSystem
 
     }
@@ -596,7 +602,15 @@ public class PlayerControl : MonoBehaviour {
     }
 
     void CheatCode() {
-        if (ThisScene.name.Equals("2-1") && Input.GetKeyDown(KeyCode.C) && Input.GetKeyDown(KeyCode.U) && Input.GetKeyDown(KeyCode.N)) {
+        if (ThisScene.name.Equals("2-1") && Input.GetKey(KeyCode.T) && Input.GetKey(KeyCode.O) && Input.GetKey(KeyCode.F1)) {
+            this.gameObject.transform.position = GameObject.Find("FastPoint").transform.position;
+        }
+        if (ThisScene.name.Equals("2-1") && Input.GetKey(KeyCode.T) && Input.GetKey(KeyCode.O) && Input.GetKey(KeyCode.F2))
+        {
+            this.gameObject.transform.position = GameObject.Find("FastPoint").transform.position;
+        }
+        if (ThisScene.name.Equals("2-1") && Input.GetKey(KeyCode.T) && Input.GetKey(KeyCode.O) && Input.GetKey(KeyCode.F3))
+        {
             this.gameObject.transform.position = GameObject.Find("FastPoint").transform.position;
         }
 
@@ -739,8 +753,16 @@ public class PlayerControl : MonoBehaviour {
             WaterElement = 10;
             WindElement = 3;
             this.transform.position = new Vector3(16.76f,10.625f,4.53f);
+            Data_Manger.LoadFileFunction();
             Data_Manger.DeleteFile(Application.dataPath + "/Save", "Save.txt");
             Data_Manger.SaveFile(Application.dataPath + "/Save", "Save.txt");
+
+            Hp = int.Parse(Data_Manger.InfoAll[0].ToString());
+            PUI.MaxHP = int.Parse(Data_Manger.InfoAll[1].ToString());
+            MaxHp = int.Parse(Data_Manger.InfoAll[1].ToString());
+            ExpPoint = int.Parse(Data_Manger.InfoAll[2].ToString());
+            
+
         }
         else if (ThisScene.name.Equals("K")) {
             BearModel.transform.eulerAngles = new Vector3(0, -10, 0);
@@ -750,8 +772,9 @@ public class PlayerControl : MonoBehaviour {
             Hp = int.Parse(Data_Manger.InfoAll[0].ToString());
             PUI.MaxHP = int.Parse(Data_Manger.InfoAll[1].ToString());
             MaxHp = int.Parse(Data_Manger.InfoAll[1].ToString());
-            
-            
+            ExpPoint = int.Parse(Data_Manger.InfoAll[2].ToString());
+
+
 
             DefaultSpeed = -3;
             speed = -3;

@@ -54,7 +54,7 @@ public class DataManger : MonoBehaviour {
 
             
             sw.WriteLine(PlayerCon.Hp);//0
-            sw.WriteLine(PUI.MaxHP);
+            sw.WriteLine(PlayerCon.MaxHp);
             sw.WriteLine(PlayerCon.ExpPoint);
             sw.WriteLine(PlayerCon.WaterElement);
             sw.WriteLine(PlayerCon.WindElement);
