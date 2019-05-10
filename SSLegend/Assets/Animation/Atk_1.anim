@@ -44316,20 +44316,6 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.1
-    functionName: PlayerAtkDetectorClose
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.13333334
-    functionName: PlayerAtkDetectorOpen
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
   - time: 0.13333334
     functionName: PosPlus1
     data: 
@@ -44402,6 +44388,20 @@ AnimationClip:
     messageOptions: 0
   - time: 0.3
     functionName: PosPlus1
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.33333334
+    functionName: PlayerAtkDetectorOpen
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.56666666
+    functionName: PlayerAtkDetectorClose
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

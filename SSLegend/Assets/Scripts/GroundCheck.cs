@@ -13,7 +13,7 @@ public class GroundCheck : MonoBehaviour {
     Vector3 TempPos;
     Vector3 InForce;
 
-    public float SlopeFixSpeed;
+    float SlopeFixSpeed = 0;
     
 
     // Use this for initialization

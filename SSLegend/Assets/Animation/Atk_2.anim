@@ -35536,13 +35536,6 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.033333335
-    functionName: PlayerAtkDetectorOpen
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
   - time: 0.05
     functionName: StartweaponTrail
     data: 
@@ -35578,7 +35571,14 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.21666667
+  - time: 0.15
+    functionName: PlayerAtkDetectorOpen
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.25
     functionName: PlayerAtkDetectorClose
     data: 
     objectReferenceParameter: {fileID: 0}

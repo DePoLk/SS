@@ -8,6 +8,8 @@ public class VideoEnd : MonoBehaviour {
     double time;
     double currentTime;
     private bool ChangeScene = false;
+
+    public Animator anim;
     // Use this for initialization
     void Start() {
         time = this.gameObject.GetComponent<VideoPlayer>().clip.length;
@@ -20,9 +22,13 @@ public class VideoEnd : MonoBehaviour {
         if (time - currentTime <= 0.1f && ChangeScene == false) {
             StartCoroutine("StartGame");
         }
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            StartCoroutine("StartGame");
+        }
     }
     IEnumerator StartGame() {
         ChangeScene = true;
+        anim.SetBool("isFade",true);
         yield return new WaitForSeconds(2);
         SceneManager.LoadScene(1);
     }

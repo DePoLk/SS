@@ -148,7 +148,9 @@ public class PlayerControl : MonoBehaviour {
     public float ForceFixForward = 1;
     public float ForceFixRight = 1;
     public CinemachineBrain CB;
-    
+
+
+    float FixInteractTime = 0.3f;
 
     private void Start()
     {
@@ -192,6 +194,23 @@ public class PlayerControl : MonoBehaviour {
     {
         GamePauseChecker();
         EscPress();
+        CheckIsMovementEnable();//檢查能不能行動
+        /*if (Input.GetKeyDown(KeyCode.Joystick1Button2)) {
+            Debug.Log("PressX");
+        }*/
+
+        if (IsEscMenu)
+        {
+            FixInteractTime = 0.3f;
+        }
+        else if (!IsEscMenu && FixInteractTime > 0)
+        {
+            FixInteractTime -= Time.deltaTime;
+        }
+        else if (FixInteractTime <= 0) {
+            FixInteractTime = 0;
+        }
+
     }// End Update TimeSalce don't Effected
 
     void FixedUpdate()//固定頻率重複執行
@@ -206,7 +225,7 @@ public class PlayerControl : MonoBehaviour {
 
 
         Move();
-        CheckIsMovementEnable();//檢查能不能行動
+        
         Select();//選擇道具
         if (IsAtking) {
             Ani_Time();//動畫重置用
@@ -267,9 +286,9 @@ public class PlayerControl : MonoBehaviour {
     }
 
     void CheckIsMovementEnable() {
-        if (IsUIEventing || IsStriked || IsDrinking || IsEscMenu)
+        if (IsUIEventing || IsStriked || IsDrinking || IsEscMenu || NearItem || FixInteractTime > 0)
         {
-            Player_Animator.SetBool("PlayerRun", false);
+           
         }
         else {
             AtkInteract();//攻擊或互動
@@ -650,6 +669,15 @@ public class PlayerControl : MonoBehaviour {
         //接Input.GetAxis("Vertical")及("Horizontal")的回傳值
         input_V = Input.GetAxis("Vertical");
         input_H = Input.GetAxis("Horizontal");
+
+        if (input_V != 0 || input_H != 0)
+        {
+            Player_Animator.SetBool("PlayerTryToRun", true);
+        }
+        else {
+            Player_Animator.SetBool("PlayerTryToRun", false);
+        }
+
         var em = running_Dust.emission;
         //用GetAxisRaw判斷是否按到移動鍵，是的話執行以下程式，放開可以保留角度狀態，也能避免NaN的狀況
         if (IsCanMove())
@@ -710,7 +738,7 @@ public class PlayerControl : MonoBehaviour {
             ExpPoint = 100;
             WaterElement = 10;
             WindElement = 3;
-            this.transform.position = new Vector3(16.76f,10.8f,4.53f);
+            this.transform.position = new Vector3(16.76f,10.625f,4.53f);
             Data_Manger.DeleteFile(Application.dataPath + "/Save", "Save.txt");
             Data_Manger.SaveFile(Application.dataPath + "/Save", "Save.txt");
         }
@@ -791,28 +819,25 @@ public class PlayerControl : MonoBehaviour {
     }
 
     void AtkInteract() {
-        if (IfPlayerAtkDetector && !IsInCinema && IsGround && !Save_Point.IsSavePointOpened && !IsFat && !IsDead && !NearItem && (Input.GetKeyDown(KeyCode.Joystick1Button2) || Input.GetKeyDown(KeyCode.J))) {
+        if ( !IsInCinema && IsGround && !Save_Point.IsSavePointOpened && !IsFat && !IsDead && !NearItem && (Input.GetKeyDown(KeyCode.Joystick1Button2) || Input.GetKeyDown(KeyCode.J))) {
             Debug.Log("X或J被按下");//攻擊或互動
-            if (!NearItem && AniAtkCount < 3)
-            {
-               
+            if (AniAtkCount < 3)
+            {              
                 AniTime = 0;
                 AniAtkCount++;
                 Player_Animator.SetInteger("AtkCount",AniAtkCount);
                 Player_Animator.SetBool("PlayerAtk",true);
                 IsAtking = true;
-
             }
-
-            Player_Animator.SetTrigger("PlayerWantAtk");
-
+            if (AniAtkCount >= 3) {
+                AniTime = 0;
+            }
         }
-
-
-
     }// end AtkInteract
 
+
     
+
 
     void EscPress() {
         if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button7)) && !Save_Point.IsSavePointOpened)
