@@ -220,7 +220,7 @@ public class CannonControl : MonoBehaviour {
 
             BB.Appear(PlayerCon.gameObject,PlayerCon.TipBG[3]);
 
-            if ((Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.Joystick1Button2)) && !PlayerCon.IsInCannon) {
+            if ((Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.Joystick1Button2)) && !PlayerCon.IsInCannon && !PlayerCon.IsDead && !PlayerCon.IsDrinking) {
                 PlayerCon.IsInCannon = true;
                 PlayerCon.transform.DOJump(CannonTop.transform.GetChild(0).transform.position + new Vector3(0,2f,0), 2f, 1, 0.5f);
                 PlayerCon.gameObject.transform.DOScale(0,0.5f);

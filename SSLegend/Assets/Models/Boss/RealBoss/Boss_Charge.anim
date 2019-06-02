@@ -67690,14 +67690,14 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 2.9166667
+  - time: 2.9583333
     functionName: Close_SmashForce
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 2.9166667
+  - time: 2.9583333
     functionName: Open_Resistance
     data: 
     objectReferenceParameter: {fileID: 0}
@@ -67718,7 +67718,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 3.625
+  - time: 3.4583333
     functionName: close_Resistance
     data: 
     objectReferenceParameter: {fileID: 0}

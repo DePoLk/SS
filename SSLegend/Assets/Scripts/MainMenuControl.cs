@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuControl : MonoBehaviour {
 
+
     public GameObject PressToStart;
     public GameObject AllStuff;
 
@@ -65,6 +66,7 @@ public class MainMenuControl : MonoBehaviour {
 
     LoadingControl Load;
     DataManger DM;
+    PlayerControl PlayerCon;
 
     public float OptionCoolTime;
     public float DefaultOptionCoolTime;
@@ -82,7 +84,7 @@ public class MainMenuControl : MonoBehaviour {
         Right = Arrow.transform.GetChild(1).gameObject;
         DM = FindObjectOfType<DataManger>();
         UIAS = this.gameObject.GetComponent<AudioSource>();
-
+        PlayerCon = FindObjectOfType<PlayerControl>();
 
         OptionPage = GameObject.Find("OptionPage");
         OptionPointer = GameObject.Find("OptionPointer");
@@ -93,6 +95,8 @@ public class MainMenuControl : MonoBehaviour {
         SoundSlider = GameObject.Find("S_SettingBarSlider");
         PressToStart = GameObject.Find("PressToStart");
         AllStuff = GameObject.Find("AllStuff");
+
+
 
         DM.LoadFileFunction();
 
@@ -227,7 +231,10 @@ public class MainMenuControl : MonoBehaviour {
 
     public void StartClick() {
         //Debug.Log("222");
-        UIAS.PlayOneShot(UISE[1]);
+        UIAS.PlayOneShot(UISE[1]);       
+        DM.DeleteFile(Application.dataPath + "/Save", "Save.txt");
+        DM.SaveFile(Application.dataPath + "/Save", "Save.txt");
+        
         StartCoroutine("WaitToVideo");
     }
 

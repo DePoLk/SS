@@ -141,9 +141,20 @@ public class AnimationFunction : MonoBehaviour {
         PlayerCon.GetComponent<Animator>().SetBool("PlayerFastRun", false);
 
         PlayerCon.AniAtkCount = 0;
-        
+        PlayerCon.Player_Animator.SetInteger("AtkCount", 0);
+
         Time.timeScale = 1;
     }
+
+    public void ResetAtkCount() {
+        PlayerCon.Player_Animator.SetInteger("AtkCount", 0);
+
+    }
+
+    public void StrikeDownDrinkingReset() {
+        PlayerCon.IsDrinking = false;
+    }
+
 
     public void LookatGiveStrikeObj() {
         //Player.transform.rotation = Quaternion.Slerp(transform.rotation,PlayerCon.TheObjGiveStrike.transform.rotation,Time.deltaTime*25f);
@@ -317,7 +328,7 @@ public class AnimationFunction : MonoBehaviour {
         tmp.y += 1.5f;
        // tmp.z += 0.5f;
         GameObject a = Instantiate(ParticleEffect_Drink,tmp,Player.transform.rotation);
-        Destroy(a, 4.0f);
+        Destroy(a, 2.0f);
     }
 
     //--- 

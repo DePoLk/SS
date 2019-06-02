@@ -47,7 +47,7 @@ public class UIEventTrigger : MonoBehaviour {
             //Debug.Log(UIEventNum);
             PUI.GetOnTriggerUIEventNum = UIEventNum;
             Player_Con.IsUIEventing = true;
-            PUI.NowUIEventPlayingNum = DataValue.UIInfoWindowValue.UITextSearchIndex;          
+            PUI.NowUIEventPlayingNum = DataValue.UIInfoWindowValue.UITextSearchIndex;
         }
     }
 

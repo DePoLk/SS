@@ -36,7 +36,7 @@ public class PlayerUI : MonoBehaviour {
     Text ExpPointText;
     private Tweener UITweener;
     Image EscMenuBGLeft;
-    Text SavingText;
+    public Text SavingText;
     BGMManager BGMM;
     public GameObject MenuBG;
     Text ExpStateText;
@@ -184,7 +184,7 @@ public class PlayerUI : MonoBehaviour {
         MaxHpText = GameObject.Find("MaxHpText").GetComponent<Text>();
         MaxAtkText = GameObject.Find("MaxAtkText").GetComponent<Text>();
         ExpPointText = GameObject.Find("ExpValue").GetComponent<Text>();
-        SavingText = GameObject.Find("SavingText").GetComponent<Text>();
+        //SavingText = GameObject.Find("SavingText").GetComponent<Text>();
         MenuBG = GameObject.Find("MenuBG");
 
         ExpStateText = GameObject.Find("ExpStateText").GetComponent<Text>();
@@ -444,6 +444,30 @@ public class PlayerUI : MonoBehaviour {
                 NowUIEventPlayingNum += DataValue.UIInfoWindowValue.UITextSearchIndex;
             }
 
+            if (Input.GetKeyDown(KeyCode.Joystick1Button7) || Input.GetKeyDown(KeyCode.Space)) {
+                NowUIEventPlayingNum = UIEventTextAmount[UIEvent] + 1;
+                if (NowUIEventPlayingNum > UIEventTextAmount[UIEvent])
+                {
+                    InfoWindow.GetComponent<Image>().DOFade(0f, 0.5f).SetUpdate(true);
+                    InfoWindow.GetComponent<Image>().transform.DOScaleX(0, 0.5f).SetUpdate(true);
+                    InfoText.GetComponent<CanvasGroup>().DOFade(0, 0.5f).SetUpdate(true);
+
+
+
+                    InfoTalker.DOFade(0, 0.5f).SetUpdate(true);
+                    InfoTalkerImage.DOFade(0, 0.5f).SetUpdate(true);
+
+                    NowUIEventPlayingNum = DataValue.UIInfoWindowValue.UITextSearchIndex;
+                    IsCanNextInfoText = true;
+
+                    FindObjectOfType<PlayerControl>().IsUIEventing = false;
+                    //Time.timeScale = 1f;
+
+
+
+                }//關閉infowindow
+            }
+
             if ((Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.J)) && IsCanNextInfoText)
             {
 
@@ -599,8 +623,10 @@ public class PlayerUI : MonoBehaviour {
             StartCoroutine("SaveCoolTime");
             DM.DeleteFile(Application.dataPath + "/Save", "Save.txt");
             DM.SaveFile(Application.dataPath + "/Save", "Save.txt");
-            DS.DeleteFile(Application.dataPath + "/Save", "EventData.txt");
-            DS.SaveFile(Application.dataPath + "/Save", "EventData.txt");
+            if (ThisScene.name.Equals("2-1")) {
+                DS.DeleteFile(Application.dataPath + "/Save", "EventData.txt");
+                DS.SaveFile(Application.dataPath + "/Save", "EventData.txt");
+            }
             //StartCoroutine("SavingAnimation");
             //SavingText.text = "Saving.";        
             UITweener = SavingText.DOText("Saving.", 0).SetUpdate(true);

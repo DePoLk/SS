@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System;
+using UnityEngine.SceneManagement;
 
 public class DataManger : MonoBehaviour {
     
@@ -12,6 +13,8 @@ public class DataManger : MonoBehaviour {
     PlayerUI PUI;
     //文本的每行內容
     public ArrayList InfoAll;
+
+    Scene ThisScene;
 
     // Use this for initialization
     void Start () {
@@ -27,6 +30,7 @@ public class DataManger : MonoBehaviour {
         Player_Obj = GameObject.Find("Player");
         ExpS = FindObjectOfType<Exp_System>();
         PUI = FindObjectOfType<PlayerUI>();
+        ThisScene = SceneManager.GetActiveScene();
     }
 	
 	// Update is called once per frame
@@ -52,19 +56,35 @@ public class DataManger : MonoBehaviour {
             //此處的順序即是Save.txt的順序
             sw = t.CreateText();
 
-            
-            sw.WriteLine(PlayerCon.Hp);//0
-            sw.WriteLine(PlayerCon.MaxHp);
-            sw.WriteLine(PlayerCon.ExpPoint);
-            sw.WriteLine(PlayerCon.WaterElement);
-            sw.WriteLine(PlayerCon.WindElement);
-            //寫入主角的位置
-            sw.WriteLine(Player_Obj.transform.position.x);
-            sw.WriteLine(Player_Obj.transform.position.y);
-            sw.WriteLine(Player_Obj.transform.position.z);
-            //寫入ExpSystem所需資料
 
-            sw.WriteLine(PlayerCon.ThisScene.name);//8
+            if (ThisScene.name.Equals("MainMenu")) {
+                sw.WriteLine(3);//0
+                sw.WriteLine(3);
+                sw.WriteLine(100);
+                sw.WriteLine(10);
+                sw.WriteLine(3);
+                //寫入主角的位置
+                sw.WriteLine(16.76f);
+                sw.WriteLine(10.8f);
+                sw.WriteLine(4.53f);
+                sw.WriteLine("2-1");
+                //寫入ExpSystem所需資料
+            }
+            else {
+                sw.WriteLine(PlayerCon.Hp);//0
+                sw.WriteLine(PlayerCon.MaxHp);
+                sw.WriteLine(PlayerCon.ExpPoint);
+                sw.WriteLine(PlayerCon.WaterElement);
+                sw.WriteLine(PlayerCon.WindElement);
+                //寫入主角的位置
+                sw.WriteLine(Player_Obj.transform.position.x);
+                sw.WriteLine(Player_Obj.transform.position.y);
+                sw.WriteLine(Player_Obj.transform.position.z);
+                //寫入ExpSystem所需資料
+                sw.WriteLine(PlayerCon.ThisScene.name);//8
+            }
+
+            
 
             //--- 最後場景
             

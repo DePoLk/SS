@@ -483,6 +483,7 @@ public class PlayerControl : MonoBehaviour {
         {
             Data_Manger.LoadFileFunction();
             LoadPlayerData();
+            WVC.DefaultValue();
             for (int i = 1; i <= Hp; i++)
             {
                 PUI.CottonHPArray[i].GetComponent<Image>().DOFade(1, 0.5f);
@@ -497,7 +498,9 @@ public class PlayerControl : MonoBehaviour {
             DeadBlockSight.transform.GetChild(1).GetComponent<Text>().color = new Color(255,255,255,1);
             BGMM.cam_audi.Stop();
             PSE.SE.mute = true;
-            
+            WVC.ImageFillValue.fillAmount = 0;
+
+
             if (ThisScene.name.Equals("K") || ThisScene.name.Equals("2-1")) {
                 for (int i = 1; i < MaxHp; i++)
                 {                   
@@ -603,15 +606,15 @@ public class PlayerControl : MonoBehaviour {
 
     void CheatCode() {
         if (ThisScene.name.Equals("2-1") && Input.GetKey(KeyCode.T) && Input.GetKey(KeyCode.O) && Input.GetKey(KeyCode.F1)) {
-            this.gameObject.transform.position = GameObject.Find("FastPoint").transform.position;
+            this.gameObject.transform.position = GameObject.Find("F1Point").transform.position;
         }
         if (ThisScene.name.Equals("2-1") && Input.GetKey(KeyCode.T) && Input.GetKey(KeyCode.O) && Input.GetKey(KeyCode.F2))
         {
-            this.gameObject.transform.position = GameObject.Find("FastPoint").transform.position;
+            this.gameObject.transform.position = GameObject.Find("F2Point").transform.position;
         }
         if (ThisScene.name.Equals("2-1") && Input.GetKey(KeyCode.T) && Input.GetKey(KeyCode.O) && Input.GetKey(KeyCode.F3))
         {
-            this.gameObject.transform.position = GameObject.Find("FastPoint").transform.position;
+            this.gameObject.transform.position = GameObject.Find("F3Point").transform.position;
         }
 
         if (ThisScene.name.Equals("2-1") && Input.GetKeyDown(KeyCode.O) && Input.GetKeyDown(KeyCode.P)) {
@@ -776,8 +779,8 @@ public class PlayerControl : MonoBehaviour {
 
 
 
-            DefaultSpeed = -3;
-            speed = -3;
+            DefaultSpeed = -4;
+            speed = -4;
             Data_Manger.DeleteFile(Application.dataPath + "/Save", "Save.txt");
             Data_Manger.SaveFile(Application.dataPath + "/Save", "Save.txt");
         }
@@ -915,7 +918,7 @@ public class PlayerControl : MonoBehaviour {
         IsFating = true;
         yield return new WaitForSeconds(1f);
         
-        for (int i = 0; i <= 100; i++) {
+        for (int i = 0; i <= 100; i+=2) {
             WVC.ImgWaterValue = i;
             yield return new WaitForSeconds(0.0025f);
         }
@@ -945,7 +948,7 @@ public class PlayerControl : MonoBehaviour {
     }
 
     void UseItem() {
-        if (!Save_Point.IsSavePointOpened && !IsDead && IsGetItem && !IsHolding)
+        if (!Save_Point.IsSavePointOpened && !IsDead && IsGetItem && !IsHolding && !IsJumping)
         {
             if (Input.GetKeyDown(KeyCode.Joystick1Button3) || Input.GetKeyDown(KeyCode.I))
             {
@@ -1155,7 +1158,13 @@ public class PlayerControl : MonoBehaviour {
 
             if (Hp > 0 && !IsStriked && Hp != 1)
             {
-                Player_Animator.SetTrigger("PlayerStrikeDown");
+                if (!IsFat)
+                {
+                    Player_Animator.SetTrigger("PlayerStrikeDown");
+                }
+                else {
+                    Player_Animator.SetTrigger("PlayerStriked");
+                }
                 IsPanting = false;
                 Player_Animator.SetBool("PlayerPanting", false);
                 RunTime = 0;

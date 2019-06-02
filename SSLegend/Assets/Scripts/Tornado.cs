@@ -54,14 +54,22 @@ public class Tornado : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
 
-        if (other.CompareTag("Player") && PlayerCon.IsGround)
-        {
-            Player_Ani.SetBool("PlayerFastRun", true);
-            PlayerCon.IsFast = true;
-            PlayerCon.speed = FastSpeed;
-        }
-        else if (other.CompareTag("Player") && !PlayerCon.IsGround)
-        {
+        /* if (other.CompareTag("Player") && PlayerCon.IsGround)
+         {
+             Player_Ani.SetBool("PlayerFastRun", true);
+             PlayerCon.IsFast = true;
+             PlayerCon.speed = FastSpeed;
+         }
+         else if (other.CompareTag("Player") && !PlayerCon.IsGround)
+         {
+             Player_Ani.SetBool("PlayerFastRun", false);
+             Player_Ani.SetTrigger("PlayerJump");
+             Player_Ani.SetBool("PlayerIsInAir", true);
+             other.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+             other.GetComponent<Rigidbody>().AddForce(transform.up * TornadoForce);
+         }*/
+
+        if (other.CompareTag("Player")) {
             Player_Ani.SetBool("PlayerFastRun", false);
             Player_Ani.SetTrigger("PlayerJump");
             Player_Ani.SetBool("PlayerIsInAir", true);

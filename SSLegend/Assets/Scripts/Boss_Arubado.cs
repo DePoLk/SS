@@ -10,6 +10,7 @@ public class Boss_Arubado : MonoBehaviour
     WaterValueChange WVC;
     private Cinemachine_Ctrl CC;
     public GameObject MagicAtk;
+    public GameObject Barrier;
     public GameObject MagicAtk_Range;
     public Transform FirePos;
     public Transform player;
@@ -25,6 +26,7 @@ public class Boss_Arubado : MonoBehaviour
     private bool TopAtking = false;
     public int NewHP = 3;
     public bool Down = false;
+    private bool Smashing = false;
     private bool SmashAiming = false;
     private bool IsLook = false;
     private bool Atking = false;
@@ -51,9 +53,10 @@ public class Boss_Arubado : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log(Down);
+        // Debug.Log(PC.IsInCannon);
+        //  Debug.Log(Down);
         //Debug.Log(TC.OnTop);                             
-        if (IsLook == false && Atking == false && Down == false && GC.OnTop == false&& Restart_Pause == false)
+        if (IsLook == false && Atking == false && Down == false && GC.OnTop == false && Restart_Pause == false)
         {
             StartCoroutine("FaceEnemy");
         }
@@ -76,7 +79,7 @@ public class Boss_Arubado : MonoBehaviour
                 StartCoroutine("NormalAtk");
             }
         }
-        if (SmashAiming == true && Down==false)
+        if (SmashAiming == true && Down == false)
         {
             resistance = false;
             Smash_Force = false;
@@ -84,11 +87,12 @@ public class Boss_Arubado : MonoBehaviour
             Vector3 direction = player.position - this.transform.position;
             direction.y = 0;
             this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), 0.1f);
-            Debug.Log("3");
+
         }
         //高台 關其他技能,實施砲台掃蕩
-        if (GC.OnTop == true)
+        if (GC.OnTop == true && Smashing == false)
         {
+            Barrier.SetActive(true);
             WallTrigger.SetActive(false);
             ReTop = true;
             OnGround = false;
@@ -104,14 +108,14 @@ public class Boss_Arubado : MonoBehaviour
             anim.SetBool("Smash", false);
             Vector3 TopDistance = player.transform.position - this.transform.position;
             TopDistance.y = 0;
-            if (TopDistance.magnitude > 7 && Down == false && TopAtking == false)
+            if (TopDistance.magnitude > 4.5f && Down == false && TopAtking == false)
             {
-               // Debug.Log(TopDistance.magnitude);
+                // Debug.Log(TopDistance.magnitude);
                 this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(TopDistance), 0.1f);
                 anim.SetBool("Move", true);
                 this.transform.Translate(0, 0, 0.1f);
             }
-            else if (TopDistance.magnitude <= 7 && TopAtking == false)
+            else if (TopDistance.magnitude <= 4.5f && TopAtking == false)
             {
                 anim.SetBool("Move", false);
                 StartCoroutine("TopAtk");
@@ -119,12 +123,13 @@ public class Boss_Arubado : MonoBehaviour
         }
         else if (GC.OnTop == false && Down == false && ReTop == true)
         {
+            Barrier.SetActive(false);
             anim.SetBool("TopAtk", false);
             TopCorrection = false;
             StartCoroutine("ReturnToNormal");
         }
         //RotateToPlayer
-        if (Down == false&&TopCorrection == true|| NormalAim == true)
+        if (Down == false && TopCorrection == true || NormalAim == true)
         {
             Vector3 direction = player.position - this.transform.position;
             direction.y = 0;
@@ -142,7 +147,7 @@ public class Boss_Arubado : MonoBehaviour
         //Addforce
         if (Smash_Force == true)
         {
-            this.GetComponent<Rigidbody>().AddForce(transform.forward * 16000);
+            this.GetComponent<Rigidbody>().AddForce(transform.forward * 14000);
             Debug.Log("?????");
         }
         //ForceResistance
@@ -151,10 +156,12 @@ public class Boss_Arubado : MonoBehaviour
             this.GetComponent<Rigidbody>().AddForce(transform.forward * 5000);
             Debug.Log("???????");
         }
-        if (HitWall_Reactionforce == true) {
+        if (HitWall_Reactionforce == true)
+        {
             this.GetComponent<Rigidbody>().AddForce(transform.forward * -2000);
         }
-        if (NewHP <= 0) {
+        if (NewHP <= 0)
+        {
             Dead();
         }
     }
@@ -200,6 +207,7 @@ public class Boss_Arubado : MonoBehaviour
     //SmashAttack
     IEnumerator SmashAim()
     {
+        Smashing = true;
         WallTrigger.SetActive(true);
         anim.SetBool("Move", false);
         IsLook = false;
@@ -212,6 +220,7 @@ public class Boss_Arubado : MonoBehaviour
         WallTrigger.SetActive(false);
         anim.SetBool("Smash", false);
         Atking = false;
+        Smashing = false;
         yield return new WaitForSeconds(1f);
         StopCoroutine("SmashAim");
     }
@@ -278,15 +287,16 @@ public class Boss_Arubado : MonoBehaviour
             StartCoroutine("LayDown");
             //this.GetComponentInParent<Rigidbody>().AddForce(transform.forward * -1500);
         }
-        
+
     }
     public void NA_Strength()
     {
+
     }
     IEnumerator LayDown()
     {
-        
         SmashCol.GetComponent<BoxCollider>().enabled = false;
+        Smashing = false;
         Atking = false;
         resistance = false;
         Smash_Force = false;
@@ -304,6 +314,7 @@ public class Boss_Arubado : MonoBehaviour
     }
     IEnumerator Normal_LayDown()//Bear
     {
+        Smashing = false;
         Down = true;
         anim.SetBool("Move", false);
         anim.SetTrigger("Normal_Down");
@@ -349,6 +360,7 @@ public class Boss_Arubado : MonoBehaviour
     public void close_Resistance()
     {
         resistance = false;
+        Debug.Log("Stop");
     }
     public void OpenSmashAtkBox()
     {
@@ -358,12 +370,14 @@ public class Boss_Arubado : MonoBehaviour
     {
         SmashCol.GetComponent<BoxCollider>().enabled = false;
     }
-    public void Dead() {
+    public void Dead()
+    {
         StopAllCoroutines();
         CC.EndingStart = true;
         this.gameObject.SetActive(false);
     }
-    public void Stage_Reset() {
+    public void Stage_Reset()
+    {
         IsLook = false;
         Atking = false;
         anim.SetBool("TopAtk", false);
