@@ -4,4 +4,4 @@
 
 ![](https://i.imgur.com/BP9E05K.jpg)
 
-{%youtube 1G4isv_Fylg %}
+**遊戲宣傳影片**: https://www.youtube.com/watch?v=LOEWORapQ3A
